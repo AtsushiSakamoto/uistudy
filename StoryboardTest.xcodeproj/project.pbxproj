@@ -217,6 +217,7 @@
 				TargetAttributes = {
 					8D5929281E441FD7004C3B29 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 2SVNAS58PU;
 						ProvisioningStyle = Automatic;
 					};
 					8D59293C1E441FD7004C3B29 = {
@@ -442,9 +443,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 2SVNAS58PU;
 				INFOPLIST_FILE = StoryboardTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.imple.StoryboardTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.taiseiapp.padmulti2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -454,9 +457,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 2SVNAS58PU;
 				INFOPLIST_FILE = StoryboardTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.imple.StoryboardTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.taiseiapp.padmulti2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -535,6 +540,7 @@
 				8D5929531E441FD7004C3B29 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8D5929541E441FD7004C3B29 /* Build configuration list for PBXNativeTarget "StoryboardTestTests" */ = {
 			isa = XCConfigurationList;
@@ -543,6 +549,7 @@
 				8D5929561E441FD7004C3B29 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8D5929571E441FD7004C3B29 /* Build configuration list for PBXNativeTarget "StoryboardTestUITests" */ = {
 			isa = XCConfigurationList;
@@ -551,6 +558,7 @@
 				8D5929591E441FD7004C3B29 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
