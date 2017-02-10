@@ -13,7 +13,7 @@ class ListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        print("listview")
+        print("listview　viewDidLoad")
 
     }
     
@@ -24,7 +24,7 @@ class ListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        print("tttt")
+        print("listview WillAppear")
     }
     
 }

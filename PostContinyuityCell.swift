@@ -10,9 +10,11 @@
 import UIKit
 class PostContinyuityCell: UITableViewCell {
     
+
     @IBOutlet weak var continyuityLabel: UILabel!
     
     @IBOutlet weak var continyuityTextField: UITextField!
+
     
     
     override func awakeFromNib() {

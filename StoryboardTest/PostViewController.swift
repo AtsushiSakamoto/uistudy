@@ -8,29 +8,45 @@
 
 import UIKit
 
-class PostViewController: UIViewController , UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class PostViewController: UIViewController , UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate{
+    
     
     
     @IBOutlet weak var closeButton: UIBarButtonItem!
     @IBOutlet weak var postTable: UITableView!
     
-    //    @IBOutlet weak var postCell: UITableViewCell!
     
-    
+    var tapGesture: UITapGestureRecognizer! = nil
     var roomidTextField: UITextField!
     var readerTextField: UITextField!
     var commentTextField: UITextField!
     var continyuityTextField: UITextField!
     var dungeonidTextField: UITextField!
+    let mySwicth: UISwitch = UISwitch()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        print("postview")
+        print("postview viewDidLoad")
+        
+    }
     
+    override func viewDidAppear(_ animated: Bool){
         //Viewにタップジェスチャーリコグナイザーを配置
-        let tapGesture:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.tapscreen(_:)))
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapscreen(_:)))
         self.view.addGestureRecognizer(tapGesture)
+        print(tapGesture)
+        print("viewDidApper")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        print("viewWillDisappear")
+        //タップジェスチャーを消す。
+        if(tapGesture != nil){
+            self.view.removeGestureRecognizer(tapGesture)
+            print("close tapgesture")
+        }
+        print(tapGesture)
     }
     
     override func didReceiveMemoryWarning() {
@@ -54,27 +70,23 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
     //各セルの要素を設定する
     func tableView(_ table: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        //仮のセルを作る
-        let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
         //ビューの幅を取得
         let width = self.view.bounds.width / 2
-        //セルの高さを取得
-        let height = cell.bounds.height
         
         if(indexPath.section == 0){
             switch indexPath.row {
+                
             case 0 :
-                
                 let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
-                
                 print(cell.bounds)
-                print(cell.frame)
-                print(cell.center)
-                roomidTextField = UITextField(frame: CGRect(x: width,y: 6,width: width - 10,height: height - 12))
+                roomidTextField = UITextField(frame: CGRect(x: width,y: 6,width: width - 10,height: 32))
                 cell.textLabel?.text = "ルームID"
+                //テキストフィールドの設定とセルへの追加
                 roomidTextField.placeholder = "例：1024"
+                roomidTextField.keyboardType = UIKeyboardType.numberPad
                 roomidTextField.delegate = self;
                 roomidTextField.borderStyle = UITextBorderStyle.roundedRect
+                
                 cell.contentView.addSubview(roomidTextField)
                 return cell
                 
@@ -82,42 +94,66 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
                 let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
                 cell.textLabel?.text = "リーダー"
                 
-                readerTextField = UITextField(frame: CGRect(x: width,y: 6,width: width - 10,height: height - 12))
+                readerTextField = UITextField(frame: CGRect(x: width,y: 6,width: width - 10,height: 32))
                 readerTextField.placeholder = "例：クリシュナ"
                 readerTextField.delegate = self;
                 readerTextField.borderStyle = UITextBorderStyle.roundedRect
+                
                 cell.contentView.addSubview(readerTextField)
                 return cell
                 
             case 2 :
                 let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
                 cell.textLabel?.text = "コメント"
-                commentTextField = UITextField(frame: CGRect(x: width ,y: 6,width: width - 10,height: height - 12))
+                
+                commentTextField = UITextField(frame: CGRect(x: width ,y: 6,width: width - 10,height: 32))
                 commentTextField.placeholder = "例：よろしく！"
                 commentTextField.delegate = self;
                 commentTextField.borderStyle = UITextBorderStyle.roundedRect
+                
                 cell.contentView.addSubview(commentTextField)
                 return cell
                 
             case 3 :
                 let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
-                cell.textLabel?.text = "コンテニュー"
-                continyuityTextField = UITextField(frame: CGRect(x: width ,y: 6,width: width - 10,height: height - 12))
-                continyuityTextField.placeholder = "例：する...1,しない...0"
-                continyuityTextField.delegate = self;
-                continyuityTextField.borderStyle = UITextBorderStyle.roundedRect
-                cell.contentView.addSubview(continyuityTextField)
+                cell.textLabel?.text = "ダンジョンID"
+                
+                dungeonidTextField = UITextField(frame: CGRect(x: width ,y: 6,width: width - 10,height: 32))
+                dungeonidTextField.placeholder = "例：2024"
+                dungeonidTextField.keyboardType = UIKeyboardType.numberPad
+                dungeonidTextField.delegate = self;
+                dungeonidTextField.borderStyle = UITextBorderStyle.roundedRect
+                
+                cell.contentView.addSubview(dungeonidTextField)
                 return cell
                 
             default :
                 let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
-                cell.textLabel?.text = "ダンジョンID"
-                dungeonidTextField = UITextField(frame: CGRect(x: width ,y: 6,width: width - 10,height: height - 12))
-                dungeonidTextField.placeholder = "例：2024"
-                dungeonidTextField.delegate = self;
-                dungeonidTextField.borderStyle = UITextBorderStyle.roundedRect
-                cell.contentView.addSubview(dungeonidTextField)
+                cell.textLabel?.text = "コンテニュー"
+                //スウィッチの設定とセルへの追加
+                mySwicth.layer.position = CGPoint(x: width*2 - 38, y: 22)
+                mySwicth.tintColor = UIColor.black
+                mySwicth.isOn = true
+                mySwicth.addTarget(self, action: #selector(self.onClickMySwicth(sender:)), for: UIControlEvents.valueChanged)
+                
+                cell.contentView.addSubview(mySwicth)
+                
                 return cell
+                
+                
+                /*
+                 
+                 let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
+                 cell.textLabel?.text = "コンテニュー"
+                 continyuityTextField = UITextField(frame: CGRect(x: width ,y: 6,width: width - 10,height: height - 12))
+                 continyuityTextField.placeholder = "する:1,しない:0"
+                 continyuityTextField.keyboardType = UIKeyboardType.numberPad
+                 continyuityTextField.delegate = self;
+                 continyuityTextField.borderStyle = UITextBorderStyle.roundedRect
+                 cell.contentView.addSubview(continyuityTextField)
+                 return cell
+                 
+                 */
                 
             }
             
@@ -180,10 +216,21 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
             print("投稿されたルームIDは"+roomid!+"です。")
         }
         
-        print(readerTextField.text!+commentTextField.text!+continyuityTextField.text!+dungeonidTextField.text!)
+        print(readerTextField.text!+commentTextField.text!+dungeonidTextField.text!)
+        
+        //スウィッチがtrueで有,falseで無
+        if(mySwicth.isOn){
+            print("コンテニュー有")
+        }else{
+            print("コンテニュー無")
+        }
+        
     }
     
     @IBAction func pushCloseButton(_ sender: UIBarButtonItem) {
+        //閉じるボタンでキーボードを閉じ、前の画面(ListView)に戻る
+        print("fall keyboard")
+        self.view.endEditing(true)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -197,12 +244,19 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
         //タップでキーボードを閉じる
         self.view.endEditing(true)
     }
-
+    
+    internal func onClickMySwicth(sender: UISwitch){
+        //Switchの状態を表示
+        print(sender.isOn)
+        
+    }
     
     
-   //閉じるボタンで自分でキーボード落とす
-    //タップジェスチャーをビューが変わる前に落とす
-    //
+    
+    //閉じるボタンで自分でキーボード落とすOK
+    //タップジェスチャーをビューが変わる前に落とすOK
+    //キーボードをテキストフィールドに合わせて数字に変える。OK
+    //コンテニューをスウィッチボタンで実装OK
 }
 
 
