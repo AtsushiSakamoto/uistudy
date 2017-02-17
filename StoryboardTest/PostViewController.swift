@@ -8,27 +8,32 @@
 
 import UIKit
 
-class PostViewController: UIViewController , UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate{
+class PostViewController: UIViewController , UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate/*,UIPickerViewDelegate,UIPickerViewDataSource*/{
     
     
-    
-    @IBOutlet weak var closeButton: UIBarButtonItem!
     @IBOutlet weak var postTable: UITableView!
-    
+    var parameter: String = ""
     
     var tapGesture: UITapGestureRecognizer! = nil
     var roomidTextField: UITextField!
     var readerTextField: UITextField!
-    var commentTextField: UITextField!
-    var continyuityTextField: UITextField!
-    var dungeonidTextField: UITextField!
-    let mySwicth: UISwitch = UISwitch()
+    var commentTextView: UITextView!
+//    var continyuityTextField: UITextField!
+    var continyuitySegment: UISegmentedControl = UISegmentedControl()
+    var dungeonLabel: UILabel = UILabel()
+//    var dungeonSelectButton: UIButton = UIButton()
+//    var pickerDungeon: String! = nil
+//    var dungeonPicker: UIPickerView! = UIPickerView()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         print("postview viewDidLoad")
+        //タイトルを取得して再設定する。
+        self.title = self.title! + ""
         
+     
     }
     
     override func viewDidAppear(_ animated: Bool){
@@ -47,13 +52,13 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
             print("close tapgesture")
         }
         print(tapGesture)
+        self.view.endEditing(true)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -67,18 +72,39 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        if(indexPath.row == 3){
+            return 88.0
+        }else{
+            return 44.0
+        }
+    }
+    
     //各セルの要素を設定する
     func tableView(_ table: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         //ビューの幅を取得
         let width = self.view.bounds.width / 2
         
+        
+        
         if(indexPath.section == 0){
             switch indexPath.row {
                 
             case 0 :
                 let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
-                print(cell.bounds)
+                cell.textLabel?.text = "ダンジョン"
+                
+                dungeonLabel = UILabel(frame: CGRect(x: width ,y: 6,width: width - 10,height: 32))
+                dungeonLabel.text = self.parameter
+                cell.contentView.addSubview(dungeonLabel)
+                
+                return cell
+                
+            case 1 :
+                
+                let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
                 roomidTextField = UITextField(frame: CGRect(x: width,y: 6,width: width - 10,height: 32))
                 cell.textLabel?.text = "ルームID"
                 //テキストフィールドの設定とセルへの追加
@@ -90,7 +116,7 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
                 cell.contentView.addSubview(roomidTextField)
                 return cell
                 
-            case 1 :
+            case 2 :
                 let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
                 cell.textLabel?.text = "リーダー"
                 
@@ -102,58 +128,39 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
                 cell.contentView.addSubview(readerTextField)
                 return cell
                 
-            case 2 :
+            case 3 :
                 let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
                 cell.textLabel?.text = "コメント"
                 
-                commentTextField = UITextField(frame: CGRect(x: width ,y: 6,width: width - 10,height: 32))
-                commentTextField.placeholder = "例：よろしく！"
-                commentTextField.delegate = self;
-                commentTextField.borderStyle = UITextBorderStyle.roundedRect
+                commentTextView = UITextView(frame: CGRect(x: width ,y: 6,width: width - 10,height: 76))
+                commentTextView.delegate = self
+                commentTextView.layer.masksToBounds = true
+                commentTextView.layer.cornerRadius = 5.0
+                commentTextView.layer.borderColor = UIColor.lightGray.cgColor
+                commentTextView.textAlignment = NSTextAlignment.left
+                commentTextView.font = UIFont.systemFont(ofSize: 16)
                 
-                cell.contentView.addSubview(commentTextField)
-                return cell
+                commentTextView.layer.borderWidth = 1
                 
-            case 3 :
-                let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
-                cell.textLabel?.text = "ダンジョンID"
+                cell.contentView.addSubview(commentTextView)
                 
-                dungeonidTextField = UITextField(frame: CGRect(x: width ,y: 6,width: width - 10,height: 32))
-                dungeonidTextField.placeholder = "例：2024"
-                dungeonidTextField.keyboardType = UIKeyboardType.numberPad
-                dungeonidTextField.delegate = self;
-                dungeonidTextField.borderStyle = UITextBorderStyle.roundedRect
-                
-                cell.contentView.addSubview(dungeonidTextField)
                 return cell
                 
             default :
                 let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
                 cell.textLabel?.text = "コンテニュー"
-                //スウィッチの設定とセルへの追加
-                mySwicth.layer.position = CGPoint(x: width*2 - 38, y: 22)
-                mySwicth.tintColor = UIColor.black
-                mySwicth.isOn = true
-                mySwicth.addTarget(self, action: #selector(self.onClickMySwicth(sender:)), for: UIControlEvents.valueChanged)
                 
-                cell.contentView.addSubview(mySwicth)
+                let segmentArray: NSArray = ["する","しない"]
+                continyuitySegment = UISegmentedControl(items: segmentArray as [AnyObject])
+                continyuitySegment.layer.position = CGPoint(x: width + 54.5, y: 22)
+                // continyuitySegment.layer.position = CGPoint(x: width*2 - 64.5, y: 22)
+                continyuitySegment.backgroundColor = UIColor.white
+                continyuitySegment.tintColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
+                continyuitySegment.selectedSegmentIndex = 0
+                continyuitySegment.addTarget(self, action: #selector(PostViewController.segconChanged(segcon:)), for: UIControlEvents.valueChanged)
                 
+                cell.contentView.addSubview(continyuitySegment)
                 return cell
-                
-                
-                /*
-                 
-                 let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
-                 cell.textLabel?.text = "コンテニュー"
-                 continyuityTextField = UITextField(frame: CGRect(x: width ,y: 6,width: width - 10,height: height - 12))
-                 continyuityTextField.placeholder = "する:1,しない:0"
-                 continyuityTextField.keyboardType = UIKeyboardType.numberPad
-                 continyuityTextField.delegate = self;
-                 continyuityTextField.borderStyle = UITextBorderStyle.roundedRect
-                 cell.contentView.addSubview(continyuityTextField)
-                 return cell
-                 
-                 */
                 
             }
             
@@ -207,7 +214,7 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
     
     
     @IBAction func pushPostButton(_ sender: UIBarButtonItem) {
-        
+        //投稿ボタンが押された時の処理
         let roomid = roomidTextField.text
         
         if(roomid?.isEmpty)!{
@@ -216,10 +223,10 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
             print("投稿されたルームIDは"+roomid!+"です。")
         }
         
-        print(readerTextField.text!+commentTextField.text!+dungeonidTextField.text!)
+        print(readerTextField.text!)
         
         //スウィッチがtrueで有,falseで無
-        if(mySwicth.isOn){
+        if(continyuitySegment.selectedSegmentIndex == 0){
             print("コンテニュー有")
         }else{
             print("コンテニュー無")
@@ -245,11 +252,67 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
         self.view.endEditing(true)
     }
     
-    internal func onClickMySwicth(sender: UISwitch){
-        //Switchの状態を表示
-        print(sender.isOn)
+    internal func segconChanged(segcon: UISegmentedControl){
+        //コンテニューセグメントの選択が切り替わった時の処理
+        switch segcon.selectedSegmentIndex {
+        case 0:
+            print("コンテニュー有")
+        case 1:
+            print("コンテニュー無")
+        default:
+            print("Error")
+        }
         
     }
+/*
+    internal func pushSelectButton(sender: UIButton){
+    
+    
+        let title = "ダンジョンを選択して下さい。"
+        let message = "\n\n\n\n\n\n\n\n" //改行入れないとOKCancelがかぶる
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler:{
+            (action: UIAlertAction!) -> Void in
+            
+            self.dungeonLabel.text = self.pickerDungeon as String
+            print(self.pickerDungeon)
+            
+            
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
+        }
+        
+        // PickerView
+        dungeonPicker.selectRow(0, inComponent: 0, animated: true) // 初期値
+        dungeonPicker.frame = CGRect(x:0, y:54, width:270,height: 180)
+        dungeonPicker.dataSource = self
+        dungeonPicker.delegate = self
+        alert.view.addSubview(dungeonPicker)
+        
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+    
+    }
+ */
+/*
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return dungeonValue.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return dungeonValue[row] as? String
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        pickerDungeon = self.dungeonValue[row] as! String
+    }
+ */
     
     
     
@@ -257,6 +320,13 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
     //タップジェスチャーをビューが変わる前に落とすOK
     //キーボードをテキストフィールドに合わせて数字に変える。OK
     //コンテニューをスウィッチボタンで実装OK
+    
+    
+    //セグメントでコンテニューの有無OK
+    //ダンジョン選択させるようにするok
+    
+    //受け取ったデータをラベルに代入OK
+    //画面をバックした時にキーボードとタップジェスチャーを閉じる。OK
 }
 
 

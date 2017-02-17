@@ -18,17 +18,58 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="t7g-0z-73m" kind="relationship" relationship="rootViewController" id="zqG-Wr-Oy5"/>
+                        <segue destination="I3b-vq-JQM" kind="relationship" relationship="rootViewController" id="im1-Up-L22"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mmq-AE-yfu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1399" y="-467"/>
         </scene>
-        <!--Post View Controller-->
+        <!--ダンジョン選択-->
+        <scene sceneID="Lt1-Ab-bDg">
+            <objects>
+                <viewController title="ダンジョン選択" id="I3b-vq-JQM" customClass="DungeonViewController" customModule="StoryboardTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rGg-qQ-rDi"/>
+                        <viewControllerLayoutGuide type="bottom" id="3fK-jl-b4L"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xiX-0F-RCk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="t6L-Ug-FbJ">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="I3b-vq-JQM" id="s8E-q6-p4L"/>
+                                    <outlet property="delegate" destination="I3b-vq-JQM" id="aIr-iS-J9v"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="1GL-dK-ELM">
+                        <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" title="戻る" id="Y4v-O8-io7">
+                            <connections>
+                                <action selector="pushCloseButton:" destination="I3b-vq-JQM" id="elW-h2-9Qy"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="dungeon_table" destination="t6L-Ug-FbJ" id="PwS-7i-gs3"/>
+                        <segue destination="t7g-0z-73m" kind="push" identifier="toPost" id="zc6-wd-H6d"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QE9-bK-am9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2237.5999999999999" y="-467.3163418290855"/>
+        </scene>
+        <!--投稿-->
         <scene sceneID="QRw-yZ-mpE">
             <objects>
-                <viewController id="t7g-0z-73m" customClass="PostViewController" customModule="StoryboardTest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="投稿" id="t7g-0z-73m" customClass="PostViewController" customModule="StoryboardTest" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pRB-GO-YpO"/>
                         <viewControllerLayoutGuide type="bottom" id="qmj-jV-kzc"/>
@@ -49,7 +90,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aSc-CT-uaP">
-                                                    <rect key="frame" x="142" y="5.5" width="90.5" height="29.5"/>
+                                                    <rect key="frame" x="140" y="4" width="90" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <state key="normal" title="Button"/>
                                                 </button>
@@ -76,21 +117,14 @@
                             <constraint firstItem="4nN-hO-ncE" firstAttribute="top" secondItem="jvi-MK-mk7" secondAttribute="top" id="cYg-Wc-nm6"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="RYg-TY-cc1">
-                        <barButtonItem key="rightBarButtonItem" title="閉じる" id="Xtl-K5-uN9">
-                            <connections>
-                                <action selector="pushCloseButton:" destination="t7g-0z-73m" id="S3U-NL-tIt"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="RYg-TY-cc1"/>
                     <connections>
-                        <outlet property="closeButton" destination="Xtl-K5-uN9" id="j6B-Ct-Qpg"/>
                         <outlet property="postTable" destination="4nN-hO-ncE" id="xbN-Fq-f29"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hcz-Hn-ZRx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2732" y="-519"/>
+            <point key="canvasLocation" x="3073" y="-467"/>
         </scene>
         <!--Item-->
         <scene sceneID="brt-eH-W1i">

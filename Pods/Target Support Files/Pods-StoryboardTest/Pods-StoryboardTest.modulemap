@@ -1,0 +1,6 @@
+framework module Pods_StoryboardTest {
+  umbrella header "Pods-StoryboardTest-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -12,8 +12,8 @@ class PostDungeonIdCell: UITableViewCell {
     
     
     @IBOutlet weak var dungeonIdLabel: UILabel!
-    @IBOutlet weak var dungeonIdTxetField: UITextField!
-    
+
+    @IBOutlet weak var dungeonPicker: UIPickerView!
     
     override func awakeFromNib() {
         
