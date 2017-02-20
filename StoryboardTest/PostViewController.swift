@@ -24,6 +24,10 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
 //    var dungeonSelectButton: UIButton = UIButton()
 //    var pickerDungeon: String! = nil
 //    var dungeonPicker: UIPickerView! = UIPickerView()
+    let maxLength = 36
+    var previousText = ""
+    var lastReplaceRange: NSRange!
+    var lastReplacementString = ""
 
     
     override func viewDidLoad() {
@@ -33,7 +37,6 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
         //タイトルを取得して再設定する。
         self.title = self.title! + ""
         
-     
     }
     
     override func viewDidAppear(_ animated: Bool){
@@ -264,6 +267,68 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
         }
         
     }
+    
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString text: String) -> Bool {
+        
+        if(textField == roomidTextField){
+            
+            // 入力済みの文字と入力された文字を合わせて取得.
+            let str = textField.text! + text
+            if str.characters.count <= 8 {
+                return true
+            }
+        }
+        
+        if (textField == readerTextField){
+            let str = textField.text! + text
+            if str.characters.count <= 24 {
+                return true
+            }
+        }
+       return false
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        //確定している文字列、終端点と追加する文字列を取得する
+        self.previousText = textView.text
+        self.lastReplaceRange = range
+        self.lastReplacementString = text
+        
+        return true
+    }
+    
+ 
+    func textViewDidChange(_ textView: UITextView) {
+        //変換中は入力を続ける
+        if textView.markedTextRange != nil {
+            return
+        }
+        //最大文字数より変換終了後の文字数が多い時
+        if (textView.text?.characters.count)! > maxLength {
+            
+            let offset = maxLength - (textView.text?.characters.count)!
+            
+            //変換し追加する文字列を余りの文字数まで削る
+            let replacementString = (lastReplacementString as NSString).substring(to: lastReplacementString.characters.count + offset)
+            
+            //確定している文字列の終端から文字数調整した文字列を追加
+            let text = (previousText as NSString).replacingCharacters(in: lastReplaceRange, with: replacementString)
+            textView.text = text
+            
+            //カーソル位置を元の場所から削った分だけずらす
+            let position = textView.position(from: textView.selectedTextRange!.start, offset: offset)
+            let selectedTextRange = textView.textRange(from: position!, to: position!)
+            textView.selectedTextRange = selectedTextRange
+            
+        }
+    }
+
+    
+
+
+
 /*
     internal func pushSelectButton(sender: UIButton){
     
@@ -327,6 +392,11 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
     
     //受け取ったデータをラベルに代入OK
     //画面をバックした時にキーボードとタップジェスチャーを閉じる。OK
+    //コメントとルームIDの文字数制限OK
+    
+    
+    
+    //リーダーの文字数制限
 }
 
 

@@ -25,7 +25,7 @@
 		8D59296B1E446BB4004C3B29 /* PostCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D59296A1E446BB4004C3B29 /* PostCommentCell.swift */; };
 		8D59296D1E446BCD004C3B29 /* PostContinyuityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D59296C1E446BCD004C3B29 /* PostContinyuityCell.swift */; };
 		8D59296F1E446BDE004C3B29 /* PostDungeonIdCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D59296E1E446BDE004C3B29 /* PostDungeonIdCell.swift */; };
-		8D5CD0E61E56CA5500D8C5C3 /* DungeonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5CD0E51E56CA5500D8C5C3 /* DungeonData.swift */; };
+		8D71BB3A1E5A7A2200C121AF /* Dungeon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D71BB391E5A7A2200C121AF /* Dungeon.swift */; };
 		C5C44C4E194456B04BA52C93 /* Pods_StoryboardTestUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8245B43CEB68B39591DC7552 /* Pods_StoryboardTestUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -76,7 +76,7 @@
 		8D59296A1E446BB4004C3B29 /* PostCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostCommentCell.swift; path = ../PostCommentCell.swift; sourceTree = "<group>"; };
 		8D59296C1E446BCD004C3B29 /* PostContinyuityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostContinyuityCell.swift; path = ../PostContinyuityCell.swift; sourceTree = "<group>"; };
 		8D59296E1E446BDE004C3B29 /* PostDungeonIdCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostDungeonIdCell.swift; path = ../PostDungeonIdCell.swift; sourceTree = "<group>"; };
-		8D5CD0E51E56CA5500D8C5C3 /* DungeonData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DungeonData.swift; sourceTree = "<group>"; };
+		8D71BB391E5A7A2200C121AF /* Dungeon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dungeon.swift; sourceTree = "<group>"; };
 		9AE449034A6948E81A3D7135 /* Pods-StoryboardTestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StoryboardTestTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StoryboardTestTests/Pods-StoryboardTestTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E37AE5A0E800FB9BE99A42C4 /* Pods-StoryboardTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StoryboardTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-StoryboardTest/Pods-StoryboardTest.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -136,7 +136,7 @@
 			children = (
 				8D5929301E441FD7004C3B29 /* Main.storyboard */,
 				8D4F49861E553F09003B0652 /* DungeonViewController.swift */,
-				8D5CD0E51E56CA5500D8C5C3 /* DungeonData.swift */,
+				8D71BB391E5A7A2200C121AF /* Dungeon.swift */,
 				8D59292E1E441FD7004C3B29 /* ViewController.swift */,
 				8D59295A1E44230D004C3B29 /* ListViewController.swift */,
 				8D59295C1E4425B3004C3B29 /* PostViewController.swift */,
@@ -483,11 +483,11 @@
 				8D59292F1E441FD7004C3B29 /* ViewController.swift in Sources */,
 				8D59296D1E446BCD004C3B29 /* PostContinyuityCell.swift in Sources */,
 				8D59292D1E441FD7004C3B29 /* AppDelegate.swift in Sources */,
-				8D5CD0E61E56CA5500D8C5C3 /* DungeonData.swift in Sources */,
 				8D59295B1E44230D004C3B29 /* ListViewController.swift in Sources */,
 				8D4F49871E553F09003B0652 /* DungeonViewController.swift in Sources */,
 				8D59296F1E446BDE004C3B29 /* PostDungeonIdCell.swift in Sources */,
 				8D5929691E446BA3004C3B29 /* PostReaderCell.swift in Sources */,
+				8D71BB3A1E5A7A2200C121AF /* Dungeon.swift in Sources */,
 				8D5929671E446B91004C3B29 /* PostRoomIdCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

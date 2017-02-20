@@ -17,7 +17,7 @@ class DungeonViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var dungeon_table: UITableView!
     @IBOutlet weak var closeButton: UIButton!
     
-    var dungeonList: [DungeonData] = []
+    var dungeonList: [Dungeon] = []
     
     var selectDungeon: String! = ""
     
@@ -34,7 +34,7 @@ class DungeonViewController: UIViewController, UITableViewDelegate, UITableViewD
             var jsonarray = json.arrayValue
             
             for i in (0..<jsonarray.count){
-                let row = DungeonData()
+                let row = Dungeon()
                 row.getlist(data:jsonarray[i])
                 self.dungeonList.insert(row,at:0)
             }
@@ -102,9 +102,9 @@ class DungeonViewController: UIViewController, UITableViewDelegate, UITableViewD
     //タイトルに"ダンジョン選択"などを入れる。OK
     //コメントはテキストフィールドにする。OK
     
-    //ダンジョンはjsonでサーバーから取ってくる。
+    //ダンジョンはjsonでサーバーから取ってくる。OK
     
-    //ダンジョンのデータのクラス名
-    //文字数制限コメント
+    //ダンジョンのデータのクラス名OK
+    //文字数制限コメントOK
     
 }
