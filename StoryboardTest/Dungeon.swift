@@ -10,11 +10,11 @@ import UIKit
 import SwiftyJSON
 
 class Dungeon{
-    var dungeon_id : String = ""
+    var dungeon_id : Int! = nil
     var dungeon_name : String = ""
     
     func getlist(data:JSON){
-        self.dungeon_id = data["dungeon_id"].stringValue
+        self.dungeon_id = data["dungeon_id"].intValue
         self.dungeon_name = data["dungeon_name"].stringValue
     }
 }

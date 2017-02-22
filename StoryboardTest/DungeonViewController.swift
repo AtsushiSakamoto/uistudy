@@ -19,7 +19,8 @@ class DungeonViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var dungeonList: [Dungeon] = []
     
-    var selectDungeon: String! = ""
+    var selectDungeonName: String! = ""
+    var selectDungeonId: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +52,8 @@ class DungeonViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
         
         let next = segue.destination as! PostViewController
-        next.parameter = selectDungeon
+        next.dungeonName = selectDungeonName
+        next.dungeonId = selectDungeonId
         
     }
     
@@ -65,9 +67,7 @@ class DungeonViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
-    }
+    
     
     //各セルの要素を設定する
     func tableView(_ table: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -83,7 +83,8 @@ class DungeonViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let row = self.dungeonList[indexPath.row]
-        self.selectDungeon = row.dungeon_name
+        self.selectDungeonName = row.dungeon_name
+        self.selectDungeonId = row.dungeon_id
         performSegue(withIdentifier: "toPost",sender: nil)
         
     }
@@ -106,5 +107,6 @@ class DungeonViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     //ダンジョンのデータのクラス名OK
     //文字数制限コメントOK
+    //ヘッダー消すOK
     
 }

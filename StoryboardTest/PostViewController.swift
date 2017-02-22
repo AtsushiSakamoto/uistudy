@@ -7,28 +7,28 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
-class PostViewController: UIViewController , UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate/*,UIPickerViewDelegate,UIPickerViewDataSource*/{
+class PostViewController: UIViewController , UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate{
     
     
     @IBOutlet weak var postTable: UITableView!
-    var parameter: String = ""
+    var dungeonName: String = ""
+    var dungeonId: Int = 0
     
     var tapGesture: UITapGestureRecognizer! = nil
     var roomidTextField: UITextField!
     var readerTextField: UITextField!
     var commentTextView: UITextView!
-//    var continyuityTextField: UITextField!
     var continyuitySegment: UISegmentedControl = UISegmentedControl()
+    var continyuityValue: Int = 1
     var dungeonLabel: UILabel = UILabel()
-//    var dungeonSelectButton: UIButton = UIButton()
-//    var pickerDungeon: String! = nil
-//    var dungeonPicker: UIPickerView! = UIPickerView()
-    let maxLength = 36
+    let maxLength = 200
     var previousText = ""
     var lastReplaceRange: NSRange!
     var lastReplacementString = ""
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,18 +43,15 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
         //Viewにタップジェスチャーリコグナイザーを配置
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapscreen(_:)))
         self.view.addGestureRecognizer(tapGesture)
-        print(tapGesture)
-        print("viewDidApper")
+        print("postview viewDidApper")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        print("viewWillDisappear")
+        print("postview viewDisappear")
         //タップジェスチャーを消す。
         if(tapGesture != nil){
             self.view.removeGestureRecognizer(tapGesture)
-            print("close tapgesture")
         }
-        print(tapGesture)
         self.view.endEditing(true)
     }
     
@@ -90,8 +87,6 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
         //ビューの幅を取得
         let width = self.view.bounds.width / 2
         
-        
-        
         if(indexPath.section == 0){
             switch indexPath.row {
                 
@@ -100,7 +95,7 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
                 cell.textLabel?.text = "ダンジョン"
                 
                 dungeonLabel = UILabel(frame: CGRect(x: width ,y: 6,width: width - 10,height: 32))
-                dungeonLabel.text = self.parameter
+                dungeonLabel.text = self.dungeonName
                 cell.contentView.addSubview(dungeonLabel)
                 
                 return cell
@@ -167,37 +162,6 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
                 
             }
             
-            /*
-             switch indexPath.row {
-             
-             case 0:
-             let postRoomIdCell = table.dequeueReusableCell(withIdentifier: "postRoomIdCell", for: indexPath) as! PostRoomIdCell
-             postRoomIdCell.roomIdLabel.text = "ルームID"
-             postRoomIdCell.roomIdTextField.placeholder = "例：1024"
-             return postRoomIdCell
-             case 1:
-             let postReaderCell = table.dequeueReusableCell(withIdentifier: "postReaderCell", for: indexPath)as! PostReaderCell
-             postReaderCell.readerLabel.text = "リーダー"
-             postReaderCell.readerTexeField.placeholder = "例：クリシュナ"
-             return postReaderCell
-             case 2:
-             let postCommentCell = table.dequeueReusableCell(withIdentifier: "postCommentCell", for: indexPath)as! PostCommentCell
-             postCommentCell.commentLabel.text = "コメント"
-             postCommentCell.commentTextField.placeholder = "例：よろしく！"
-             return postCommentCell
-             case 3:
-             let postContinyuity = table.dequeueReusableCell(withIdentifier: "postContinyuityCell", for: indexPath)as! PostContinyuityCell
-             postContinyuity.continyuityLabel.text = "コンテニュー"
-             postContinyuity.continyuityTextField.placeholder = "例：する...1,しない...2"
-             return postContinyuity
-             default:
-             let postDungeonIdCell = table.dequeueReusableCell(withIdentifier: "postDungeonIdCell", for: indexPath)as! PostDungeonIdCell
-             postDungeonIdCell.dungeonIdLabel.text = "ダンジョンID"
-             postDungeonIdCell.dungeonIdTxetField.placeholder = "例：2024"
-             return postDungeonIdCell
-             }
-             */
-            
         }else{
             
             
@@ -217,24 +181,47 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
     
     
     @IBAction func pushPostButton(_ sender: UIBarButtonItem) {
-        //投稿ボタンが押された時の処理
-        let roomid = roomidTextField.text
         
-        if(roomid?.isEmpty)!{
-            print("ルームIDを入力して下さい。")
-        }else{
-            print("投稿されたルームIDは"+roomid!+"です。")
+        //転送データの生成
+        let postData:Parameters = [
+            
+            "user_id": "sakamoto",
+            "room_id" : self.roomidTextField.text!,
+            "my_reader" : self.readerTextField.text!,
+            "comment" : self.commentTextView.text!,
+            "continuity" : self.continyuityValue,
+            "dungeon_id" : self.dungeonId
+        ]
+        
+        print(postData)
+        
+        //PHPにAlamofireを用いてPOSTを投げ、レスポンスを貰う
+        Alamofire.request("http://52.199.28.109/entry.php", method: .post, parameters: postData, encoding: JSONEncoding.default).responseJSON { response in
+            
+            //受け取ったAny?クラスのデータをJson?→Dictionaty?と変える
+            let json = JSON(response.result.value ?? 0)
+            let jsondictionary = json.dictionaryValue
+            
+            if let re = jsondictionary["post"]?.intValue{
+                
+                switch (re) {
+                    
+                case 0  : print("POST成功")
+                case 92 : print("ユーザーID無")
+                case 93 : print("ルームID無")
+                case 94 : print("リーダー無")
+                case 95 : print("コメント無")
+                case 96 : print("コンテニュー無")
+                case 97 : print("ダンジョン無")
+                case 98 : print("データベース接続失敗")
+                case 99 : print("クエリー失敗")
+                default : print("予期せぬエラーにより投稿できませんでした。")
+                }
+                
+            }else{
+                print(jsondictionary["post"]!.error!)
+            }
         }
-        
-        print(readerTextField.text!)
-        
-        //スウィッチがtrueで有,falseで無
-        if(continyuitySegment.selectedSegmentIndex == 0){
-            print("コンテニュー有")
-        }else{
-            print("コンテニュー無")
-        }
-        
     }
     
     @IBAction func pushCloseButton(_ sender: UIBarButtonItem) {
@@ -257,13 +244,12 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
     
     internal func segconChanged(segcon: UISegmentedControl){
         //コンテニューセグメントの選択が切り替わった時の処理
-        switch segcon.selectedSegmentIndex {
-        case 0:
-            print("コンテニュー有")
-        case 1:
-            print("コンテニュー無")
-        default:
-            print("Error")
+        if (segcon.selectedSegmentIndex == 0) {
+            self.continyuityValue = 1
+        }else if (segcon.selectedSegmentIndex == 1){
+            self.continyuityValue = 0
+        }else{
+            print("error")
         }
         
     }
@@ -282,10 +268,11 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
         
         if (textField == readerTextField){
             let str = textField.text! + text
-            if str.characters.count <= 24 {
+            if str.characters.count <= 30 {
                 return true
             }
         }
+        
        return false
     }
     
@@ -326,60 +313,7 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
     }
 
     
-
-
-
-/*
-    internal func pushSelectButton(sender: UIButton){
-    
-    
-        let title = "ダンジョンを選択して下さい。"
-        let message = "\n\n\n\n\n\n\n\n" //改行入れないとOKCancelがかぶる
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler:{
-            (action: UIAlertAction!) -> Void in
-            
-            self.dungeonLabel.text = self.pickerDungeon as String
-            print(self.pickerDungeon)
-            
-            
-        })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
-        }
-        
-        // PickerView
-        dungeonPicker.selectRow(0, inComponent: 0, animated: true) // 初期値
-        dungeonPicker.frame = CGRect(x:0, y:54, width:270,height: 180)
-        dungeonPicker.dataSource = self
-        dungeonPicker.delegate = self
-        alert.view.addSubview(dungeonPicker)
-        
-        alert.addAction(okAction)
-        alert.addAction(cancelAction)
-        present(alert, animated: true, completion: nil)
-    
-    }
- */
-/*
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return dungeonValue.count
-    }
-
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return dungeonValue[row] as? String
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        pickerDungeon = self.dungeonValue[row] as! String
-    }
- */
-    
-    
+  
     
     //閉じるボタンで自分でキーボード落とすOK
     //タップジェスチャーをビューが変わる前に落とすOK
@@ -395,8 +329,9 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
     //コメントとルームIDの文字数制限OK
     
     
+    //リーダーの文字数制限OK
+    //jsonpost でサーバーに送る投稿OK
     
-    //リーダーの文字数制限
 }
 
 
