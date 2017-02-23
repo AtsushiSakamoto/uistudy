@@ -57,9 +57,7 @@ class DungeonViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+    
     
     func tableView(_ table: UITableView, numberOfRowsInSection section: Int) -> Int {
         

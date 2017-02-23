@@ -31,6 +31,7 @@
 		8D71BB401E5ACD4F00C121AF /* Alamofire.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8D71BB3B1E5ACC9500C121AF /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8D71BB411E5ACD5500C121AF /* SwiftyJSON.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8D71BB3D1E5ACC9900C121AF /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8D71BB421E5ACDE000C121AF /* Pods_StoryboardTest.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2060657E0967EB4DD12FE0AF /* Pods_StoryboardTest.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8D805E491E5EB59D00E066BA /* MultiData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D805E481E5EB59D00E066BA /* MultiData.swift */; };
 		C5C44C4E194456B04BA52C93 /* Pods_StoryboardTestUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8245B43CEB68B39591DC7552 /* Pods_StoryboardTestUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +100,7 @@
 		8D71BB391E5A7A2200C121AF /* Dungeon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dungeon.swift; sourceTree = "<group>"; };
 		8D71BB3B1E5ACC9500C121AF /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../Library/Developer/Xcode/DerivedData/StoryboardTest-aecuzfwsoitzskemvjlqbvgejnox/Build/Products/Debug-iphoneos/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		8D71BB3D1E5ACC9900C121AF /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../../Library/Developer/Xcode/DerivedData/StoryboardTest-aecuzfwsoitzskemvjlqbvgejnox/Build/Products/Debug-iphoneos/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
+		8D805E481E5EB59D00E066BA /* MultiData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiData.swift; sourceTree = "<group>"; };
 		9AE449034A6948E81A3D7135 /* Pods-StoryboardTestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StoryboardTestTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StoryboardTestTests/Pods-StoryboardTestTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E37AE5A0E800FB9BE99A42C4 /* Pods-StoryboardTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StoryboardTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-StoryboardTest/Pods-StoryboardTest.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -163,6 +165,7 @@
 				8D71BB391E5A7A2200C121AF /* Dungeon.swift */,
 				8D59292E1E441FD7004C3B29 /* ViewController.swift */,
 				8D59295A1E44230D004C3B29 /* ListViewController.swift */,
+				8D805E481E5EB59D00E066BA /* MultiData.swift */,
 				8D59295C1E4425B3004C3B29 /* PostViewController.swift */,
 				8D5929661E446B91004C3B29 /* PostRoomIdCell.swift */,
 				8D5929681E446BA3004C3B29 /* PostReaderCell.swift */,
@@ -511,6 +514,7 @@
 				8D59296D1E446BCD004C3B29 /* PostContinyuityCell.swift in Sources */,
 				8D59292D1E441FD7004C3B29 /* AppDelegate.swift in Sources */,
 				8D59295B1E44230D004C3B29 /* ListViewController.swift in Sources */,
+				8D805E491E5EB59D00E066BA /* MultiData.swift in Sources */,
 				8D4F49871E553F09003B0652 /* DungeonViewController.swift in Sources */,
 				8D59296F1E446BDE004C3B29 /* PostDungeonIdCell.swift in Sources */,
 				8D5929691E446BA3004C3B29 /* PostReaderCell.swift in Sources */,
