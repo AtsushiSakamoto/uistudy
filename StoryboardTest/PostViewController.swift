@@ -21,8 +21,8 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
     var roomidTextField: UITextField!
     var readerTextField: UITextField!
     var commentTextView: UITextView!
-    var continyuitySegment: UISegmentedControl = UISegmentedControl()
-    var continyuityValue: Int = 1
+    var continyuitySegment: UISegmentedControl! = UISegmentedControl()
+    var continyuityValue: Int! = 1
     var dungeonLabel: UILabel = UILabel()
     let maxLength = 200
     var previousText = ""
@@ -183,7 +183,7 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
     @IBAction func pushPostButton(_ sender: UIBarButtonItem) {
         
         //転送データの生成
-        let postData:Parameters = [
+        let postData:Parameters? = [
             
             "user_id": "sakamoto",
             "room_id" : self.roomidTextField.text!,
@@ -193,33 +193,98 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
             "dungeon_id" : self.dungeonId
         ]
         
-        print(postData)
+        print(postData!)
         
         //PHPにAlamofireを用いてPOSTを投げ、レスポンスを貰う
-        Alamofire.request("http://52.199.28.109/entry.php", method: .post, parameters: postData, encoding: JSONEncoding.default).responseJSON { response in
+        Alamofire.request("http://52.199.28.109/entry.php", method: .post, parameters: postData!, encoding: JSONEncoding.default).responseJSON { response in
             
             //受け取ったAny?クラスのデータをJson?→Dictionaty?と変える
             let json = JSON(response.result.value ?? 0)
             let jsondictionary = json.dictionaryValue
+            let re: Int? = (jsondictionary["post"]?.intValue)
             
-            if let re = jsondictionary["post"]?.intValue{
+            if (re != nil) {
                 
-                switch (re) {
+                switch (re!) {
                     
-                case 0  : print("POST成功")
-                case 92 : print("ユーザーID無")
-                case 93 : print("ルームID無")
-                case 94 : print("リーダー無")
-                case 95 : print("コメント無")
-                case 96 : print("コンテニュー無")
-                case 97 : print("ダンジョン無")
-                case 98 : print("データベース接続失敗")
-                case 99 : print("クエリー失敗")
-                default : print("予期せぬエラーにより投稿できませんでした。")
+                case 0  :
+                    let alert: UIAlertController = UIAlertController(title: "投稿しました", message: "パズドラを起動しますか？", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "YES", style: .default) { action in
+                        
+                        // パズドラ起動
+                        if #available(iOS 10.0, *) {
+                            UIApplication.shared.open(URL(string: "PUZZLEANDDRAGONS://")!)
+                        } else {
+                            // Fallback on earlier versions
+                            UIApplication.shared.openURL(URL(string: "PUZZLEANDDRAGONS://")!)
+                        }
+                    }
+                    
+                    let noAction = UIAlertAction(title: "NO", style: .default)
+                    alert.addAction(okAction)
+                    alert.addAction(noAction)
+                    self.present(alert, animated: true, completion: nil)
+                    
+                case 92 :
+                    let alert: UIAlertController = UIAlertController(title: "投稿出来ませんでした", message: "ユーザーIDがありません", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    
+                case 93 :
+                    let alert: UIAlertController = UIAlertController(title: "投稿出来ませんでした", message: "ルームIDを入力して下さい", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    
+                case 94 :
+                    let alert: UIAlertController = UIAlertController(title: "投稿出来ませんでした", message: "リーダーを入力して下さい", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    
+                case 95 :
+                    let alert: UIAlertController = UIAlertController(title: "投稿出来ませんでした", message: "コメントを入力して下さい", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                case 96 :
+                    let alert: UIAlertController = UIAlertController(title: "投稿出来ませんでした", message: "コンテニューの有無を選択して下さい", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    
+                case 97 :
+                    let alert: UIAlertController = UIAlertController(title: "投稿出来ませんでした", message: "ダンジョンを選択して下さい", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    
+                case 98 :
+                    let alert: UIAlertController = UIAlertController(title: "投稿出来ませんでした", message: "データベース接続失敗しました", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    
+                case 99 :
+                    let alert: UIAlertController = UIAlertController(title: "投稿出来ませんでした", message: "クエリー失敗しました", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    
+                default :
+                    let alert: UIAlertController = UIAlertController(title: "投稿出来ませんでした", message: "予期せぬエラーにより投稿できませんでした", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    
                 }
-                
             }else{
-                print(jsondictionary["post"]!.error!)
+                print(response.error!)
+                let alert: UIAlertController = UIAlertController(title: "投稿出来ませんでした", message: "ネットワーク通信が不安定です", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default)
+                alert.addAction(okAction)
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
@@ -331,6 +396,9 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
     
     //リーダーの文字数制限OK
     //jsonpost でサーバーに送る投稿OK
+    
+    //投稿後アラート　成功しました。　パズドラ起動どうか　はいorいいえ
+    //失敗　の時は　ケースをアラート　ボタン一個OK
     
 }
 

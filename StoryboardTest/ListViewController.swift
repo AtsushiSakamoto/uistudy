@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class ListViewController: UIViewController {
     
@@ -15,6 +17,9 @@ class ListViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         print("listview　viewDidLoad")
 
+
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
