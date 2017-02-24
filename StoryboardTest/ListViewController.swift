@@ -45,6 +45,9 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
                 //データベースからマルチの投稿を取得
         self.loadData()
         
+        self.listTable.estimatedRowHeight = 60
+        self.listTable.rowHeight = UITableViewAutomaticDimension
+        
         }
     
     override func didReceiveMemoryWarning() {
@@ -58,7 +61,35 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     
+    func tableView(_ table: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return self.myDataSource.count
+
+    }
+
+      
+    //各セルの要素を設定する
+    func tableView(_ table: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let _m = self.myDataSource[indexPath.row]
+        
+        let customCell = table.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! CustomCell
+        
+        customCell.dungeonLabel.text = _m.dungeon_name
+        
+        customCell.readerLabel.text = _m.my_reader
+        
+        customCell.commentLabel.text = _m.comment
+        
+        customCell.postDateLabel.text = _m.post_date
+        
+        
+        return customCell
+    }
+
     
+    
+/*
     
     func tableView(_ table: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -116,7 +147,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             return cell
         }
     }
-    
+*/
     //tap
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 

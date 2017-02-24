@@ -85,7 +85,7 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
     func tableView(_ table: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         //ビューの幅を取得
-        let width = self.view.bounds.width / 2
+        let width = self.postTable.bounds.width / 2
         
         if(indexPath.section == 0){
             switch indexPath.row {
@@ -106,7 +106,7 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
                 roomidTextField = UITextField(frame: CGRect(x: width,y: 6,width: width - 10,height: 32))
                 cell.textLabel?.text = "ルームID"
                 //テキストフィールドの設定とセルへの追加
-                roomidTextField.placeholder = "例：1024"
+                roomidTextField.placeholder = "例：10245048"
                 roomidTextField.keyboardType = UIKeyboardType.numberPad
                 roomidTextField.delegate = self;
                 roomidTextField.borderStyle = UITextBorderStyle.roundedRect
@@ -338,7 +338,7 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
             }
         }
         
-       return false
+        return false
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -351,7 +351,7 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
         return true
     }
     
- 
+    
     func textViewDidChange(_ textView: UITextView) {
         //変換中は入力を続ける
         if textView.markedTextRange != nil {
@@ -376,9 +376,9 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
             
         }
     }
-
     
-  
+    
+    
     
     //閉じるボタンで自分でキーボード落とすOK
     //タップジェスチャーをビューが変わる前に落とすOK
@@ -401,6 +401,5 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
     //失敗　の時は　ケースをアラート　ボタン一個OK
     
 }
-
 
 

@@ -14,6 +14,7 @@ class CustomCell: UITableViewCell {
     @IBOutlet weak var readerLabel: UILabel!
     @IBOutlet weak var commentLabel: UILabel!
     
+    @IBOutlet weak var postDateLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         
