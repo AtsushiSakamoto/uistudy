@@ -18,6 +18,7 @@ class Multidata{
     var continuity : String = ""
     var dungeon_id : String = ""
     var post_date : String = ""
+    var dungeon_name :String = ""
     
     func getlist(data:JSON){
         self.post_id = data["post_id"].stringValue
@@ -28,5 +29,6 @@ class Multidata{
         self.continuity = data["continuity"].stringValue
         self.dungeon_id = data["dungeon_id"].stringValue
         self.post_date = data["post_date"].stringValue
+        self.dungeon_name = data["dungeon_name"].stringValue
     }
 }

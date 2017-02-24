@@ -72,8 +72,8 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-    {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+        //テーブルの高さを取得
         if(indexPath.row == 3){
             return 88.0
         }else{

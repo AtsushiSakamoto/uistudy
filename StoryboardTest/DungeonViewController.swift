@@ -25,6 +25,7 @@ class DungeonViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         //タイトルを取得して再設定する。
         self.title = self.title! + ""
         

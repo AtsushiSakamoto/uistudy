@@ -15,16 +15,11 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var listTable: UITableView!
     var myDataSource : [Multidata] = []
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        print("listview　viewDidLoad")
-        //タイトルを取得して再設定する。
-        self.title = self.title! + ""
-        
+    
+    func loadData(){
         
         //Webサーバに対してHTTP通信のリクエストを出してデータを取得
-        let listUrl = "http://52.199.28.109/pazd_multi_api.php"
+        let listUrl = "http://52.199.28.109/puzd_api.php"
         Alamofire.request(listUrl).responseJSON{ response in
             
             let json = JSON(response.result.value ?? 0)
@@ -41,6 +36,17 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        print("listview　viewDidLoad")
+        //タイトルを取得して再設定する。
+        self.title = self.title! + ""
+                //データベースからマルチの投稿を取得
+        self.loadData()
+        
+        }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -51,24 +57,64 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         print("listview WillAppear")
     }
     
-   
+    
+    
     
     func tableView(_ table: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.myDataSource.count
-        
+        return 3
     }
+    
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return self.myDataSource.count
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+    //テーブルの高さを取得
+        if(indexPath.row == 0){
+            return 24
+        }else if(indexPath.row == 1){
+            return 24
+        }else{
+            return 24
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        let _m = self.myDataSource[section]
+        return _m.post_date
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 12
+    }
+    
     
     
     
     //各セルの要素を設定する
     func tableView(_ table: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell(style: UITableViewCellStyle .default, reuseIdentifier: "Cell")
-        let _m = self.myDataSource[indexPath.row]
-        cell.textLabel?.text = "ダンジョンID : " + _m.dungeon_id
-        return cell
+        let _m = self.myDataSource[indexPath.section]
         
+        if (indexPath.row == 0) {
+            let cell = UITableViewCell(style: UITableViewCellStyle .default, reuseIdentifier: "Cell")
+            cell.textLabel?.text = _m.dungeon_name
+            return cell
+            
+        } else if (indexPath.row == 1) {
+            let cell = UITableViewCell(style: UITableViewCellStyle .default, reuseIdentifier: "Cell")
+            cell.textLabel?.text = _m.my_reader
+            return cell
+            
+        } else {
+            let cell = UITableViewCell(style: UITableViewCellStyle .default, reuseIdentifier: "Cell")
+            cell.textLabel?.text = _m.comment
+            return cell
+        }
     }
     
     //tap
@@ -76,12 +122,16 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 
         performSegue(withIdentifier: "toDetail",sender: nil)
         
-        
     }
-   
+    
 }
 
 //listviewにテーブルを置き、セルを表示
 //Alamofireで投稿データを取ってくる
 //セルをタップで詳細を表示する画面にpush
+
+//ナビゲーションバーにビューがかからないようにする
+//タブバーにも同じように
+//ヘッダーに日付
+//ダンジョン、リーダー、コメントの行を作りセクションでまとめる
 
