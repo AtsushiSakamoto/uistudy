@@ -23,6 +23,7 @@
 		8D5E5D951E5FF2AE00FEFA17 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5E5D941E5FF2AE00FEFA17 /* CustomCell.swift */; };
 		8D6F7E5B1E66588600E6587C /* DetailListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F7E5A1E66588600E6587C /* DetailListViewController.swift */; };
 		8D6F7E5F1E66766100E6587C /* PuzdStartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F7E5E1E66766100E6587C /* PuzdStartCell.swift */; };
+		8D6F7E631E66935A00E6587C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F7E621E66935A00E6587C /* SearchViewController.swift */; };
 		8D71BB3A1E5A7A2200C121AF /* Dungeon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D71BB391E5A7A2200C121AF /* Dungeon.swift */; };
 		8D71BB3C1E5ACC9500C121AF /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D71BB3B1E5ACC9500C121AF /* Alamofire.framework */; };
 		8D71BB3E1E5ACC9900C121AF /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D71BB3D1E5ACC9900C121AF /* SwiftyJSON.framework */; };
@@ -93,6 +94,7 @@
 		8D5E5D941E5FF2AE00FEFA17 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		8D6F7E5A1E66588600E6587C /* DetailListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailListViewController.swift; sourceTree = "<group>"; };
 		8D6F7E5E1E66766100E6587C /* PuzdStartCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PuzdStartCell.swift; sourceTree = "<group>"; };
+		8D6F7E621E66935A00E6587C /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		8D71BB391E5A7A2200C121AF /* Dungeon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dungeon.swift; sourceTree = "<group>"; };
 		8D71BB3B1E5ACC9500C121AF /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../Library/Developer/Xcode/DerivedData/StoryboardTest-aecuzfwsoitzskemvjlqbvgejnox/Build/Products/Debug-iphoneos/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		8D71BB3D1E5ACC9900C121AF /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../../Library/Developer/Xcode/DerivedData/StoryboardTest-aecuzfwsoitzskemvjlqbvgejnox/Build/Products/Debug-iphoneos/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				8D59295A1E44230D004C3B29 /* ListViewController.swift */,
 				8D5E5D941E5FF2AE00FEFA17 /* CustomCell.swift */,
 				8D805E481E5EB59D00E066BA /* MultiData.swift */,
+				8D6F7E621E66935A00E6587C /* SearchViewController.swift */,
 				8D6F7E5A1E66588600E6587C /* DetailListViewController.swift */,
 				8D6F7E5E1E66766100E6587C /* PuzdStartCell.swift */,
 				8D4F49861E553F09003B0652 /* DungeonViewController.swift */,
@@ -507,6 +510,7 @@
 				8D59292F1E441FD7004C3B29 /* ViewController.swift in Sources */,
 				8D59292D1E441FD7004C3B29 /* AppDelegate.swift in Sources */,
 				8D59295B1E44230D004C3B29 /* ListViewController.swift in Sources */,
+				8D6F7E631E66935A00E6587C /* SearchViewController.swift in Sources */,
 				8D805E491E5EB59D00E066BA /* MultiData.swift in Sources */,
 				8D4F49871E553F09003B0652 /* DungeonViewController.swift in Sources */,
 				8D71BB3A1E5A7A2200C121AF /* Dungeon.swift in Sources */,

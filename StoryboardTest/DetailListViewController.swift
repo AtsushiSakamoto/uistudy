@@ -143,7 +143,7 @@ class DetailListViewController: UIViewController , UITableViewDelegate, UITableV
         
     
     }
-
+    
 }
 
 
