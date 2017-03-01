@@ -14,27 +14,12 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var listTable: UITableView!
     var myDataSource : [Multidata] = []
-    
-    
-    func loadData(){
-        
-        //Webサーバに対してHTTP通信のリクエストを出してデータを取得
-        let listUrl = "http://52.199.28.109/puzd_api.php"
-        Alamofire.request(listUrl).responseJSON{ response in
-            
-            let json = JSON(response.result.value ?? 0)
-            var jsonarray = json.arrayValue
-            
-            //Multidataのインスタンスを作りmyDataSourseに挿入
-            for i in (0..<jsonarray.count){
-                let _m = Multidata()
-                _m.getlist(data:jsonarray[i])
-                self.myDataSource.insert(_m,at:0)
-            }
-            //テーブルの更新
-            self.listTable.reloadData()
-        }
-    }
+    var selectPostId : String = ""
+    var selectRoomId: String = ""
+    var selectReader: String = ""
+    var selectComment: String = ""
+    var selectContinyuity: String = ""
+    var selectDungeonName: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +45,39 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         print("listview WillAppear")
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
+        
+        if(segue.identifier == "toDetail"){
+            
+            let next = segue.destination as! DetailListViewController
+            next.selectPostId = selectPostId
+            next.selectRoomId = selectRoomId
+            next.selectReader = selectReader
+            next.selectDungeonName = selectDungeonName
+            next.selectContinyuity = selectContinyuity
+            next.selectComment = selectComment
+        }
+    }
+    
+    func loadData(){
+        
+        //Webサーバに対してHTTP通信のリクエストを出してデータを取得
+        let listUrl = "http://52.199.28.109/puzd_api.php"
+        Alamofire.request(listUrl).responseJSON{ response in
+            
+            let json = JSON(response.result.value ?? 0)
+            var jsonarray = json.arrayValue
+            
+            //Multidataのインスタンスを作りmyDataSourseに挿入
+            for i in (0..<jsonarray.count){
+                let _m = Multidata()
+                _m.getlist(data:jsonarray[i])
+                self.myDataSource.insert(_m,at:0)
+            }
+            //テーブルの更新
+            self.listTable.reloadData()
+        }
+    }
     
     func tableView(_ table: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -151,7 +169,16 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     //tap
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
+        let row = self.myDataSource[indexPath.row]
+        self.selectPostId = row.post_id
+        self.selectRoomId = row.room_id
+        self.selectReader = row.my_reader
+        self.selectDungeonName = row.dungeon_name
+        self.selectContinyuity = row.continuity
+        self.selectComment = row.comment
+        
         performSegue(withIdentifier: "toDetail",sender: nil)
+        
         
     }
     
