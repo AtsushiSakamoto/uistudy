@@ -38,7 +38,7 @@ class DungeonViewController: UIViewController, UITableViewDelegate, UITableViewD
             for i in (0..<jsonarray.count){
                 let row = Dungeon()
                 row.getlist(data:jsonarray[i])
-                self.dungeonList.insert(row,at:0)
+                self.dungeonList.append(row)
             }
             self.dungeon_table.reloadData()
         }
@@ -80,7 +80,7 @@ class DungeonViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     //tap
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        //セルをタップした時セグウェイで遷移
         let row = self.dungeonList[indexPath.row]
         self.selectDungeonName = row.dungeon_name
         self.selectDungeonId = row.dungeon_id

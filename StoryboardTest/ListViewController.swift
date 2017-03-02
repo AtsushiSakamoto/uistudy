@@ -20,6 +20,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     var selectComment: String = ""
     var selectContinyuity: String = ""
     var selectDungeonName: String = ""
+    var searchDungeonId: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +28,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         print("listview　viewDidLoad")
         //タイトルを取得して再設定する。
         self.title = self.title! + ""
-                //データベースからマルチの投稿を取得
-        self.loadData()
+        
+        loadData()
         
         self.listTable.estimatedRowHeight = 60
         self.listTable.rowHeight = UITableViewAutomaticDimension
@@ -43,6 +44,9 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         print("listview WillAppear")
+
+        
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
@@ -57,17 +61,25 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             next.selectContinyuity = selectContinyuity
             next.selectComment = selectComment
         }
+        
+        if(segue.identifier == "search"){
+            
+            let next = segue.destination as! SearchViewController
+            next.returnAction = { self.updateTableView() }
+            
+        }
     }
     
+   
     func loadData(){
         
         //Webサーバに対してHTTP通信のリクエストを出してデータを取得
         let listUrl = "http://52.199.28.109/puzd_api.php"
-        Alamofire.request(listUrl).responseJSON{ response in
+        let parameters: Parameters = ["dungeon_id": searchDungeonId]
+        Alamofire.request(listUrl, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON{ response in
             
             let json = JSON(response.result.value ?? 0)
             var jsonarray = json.arrayValue
-            
             //Multidataのインスタンスを作りmyDataSourseに挿入
             for i in (0..<jsonarray.count){
                 let _m = Multidata()
@@ -76,8 +88,12 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             //テーブルの更新
             self.listTable.reloadData()
+            print("テーブルをロードしました")
         }
+
     }
+    
+    
     
     func tableView(_ table: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -105,70 +121,10 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         return customCell
     }
 
-    
-    
-/*
-    
-    func tableView(_ table: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 3
-    }
-    
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return self.myDataSource.count
-    }
-    
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
-    //テーブルの高さを取得
-        if(indexPath.row == 0){
-            return 24
-        }else if(indexPath.row == 1){
-            return 24
-        }else{
-            return 24
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        let _m = self.myDataSource[section]
-        return _m.post_date
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 12
-    }
-    
-    
-    
-    
-    //各セルの要素を設定する
-    func tableView(_ table: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let _m = self.myDataSource[indexPath.section]
-        
-        if (indexPath.row == 0) {
-            let cell = UITableViewCell(style: UITableViewCellStyle .default, reuseIdentifier: "Cell")
-            cell.textLabel?.text = _m.dungeon_name
-            return cell
-            
-        } else if (indexPath.row == 1) {
-            let cell = UITableViewCell(style: UITableViewCellStyle .default, reuseIdentifier: "Cell")
-            cell.textLabel?.text = _m.my_reader
-            return cell
-            
-        } else {
-            let cell = UITableViewCell(style: UITableViewCellStyle .default, reuseIdentifier: "Cell")
-            cell.textLabel?.text = _m.comment
-            return cell
-        }
-    }
-*/
-    //tap
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
+        //タップして詳細画面に遷移
         let row = self.myDataSource[indexPath.row]
         self.selectPostId = row.post_id
         self.selectRoomId = row.room_id
@@ -182,14 +138,24 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
+    func updateTableView() {
+        
+        self.myDataSource.removeAll()
+        loadData()
+    }
+    
 }
 
-//listviewにテーブルを置き、セルを表示
-//Alamofireで投稿データを取ってくる
+//listviewにテーブルを置き、セルを表示ok
+//Alamofireで投稿データを取ってくるok
 //セルをタップで詳細を表示する画面にpush
 
-//ナビゲーションバーにビューがかからないようにする
-//タブバーにも同じように
-//ヘッダーに日付
-//ダンジョン、リーダー、コメントの行を作りセクションでまとめる
+//ナビゲーションバーにビューがかからないようにするok
+//タブバーにも同じようにok
+
+
+//使うタブを左にok
+//検索はとりあえずダンジョンを選ばせて表示ok
+//ダンジョンをデータベースに加える。ok
+//投稿で記号などを入力した場合の処理の確認
 
