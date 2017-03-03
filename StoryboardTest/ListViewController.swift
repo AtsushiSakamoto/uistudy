@@ -65,7 +65,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         if(segue.identifier == "search"){
             
             let next = segue.destination as! SearchViewController
-            next.returnAction = { self.updateTableView() }
+            next.returnAction = { self.loadData() }
             
         }
     }
@@ -76,19 +76,39 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         //Webサーバに対してHTTP通信のリクエストを出してデータを取得
         let listUrl = "http://52.199.28.109/puzd_api.php"
         let parameters: Parameters = ["dungeon_id": searchDungeonId]
-        Alamofire.request(listUrl, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON{ response in
+        Alamofire.request(listUrl, parameters: parameters).responseJSON{ response in
             
             let json = JSON(response.result.value ?? 0)
-            var jsonarray = json.arrayValue
-            //Multidataのインスタンスを作りmyDataSourseに挿入
-            for i in (0..<jsonarray.count){
-                let _m = Multidata()
-                _m.getlist(data:jsonarray[i])
-                self.myDataSource.insert(_m,at:0)
+            let item = json["item"]
+            var jsonarray = item.arrayValue
+            
+            print(json["msg"])
+            print(item)
+            
+            if(json["msg"] == "on"){
+               
+                self.myDataSource.removeAll()
+                
+                //Multidataのインスタンスを作りmyDataSourseに挿入
+                for i in (0..<jsonarray.count){
+                    let _m = Multidata()
+                    _m.getlist(data:jsonarray[i])
+                    self.myDataSource.insert(_m,at:0)
+                }
+                //テーブルの更新
+                self.listTable.reloadData()
+                print("テーブルをロードしました")
+                
+            }else{
+                
+                
+                let alert: UIAlertController = UIAlertController(title: "通信失敗しました", message: "", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default)
+                alert.addAction(okAction)
+                self.present(alert, animated: true, completion: nil)
+            
             }
-            //テーブルの更新
-            self.listTable.reloadData()
-            print("テーブルをロードしました")
+            
         }
 
     }
@@ -138,11 +158,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-    func updateTableView() {
-        
-        self.myDataSource.removeAll()
-        loadData()
-    }
+   
     
 }
 
@@ -157,5 +173,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 //使うタブを左にok
 //検索はとりあえずダンジョンを選ばせて表示ok
 //ダンジョンをデータベースに加える。ok
-//投稿で記号などを入力した場合の処理の確認
+//投稿で記号などを入力した場合の処理の確認ok
 
+
+//phpの返却値を値が０なのか通信失敗したのか判別できるようにok
+//postをgetにok

@@ -226,25 +226,25 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
                     self.present(alert, animated: true, completion: nil)
                     
                 case 92 :
-                    let alert: UIAlertController = UIAlertController(title: "投稿出来ませんでした", message: "ユーザーIDがありません", preferredStyle: .alert)
+                    let alert: UIAlertController = UIAlertController(title: "投稿出来ませんでした", message: "ユーザーIDが正しくありません", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     
                 case 93 :
-                    let alert: UIAlertController = UIAlertController(title: "投稿出来ませんでした", message: "ルームIDを入力して下さい", preferredStyle: .alert)
+                    let alert: UIAlertController = UIAlertController(title: "投稿出来ませんでした", message: "ルームIDが正しくありません", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     
                 case 94 :
-                    let alert: UIAlertController = UIAlertController(title: "投稿出来ませんでした", message: "リーダーを入力して下さい", preferredStyle: .alert)
+                    let alert: UIAlertController = UIAlertController(title: "投稿出来ませんでした", message: "リーダーが正しくありません", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
                     
                 case 95 :
-                    let alert: UIAlertController = UIAlertController(title: "投稿出来ませんでした", message: "コメントを入力して下さい", preferredStyle: .alert)
+                    let alert: UIAlertController = UIAlertController(title: "投稿出来ませんでした", message: "コメントが正しくありません", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
