@@ -11,14 +11,14 @@ import UIKit
 class DetailListViewController: UIViewController , UITableViewDelegate, UITableViewDataSource {
     
     
-      @IBOutlet weak var detailListTable: UITableView!
+    @IBOutlet weak var detailListTable: UITableView!
     var selectPostId: String = ""
     var selectRoomId: String = ""
     var selectReader: String = ""
     var selectComment: String = ""
     var selectContinyuity: String = ""
     var selectDungeonName: String = ""
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -56,7 +56,7 @@ class DetailListViewController: UIViewController , UITableViewDelegate, UITableV
         }
     }
     
-   
+    
     
     //各セルの要素を設定する
     func tableView(_ table: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -75,7 +75,7 @@ class DetailListViewController: UIViewController , UITableViewDelegate, UITableV
                 let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
                 
                 cell.textLabel?.text = "ルームID:" + self.selectRoomId
-               
+                
                 return cell
                 
             case 2 :
@@ -89,7 +89,7 @@ class DetailListViewController: UIViewController , UITableViewDelegate, UITableV
                 let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
                 cell.textLabel?.text = "コンテニュー:" + self.selectContinyuity
                 
-      
+                
                 
                 return cell
                 
@@ -115,7 +115,7 @@ class DetailListViewController: UIViewController , UITableViewDelegate, UITableV
         //        print(indexPath.row)
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
+    
     @IBAction func pushPuzdStartButton(_ sender: UIButton){
         
         //ボタンを押したらIDコピーとパズドラ起動するかどうかのアラート表示
@@ -141,7 +141,7 @@ class DetailListViewController: UIViewController , UITableViewDelegate, UITableV
         alert.addAction(noAction)
         self.present(alert, animated: true, completion: nil)
         
-    
+        
     }
     
 }

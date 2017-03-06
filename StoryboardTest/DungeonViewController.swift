@@ -80,7 +80,9 @@ class DungeonViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     //tap
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         //セルをタップした時セグウェイで遷移
+        tableView.deselectRow(at: indexPath, animated: true)
         let row = self.dungeonList[indexPath.row]
         self.selectDungeonName = row.dungeon_name
         self.selectDungeonId = row.dungeon_id

@@ -23,6 +23,8 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //タイトルを取得して再設定する。
+        self.title = self.title! + ""
         all.dungeon_id = 0
         all.dungeon_name = "全て"
         dungeonList.append(all)
@@ -70,7 +72,7 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        //セルをタップした時セグウェイで遷移
+        tableView.deselectRow(at: indexPath, animated: true)
         self.searchId = self.dungeonList[indexPath.row].dungeon_id
         let nav = self.navigationController!
         

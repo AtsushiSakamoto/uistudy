@@ -9,13 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "StoryboardTest/DetailListViewController.swift"
-            timestampString = "510036893.284559"
+            filePath = "StoryboardTest/ListViewController.swift"
+            timestampString = "510475526.560632"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "tableView(_:numberOfRowsInSection:)"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
+            landmarkName = "loadTable()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
