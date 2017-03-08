@@ -14,6 +14,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var listTable: UITableView!
     @IBOutlet weak var reloadButton: UIButton!
+    let scrollIndicator : UIActivityIndicatorView! = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+    let reloadButtonIndicator : UIActivityIndicatorView! = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
     
     var myDataSource : [Multidata] = []
     var selectPostId : String = ""
@@ -38,6 +40,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.listTable.estimatedRowHeight = 60
         self.listTable.rowHeight = UITableViewAutomaticDimension
         
+        setIndicator()
     }
     
     override func didReceiveMemoryWarning() {
@@ -117,6 +120,28 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
 
+    func setIndicator(){
+        
+        //上までスクロールして更新する時のインディケータの設定
+        scrollIndicator.frame = CGRect(x: self.view.bounds.width / 2 - 25, y: (self.navigationController?.navigationBar.frame.size.height)! + UIApplication.shared.statusBarFrame.height, width: 50, height:50)
+        scrollIndicator.color = UIColor.green
+        self.view.addSubview(scrollIndicator)
+        self.view.bringSubview(toFront: scrollIndicator)
+        
+        //更新ボタンを押した時のインディケータの設定
+        reloadButtonIndicator.center = self.view.center
+        reloadButtonIndicator.color = UIColor.green
+        reloadButtonIndicator.backgroundColor = UIColor.lightGray
+        reloadButtonIndicator.layer.masksToBounds = true
+        reloadButtonIndicator.layer.cornerRadius = 5.0
+        reloadButtonIndicator.layer.opacity = 0.8
+        self.view.addSubview(reloadButtonIndicator)
+        self.view.bringSubview(toFront: reloadButtonIndicator)
+
+        
+    }
+    
+    
     func searchDungeon(){
         
         
@@ -153,6 +178,9 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.load_position = self.load_position + 15
                 print("テーブルをロードしました")
                 self.listTable.reloadData()
+                // アニメーションを停止
+                self.scrollIndicator.stopAnimating()
+                self.reloadButtonIndicator.stopAnimating()
             }else if(json["msg"] == "off"){
                 
                 print("検索するdungeon_idが文字列")
@@ -170,6 +198,22 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
  
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let statusHeight = UIApplication.shared.statusBarFrame.height
+        let navigationBarHeight = self.navigationController?.navigationBar.frame.size.height
+        if(self.listTable.contentOffset.y + navigationBarHeight! + statusHeight < -60){
+            
+            self.scrollIndicator.startAnimating()
+            
+        }else{
+            
+            self.scrollIndicator.stopAnimating()
+            
+        }
+        
+    }
+    
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         
         let statusHeight = UIApplication.shared.statusBarFrame.height
@@ -181,16 +225,16 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.On_removeAll = 1
             loadTable()
             
-            
         }else if(self.listTable.contentOffset.y >= self.listTable.contentSize.height - self.listTable.bounds.size.height
             && self.listTable.contentOffset.y + navigationBarHeight! + statusHeight > 60){
             
-            loadTable()
+//            loadTable()
         }
     }
 
     @IBAction func pushReloadButton(_ sender: UIButton) {
         //更新ボタンを押して更新
+        self.reloadButtonIndicator.startAnimating()
         self.listTable.contentOffset = CGPoint(x: 0,y: -self.listTable.contentInset.top)
         self.load_position = 0
         self.On_removeAll = 1
@@ -226,6 +270,9 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 //引っ張って更新ok
 //タップで選択解除ok
 
+//コメントは必須にしない。
+//下スクロールの追加の更新は使わない。ok
+//更新でエフェクトつけるok
 
 
 
