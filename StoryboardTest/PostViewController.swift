@@ -402,6 +402,8 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
     //投稿後アラート　成功しました。　パズドラ起動どうか　はいorいいえ
     //失敗　の時は　ケースをアラート　ボタン一個OK
     
+    
+    //リーダー
 }
 
 

@@ -27,7 +27,7 @@ class DungeonViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         
         //タイトルを取得して再設定する。
-        self.title = self.title! + ""
+//        self.title = self.title! + ""
         
         let listUrl = "http://52.199.28.109/pazd_dungeon_api.php"
         Alamofire.request(listUrl).responseJSON{ response in

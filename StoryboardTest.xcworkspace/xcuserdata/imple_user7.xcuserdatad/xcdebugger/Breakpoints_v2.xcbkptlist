@@ -10,13 +10,91 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StoryboardTest/ListViewController.swift"
-            timestampString = "510648886.598563"
+            timestampString = "510730563.861883"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "loadTable()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StoryboardTest/DungeonViewController.swift"
+            timestampString = "510722011.672978"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "DungeonViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StoryboardTest.DungeonViewController.selectDungeonName.getter : Swift.ImplicitlyUnwrappedOptional&lt;Swift.String&gt;"
+                  moduleName = "StoryboardTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/imple_user7/dev/git/uistudy/StoryboardTest/DungeonViewController.swift"
+                  timestampString = "510722012.432223"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "80">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StoryboardTest.DungeonViewController.selectDungeonName.setter : Swift.ImplicitlyUnwrappedOptional&lt;Swift.String&gt;"
+                  moduleName = "StoryboardTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/imple_user7/dev/git/uistudy/StoryboardTest/DungeonViewController.swift"
+                  timestampString = "510722012.433614"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "162">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StoryboardTest.DungeonViewController.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; StoryboardTest.DungeonViewController"
+                  moduleName = "StoryboardTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/imple_user7/dev/git/uistudy/StoryboardTest/DungeonViewController.swift"
+                  timestampString = "510722012.434834"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "295">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StoryboardTest.DungeonViewController.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;StoryboardTest.DungeonViewController&gt;"
+                  moduleName = "StoryboardTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/imple_user7/dev/git/uistudy/StoryboardTest/DungeonViewController.swift"
+                  timestampString = "510722012.436026"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "198">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

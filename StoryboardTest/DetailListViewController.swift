@@ -79,8 +79,8 @@ class DetailListViewController: UIViewController , UITableViewDelegate, UITableV
             case 1 :
                 
                 let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
-                
                 cell.textLabel?.text = "ルームID : " + self.selectRoomId
+//                cell.textLabel?.text = "ルームID : " + self.selectRoomId.substring(to: self.selectRoomId.index(self.selectRoomId.startIndex, offsetBy: 4)) + "****"
                 
                 return cell
                 
@@ -159,6 +159,7 @@ class DetailListViewController: UIViewController , UITableViewDelegate, UITableV
 //ボタンを押した時、IDをコピーしてパズドラを起動するかどうかのアラート設置
 //アラートでYESを押すとコピーしてパズドラ起動
 
+//ルームID後半をアスタリスクに
 
 
 

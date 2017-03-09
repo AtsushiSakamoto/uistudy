@@ -25,6 +25,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     var selectContinyuity: String = ""
     var selectDungeonName: String = ""
     var searchDungeonId: Int = 0
+    var stopIndicator: Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,7 +104,10 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         let customCell = table.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! CustomCell
         
         customCell.dungeonLabel.text = _m.dungeon_name
-        customCell.readerLabel.text = _m.my_reader
+        if(_m.my_reader.isEmpty){customCell.readerLabel.text = "なんでも"
+        }else{
+            customCell.readerLabel.text = _m.my_reader
+        }
         customCell.commentLabel.text = _m.comment
         customCell.postDateLabel.text = outputDate
         
@@ -124,7 +128,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.selectComment = row.comment
         
         performSegue(withIdentifier: "toDetail",sender: nil)
- 
         
     }
 
@@ -178,16 +181,22 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
                 // アニメーションを停止
                 self.scrollIndicator.stopAnimating()
                 self.reloadButtonIndicator.stopAnimating()
+                self.stopIndicator = 1
             }else if(json["msg"] == "off"){
                 
                 print("検索するdungeon_idが文字列")
-                
+                self.scrollIndicator.stopAnimating()
+                self.reloadButtonIndicator.stopAnimating()
+                self.stopIndicator = 1
             }else{
                 
                 let alert: UIAlertController = UIAlertController(title: "通信失敗しました", message: "", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .default)
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: nil)
+                self.scrollIndicator.stopAnimating()
+                self.reloadButtonIndicator.stopAnimating()
+                self.stopIndicator = 1
                 
             }
  
@@ -203,13 +212,14 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             self.scrollIndicator.startAnimating()
             
-        }else{
+        }else if(self.stopIndicator == 1){
             
             self.scrollIndicator.stopAnimating()
             
         }
         
     }
+    
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         
@@ -219,11 +229,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         if(self.listTable.contentOffset.y + navigationBarHeight! + statusHeight < -60){
             
             loadTable()
+            self.stopIndicator = 0
             
-        }else if(self.listTable.contentOffset.y >= self.listTable.contentSize.height - self.listTable.bounds.size.height
-            && self.listTable.contentOffset.y + navigationBarHeight! + statusHeight > 60){
-            
-//            loadTable()
         }
     }
 

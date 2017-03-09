@@ -24,6 +24,7 @@
 		8D59295D1E4425B3004C3B29 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D59295C1E4425B3004C3B29 /* PostViewController.swift */; };
 		8D5929651E444CBB004C3B29 /* PostViewButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5929641E444CBB004C3B29 /* PostViewButtonCell.swift */; };
 		8D5E5D951E5FF2AE00FEFA17 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5E5D941E5FF2AE00FEFA17 /* CustomCell.swift */; };
+		8D62C40D1E7101A200DDADF8 /* SupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D62C40C1E7101A200DDADF8 /* SupportViewController.swift */; };
 		8D6F7E5B1E66588600E6587C /* DetailListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F7E5A1E66588600E6587C /* DetailListViewController.swift */; };
 		8D6F7E5F1E66766100E6587C /* PuzdStartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F7E5E1E66766100E6587C /* PuzdStartCell.swift */; };
 		8D6F7E631E66935A00E6587C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6F7E621E66935A00E6587C /* SearchViewController.swift */; };
@@ -98,6 +99,7 @@
 		8D59295C1E4425B3004C3B29 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		8D5929641E444CBB004C3B29 /* PostViewButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostViewButtonCell.swift; path = ../PostViewButtonCell.swift; sourceTree = "<group>"; };
 		8D5E5D941E5FF2AE00FEFA17 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		8D62C40C1E7101A200DDADF8 /* SupportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupportViewController.swift; sourceTree = "<group>"; };
 		8D6F7E5A1E66588600E6587C /* DetailListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailListViewController.swift; sourceTree = "<group>"; };
 		8D6F7E5E1E66766100E6587C /* PuzdStartCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PuzdStartCell.swift; sourceTree = "<group>"; };
 		8D6F7E621E66935A00E6587C /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				8D0A3FF41E6FCE2A00F1A438 /* search.png */,
 				8D0A3FF01E6FCBA800F1A438 /* replay.png */,
 				8D5929301E441FD7004C3B29 /* Main.storyboard */,
+				8D62C40C1E7101A200DDADF8 /* SupportViewController.swift */,
 				8D59295A1E44230D004C3B29 /* ListViewController.swift */,
 				8D5E5D941E5FF2AE00FEFA17 /* CustomCell.swift */,
 				8D805E481E5EB59D00E066BA /* MultiData.swift */,
@@ -518,6 +521,7 @@
 			files = (
 				8D5929651E444CBB004C3B29 /* PostViewButtonCell.swift in Sources */,
 				8D6F7E5B1E66588600E6587C /* DetailListViewController.swift in Sources */,
+				8D62C40D1E7101A200DDADF8 /* SupportViewController.swift in Sources */,
 				8D59295D1E4425B3004C3B29 /* PostViewController.swift in Sources */,
 				8D59292F1E441FD7004C3B29 /* ViewController.swift in Sources */,
 				8D59292D1E441FD7004C3B29 /* AppDelegate.swift in Sources */,
@@ -677,6 +681,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 83F49639E5106D66EEABD694 /* Pods-StoryboardTest.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 2SVNAS58PU;
 				INFOPLIST_FILE = StoryboardTest/Info.plist;
@@ -692,6 +697,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E37AE5A0E800FB9BE99A42C4 /* Pods-StoryboardTest.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 2SVNAS58PU;
 				INFOPLIST_FILE = StoryboardTest/Info.plist;
