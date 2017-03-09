@@ -18,6 +18,7 @@ class DetailListViewController: UIViewController , UITableViewDelegate, UITableV
     var selectComment: String = ""
     var selectContinyuity: String = ""
     var selectDungeonName: String = ""
+    var continyuityString: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,33 +62,38 @@ class DetailListViewController: UIViewController , UITableViewDelegate, UITableV
     //各セルの要素を設定する
     func tableView(_ table: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        if(self.selectContinyuity == "1"){
+            continyuityString = "有"
+        }else{
+            continyuityString = "無"
+        }
         
         if(indexPath.section == 0){
             switch indexPath.row {
                 
             case 0 :
                 let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
-                cell.textLabel?.text = "ダンジョン:" + self.selectDungeonName
+                cell.textLabel?.text = "ダンジョン : " + self.selectDungeonName
                 return cell
                 
             case 1 :
                 
                 let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
                 
-                cell.textLabel?.text = "ルームID:" + self.selectRoomId
+                cell.textLabel?.text = "ルームID : " + self.selectRoomId
                 
                 return cell
                 
             case 2 :
                 let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
-                cell.textLabel?.text = "リーダー:" + self.selectReader
+                cell.textLabel?.text = "リーダー : " + self.selectReader
                 
                 
                 return cell
                 
             case 3 :
                 let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
-                cell.textLabel?.text = "コンテニュー:" + self.selectContinyuity
+                cell.textLabel?.text = "コンテニュー : " + self.continyuityString
                 
                 
                 
@@ -95,7 +101,7 @@ class DetailListViewController: UIViewController , UITableViewDelegate, UITableV
                 
             default :
                 let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: "Cell")
-                cell.textLabel?.text = "コメント:" + self.selectComment
+                cell.textLabel?.text = "コメント : " + self.selectComment
                 cell.textLabel?.numberOfLines = 0
                 return cell
                 

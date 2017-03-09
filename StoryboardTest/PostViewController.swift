@@ -236,18 +236,20 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
                     let okAction = UIAlertAction(title: "OK", style: .default)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
-                    
+/*
                 case 94 :
                     let alert: UIAlertController = UIAlertController(title: "投稿出来ませんでした", message: "リーダーが正しくありません", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
-                    
+
                 case 95 :
                     let alert: UIAlertController = UIAlertController(title: "投稿出来ませんでした", message: "コメントが正しくありません", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default)
                     alert.addAction(okAction)
                     self.present(alert, animated: true, completion: nil)
+ 
+ */
                 case 96 :
                     let alert: UIAlertController = UIAlertController(title: "投稿出来ませんでした", message: "コンテニューの有無を選択して下さい", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default)

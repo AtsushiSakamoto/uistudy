@@ -25,21 +25,20 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     var selectContinyuity: String = ""
     var selectDungeonName: String = ""
     var searchDungeonId: Int = 0
-    var load_position = 0
-    var On_removeAll = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         print("listview　viewDidLoad")
+        
         //タイトルを取得して再設定する。
         self.title = self.title! + ""
         
+        //テーブルのデータを取ってきて更新
         loadTable()
+
         
-        self.listTable.estimatedRowHeight = 60
-        self.listTable.rowHeight = UITableViewAutomaticDimension
-        
+        //インディケータの設定
         setIndicator()
     }
     
@@ -73,7 +72,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         if(segue.identifier == "search"){
             
             let next = segue.destination as! SearchViewController
-            next.returnAction = { self.searchDungeon() }
+            next.returnAction = { self.loadTable() }
             
         }
     }
@@ -91,13 +90,22 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let _m = self.myDataSource[indexPath.row]
         
+        //日付を「月/日　時:分」に変更
+        let datetimeFormatter = DateFormatter()
+        datetimeFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let date: NSDate? = datetimeFormatter.date(from: _m.post_date) as NSDate?
+        
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "MM/dd HH:mm"
+        let outputDate = outputFormatter.string(from: date! as Date)
+        
+        //セルを作る
         let customCell = table.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! CustomCell
         
         customCell.dungeonLabel.text = _m.dungeon_name
         customCell.readerLabel.text = _m.my_reader
         customCell.commentLabel.text = _m.comment
-        customCell.postDateLabel.text = _m.post_date
-        
+        customCell.postDateLabel.text = outputDate
         
         return customCell
     }
@@ -140,30 +148,20 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 
         
     }
-    
-    
-    func searchDungeon(){
-        
-        
-        self.load_position = 0
-        self.On_removeAll = 1
-        self.loadTable()
-    }
+
     
     func loadTable(){
         
         //Webサーバに対してHTTP通信のリクエストを出してデータを取得
-        let listUrl = "http://52.199.28.109/puzd_reload.php"
-        let parameters: Parameters = ["dungeon_id": searchDungeonId,"load_position": load_position]
+        let listUrl = "http://52.199.28.109/puzd_api.php"
+        let parameters: Parameters = ["dungeon_id": searchDungeonId]
         Alamofire.request(listUrl, parameters: parameters).responseJSON{ response in
             
             let json = JSON(response.result.value ?? 0)
             if(json["msg"] == "on"){
                 
-                if(self.On_removeAll == 1){
                     self.myDataSource.removeAll()
-                    self.On_removeAll = 0
-                }
+                
                 let item = json["items"]
                 var jsonarray = item.arrayValue
                 
@@ -175,7 +173,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
                 
                 //テーブルの更新
-                self.load_position = self.load_position + 15
                 print("テーブルをロードしました")
                 self.listTable.reloadData()
                 // アニメーションを停止
@@ -220,9 +217,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         let navigationBarHeight = self.navigationController?.navigationBar.frame.size.height
         
         if(self.listTable.contentOffset.y + navigationBarHeight! + statusHeight < -60){
-           
-            self.load_position = 0
-            self.On_removeAll = 1
+            
             loadTable()
             
         }else if(self.listTable.contentOffset.y >= self.listTable.contentSize.height - self.listTable.bounds.size.height
@@ -233,12 +228,12 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     @IBAction func pushReloadButton(_ sender: UIButton) {
+        
         //更新ボタンを押して更新
         self.reloadButtonIndicator.startAnimating()
         self.listTable.contentOffset = CGPoint(x: 0,y: -self.listTable.contentInset.top)
-        self.load_position = 0
-        self.On_removeAll = 1
         loadTable()
+        
     }
     
     
@@ -270,9 +265,11 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 //引っ張って更新ok
 //タップで選択解除ok
 
-//コメントは必須にしない。
+//コメントは必須にしないok
 //下スクロールの追加の更新は使わない。ok
 //更新でエフェクトつけるok
 
+//セルのレイアウト
+//日付を「月/日　時：分」にするok
 
 
