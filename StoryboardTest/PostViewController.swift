@@ -28,7 +28,7 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
     var previousText = ""
     var lastReplaceRange: NSRange!
     var lastReplacementString = ""
-    let generalPasteboard: UIPasteboard = UIPasteboard.general
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,10 +36,7 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
         print("postview viewDidLoad")
         //タイトルを取得して再設定する。
         self.title = self.title! + ""
-        
-        let pasteString: String = generalPasteboard.string!
-        print(pasteString)
-//        self.roomidTextField.text = pasteString
+
     
     }
     
@@ -48,6 +45,11 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapscreen(_:)))
         self.view.addGestureRecognizer(tapGesture)
         print("postview viewDidApper")
+        
+        let pasteboard = UIPasteboard.general
+        if let string = pasteboard.string {
+            self.roomidTextField.text = string
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -408,6 +410,7 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
     
     
     //リーダーok
+    //クリップボードの文字列をルームIDに代入
 }
 
 

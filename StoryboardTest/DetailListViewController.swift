@@ -40,7 +40,7 @@ class DetailListViewController: UIViewController , UITableViewDelegate, UITableV
         bannerView.rootViewController = self
         
         let request = GADRequest()
-//        request.testDevices = ["c1e9edc86b2dda4d4142510cdaee48b1"]
+        request.testDevices = ["c1e9edc86b2dda4d4142510cdaee48b1"]
 /*
         request.gender = .male
         var components = DateComponents()
