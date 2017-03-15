@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
-class DetailListViewController: UIViewController , UITableViewDelegate, UITableViewDataSource {
+class DetailListViewController: UIViewController , UITableViewDelegate, UITableViewDataSource, GADBannerViewDelegate {
     
     
     @IBOutlet weak var detailListTable: UITableView!
+    @IBOutlet weak var bannerView: GADBannerView!
+    
     var selectPostId: String = ""
     var selectRoomId: String = ""
     var selectReader: String = ""
@@ -30,6 +33,25 @@ class DetailListViewController: UIViewController , UITableViewDelegate, UITableV
         //高さを動的に変更
         self.detailListTable.estimatedRowHeight = 24
         self.detailListTable.rowHeight = UITableViewAutomaticDimension
+        
+
+        bannerView.delegate = self
+        bannerView.adUnitID = "ca-app-pub-3607945421999798/5225503666"
+        bannerView.rootViewController = self
+        
+        let request = GADRequest()
+//        request.testDevices = ["c1e9edc86b2dda4d4142510cdaee48b1"]
+/*
+        request.gender = .male
+        var components = DateComponents()
+        components.month = 3
+        components.day = 13
+        components.year = 1976
+        request.birthday = Calendar.current.date(from: components)
+        request.tag(forChildDirectedTreatment: true)
+*/
+        bannerView.load(request)
+        
         
     }
     
@@ -150,19 +172,26 @@ class DetailListViewController: UIViewController , UITableViewDelegate, UITableV
         
     }
     
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        bannerView.alpha = 0
+        UIView.animate(withDuration: 0.5, animations: {
+            bannerView.alpha = 1
+        })
+    }
+
 }
 
 
-//ListViewから値受けもらい
-//groupedでセクションを二つにし、マルチの情報とパズドラ起動ボタンの設置
-//セルの高さを動的に変更
-//ボタンを押した時、IDをコピーしてパズドラを起動するかどうかのアラート設置
-//アラートでYESを押すとコピーしてパズドラ起動
+//ListViewから値受けもらいok
+//groupedでセクションを二つにし、マルチの情報とパズドラ起動ボタンの設置ok
+//セルの高さを動的に変更ok
+//ボタンを押した時、IDをコピーしてパズドラを起動するかどうかのアラート設置ok
+//アラートでYESを押すとコピーしてパズドラ起動ok
 
-//ルームID後半をアスタリスクに
-
-
+//ルームID後半をアスタリスクにok
 
 
+
+//チャットワークで送られた広告をここにはる！
 
 

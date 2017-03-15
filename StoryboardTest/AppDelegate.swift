@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = UIColor(red: 0.561, green: 0.765, blue: 0.122, alpha: 1.0)
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor(red:1.0,green:1.0,blue:1.0,alpha:1.0)]
 
+        GADMobileAds.configure(withApplicationID: "ca-app-pub-3607945421999798/5225503666")
+        
         return true
     }
 

@@ -27,6 +27,36 @@ class SupportViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Dispose of any resources that can be recreated.
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
+        
+        if(segue.identifier == "toOfficial"){
+            
+            
+            let next = segue.destination as! SupportPageViewController
+            next.targetURL = "https://pad.gungho.jp/member/"
+        }else if(segue.identifier == "toContact"){
+            
+            let next = segue.destination as! SupportPageViewController
+            next.targetURL = "http://padmulti.com/padMultis/supportForm/"
+            
+        }else if(segue.identifier == "toRule"){
+            
+            let next = segue.destination as! SupportPageViewController
+            next.targetURL = "http:/padmulti.com/padMultis/eula/"
+        }else if(segue.identifier == "toCapture"){
+            
+            let next = segue.destination as! SupportPageViewController
+            next.targetURL = "https://game8.jp/games/5"
+            
+        }else{
+            
+            let next = segue.destination as! SupportPageViewController
+            next.targetURL = "http://pad.zap.jp.net"
+            
+        }
+
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
@@ -46,6 +76,7 @@ class SupportViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ table: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        //セルを作る
         switch indexPath.section {
         case 0:
             switch indexPath.row {
@@ -86,37 +117,45 @@ class SupportViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        //セルをタップした時の反応
         tableView.deselectRow(at: indexPath, animated: true)
         
         switch indexPath.section {
         case 0:
             switch indexPath.row {
             case 0:
-                print("問い合わせ")
+                performSegue(withIdentifier: "toContact",sender: nil)
             default:
-                print("利用規約(EULA)")
+                performSegue(withIdentifier: "toRule",sender: nil)
             }
         case 1:
             switch indexPath.row {
             case 0:
-                let url = NSURL(string: "https://pad.gungho.jp/member/")
-                if UIApplication.shared.canOpenURL(url! as URL){
-                    UIApplication.shared.openURL(url! as URL)
-                }
+                performSegue(withIdentifier: "toOfficial",sender: nil)
             case 1:
-                let url = NSURL(string: "https://game8.jp/games/5")
-                if UIApplication.shared.canOpenURL(url! as URL){
-                    UIApplication.shared.openURL(url! as URL)
-                }
+                performSegue(withIdentifier: "toCapture",sender: nil)
             case 3:
-                let url = NSURL(string: "http://pad.zap.jp.net")
-                if UIApplication.shared.canOpenURL(url! as URL){
-                    UIApplication.shared.openURL(url! as URL)
-                }
+                performSegue(withIdentifier: "toTimetable",sender: nil)
 
             default:
-                print("パズドラ最新情報")
+                let urlScheme = URL(string: "pazzdranews://")!
+                
+                //アプリの有無で分岐させた後、ios10.0以上かどうかで分岐しアプリかストアを開く
+                if UIApplication.shared.canOpenURL(urlScheme) {
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(urlScheme)
+                    } else {
+                        // Fallback on earlier versions
+                        UIApplication.shared.openURL(urlScheme)
+                    }
+                }else{
+                    let storeURL = URL(string:"https://itunes.apple.com/jp/app/id592647152?ls=1&mt=8")!
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(storeURL)
+                    } else {
+                        UIApplication.shared.openURL(storeURL)
+                    }
+                }
             }
         default:
             let alert: UIAlertController = UIAlertController(title: "レビューのお願い", message: "今後も無料でサービスを提供したいのでレビューお願いいたします。", preferredStyle: .alert)

@@ -28,7 +28,7 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
     var previousText = ""
     var lastReplaceRange: NSRange!
     var lastReplacementString = ""
-    
+    let generalPasteboard: UIPasteboard = UIPasteboard.general
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +37,10 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
         //タイトルを取得して再設定する。
         self.title = self.title! + ""
         
+        let pasteString: String = generalPasteboard.string!
+        print(pasteString)
+//        self.roomidTextField.text = pasteString
+    
     }
     
     override func viewDidAppear(_ animated: Bool){
@@ -403,7 +407,7 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
     //失敗　の時は　ケースをアラート　ボタン一個OK
     
     
-    //リーダー
+    //リーダーok
 }
 
 

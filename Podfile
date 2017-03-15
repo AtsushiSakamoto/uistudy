@@ -9,19 +9,22 @@ target 'StoryboardTest' do
 
 pod 'Alamofire', '~> 4.3'
 pod 'SwiftyJSON'
+pod 'Firebase/Core'
+pod 'Firebase/AdMob'
 use_frameworks!
 
+end
 
   # Pods for StoryboardTest
 
   target 'StoryboardTestTests' do
     inherit! :search_paths
     # Pods for testing
-  end
+      end
 
   target 'StoryboardTestUITests' do
     inherit! :search_paths
-    # Pods for testing
-  end
+        # Pods for testing
+      end
 
-end
+
