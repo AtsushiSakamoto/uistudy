@@ -9,10 +9,12 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import GoogleMobileAds
 
-class PostViewController: UIViewController , UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate{
+class PostViewController: UIViewController , UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate, GADBannerViewDelegate{
     
     
+    @IBOutlet weak var bannerView: GADBannerView!
     @IBOutlet weak var postTable: UITableView!
     var dungeonName: String = ""
     var dungeonId: Int = 0
@@ -37,7 +39,14 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
         //タイトルを取得して再設定する。
         self.title = self.title! + ""
 
-    
+        bannerView.delegate = self
+        bannerView.adUnitID = "ca-app-pub-3607945421999798/5225503666"
+        bannerView.rootViewController = self
+        
+        let request = GADRequest()
+        request.testDevices = ["c1e9edc86b2dda4d4142510cdaee48b1"]
+        
+        bannerView.load(request)
     }
     
     override func viewDidAppear(_ animated: Bool){
@@ -125,7 +134,7 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
                 cell.textLabel?.text = "リーダー"
                 
                 readerTextField = UITextField(frame: CGRect(x: width,y: 6,width: width - 10,height: 32))
-                readerTextField.placeholder = "例：クリシュナ"
+                readerTextField.placeholder = "省略可"
                 readerTextField.delegate = self;
                 readerTextField.borderStyle = UITextBorderStyle.roundedRect
                 
@@ -410,7 +419,7 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
     
     
     //リーダーok
-    //クリップボードの文字列をルームIDに代入
+    //クリップボードの文字列をルームIDに代入ok
 }
 
 

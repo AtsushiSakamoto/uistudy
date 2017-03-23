@@ -192,6 +192,6 @@ class DetailListViewController: UIViewController , UITableViewDelegate, UITableV
 
 
 
-//チャットワークで送られた広告をここにはる！
+//チャットワークで送られた広告をここにはる！ok
 
 

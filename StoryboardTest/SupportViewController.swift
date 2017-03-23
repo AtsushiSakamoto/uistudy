@@ -31,27 +31,33 @@ class SupportViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if(segue.identifier == "toOfficial"){
             
-            
             let next = segue.destination as! SupportPageViewController
             next.targetURL = "https://pad.gungho.jp/member/"
+            next.pageTitle = "公式"
+            
         }else if(segue.identifier == "toContact"){
             
             let next = segue.destination as! SupportPageViewController
             next.targetURL = "http://padmulti.com/padMultis/supportForm/"
+            next.pageTitle = "問い合わせ"
             
         }else if(segue.identifier == "toRule"){
             
             let next = segue.destination as! SupportPageViewController
             next.targetURL = "http:/padmulti.com/padMultis/eula/"
+            next.pageTitle = "利用規約"
+            
         }else if(segue.identifier == "toCapture"){
             
             let next = segue.destination as! SupportPageViewController
             next.targetURL = "https://game8.jp/games/5"
+            next.pageTitle = "攻略"
             
         }else{
             
             let next = segue.destination as! SupportPageViewController
             next.targetURL = "http://pad.zap.jp.net"
+            next.pageTitle = "ゲリラ時間割"
             
         }
 
@@ -61,6 +67,17 @@ class SupportViewController: UIViewController, UITableViewDelegate, UITableViewD
         return 3
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+      if (section == 0){
+            return 40
+        } else {
+            return 20
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
+    }
     func tableView(_ table: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         switch section {

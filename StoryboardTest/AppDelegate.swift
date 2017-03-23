@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //ナビゲーションアイテムの色を変更
         UINavigationBar.appearance().tintColor = UIColor(red:1.0,green:1.0,blue:1.0,alpha:1.0)
         //ナビゲーションバーの背景を変更
-        UINavigationBar.appearance().barTintColor = UIColor(red: 0.561, green: 0.765, blue: 0.122, alpha: 1.0)
+        UINavigationBar.appearance().barTintColor = UIColor(red: 0.294, green: 0.145, blue: 0.102, alpha: 1.0)
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor(red:1.0,green:1.0,blue:1.0,alpha:1.0)]
 
         GADMobileAds.configure(withApplicationID: "ca-app-pub-3607945421999798/5225503666")

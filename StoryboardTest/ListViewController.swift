@@ -9,9 +9,11 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import GoogleMobileAds
 
-class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GADBannerViewDelegate{
     
+    @IBOutlet weak var bannerView: GADBannerView!
     @IBOutlet weak var listTable: UITableView!
     @IBOutlet weak var reloadButton: UIButton!
     let scrollIndicator : UIActivityIndicatorView! = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
@@ -37,10 +39,18 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         //テーブルのデータを取ってきて更新
         loadTable()
-
         
         //インディケータの設定
         setIndicator()
+        
+        bannerView.delegate = self
+        bannerView.adUnitID = "ca-app-pub-3607945421999798/5225503666"
+        bannerView.rootViewController = self
+        
+        let request = GADRequest()
+        request.testDevices = ["c1e9edc86b2dda4d4142510cdaee48b1"]
+        
+        bannerView.load(request)
     }
     
     override func didReceiveMemoryWarning() {
@@ -108,7 +118,10 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         }else{
             customCell.readerLabel.text = _m.my_reader
         }
-        customCell.commentLabel.text = _m.comment
+        if(_m.comment.isEmpty){customCell.commentLabel.text = "よろしくお願いします！"
+        }else{
+            customCell.commentLabel.text = _m.comment
+        }
         customCell.postDateLabel.text = outputDate
         
         return customCell
@@ -135,14 +148,18 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         //上までスクロールして更新する時のインディケータの設定
         scrollIndicator.frame = CGRect(x: self.view.bounds.width / 2 - 25, y: (self.navigationController?.navigationBar.frame.size.height)! + UIApplication.shared.statusBarFrame.height, width: 50, height:50)
-        scrollIndicator.color = UIColor.green
+        scrollIndicator.color = UIColor.gray
+//        scrollIndicator.backgroundColor = UIColor.gray
+        scrollIndicator.layer.masksToBounds = true
+        scrollIndicator.layer.cornerRadius = 5.0
+        scrollIndicator.layer.opacity = 0.8
         self.view.addSubview(scrollIndicator)
         self.view.bringSubview(toFront: scrollIndicator)
         
         //更新ボタンを押した時のインディケータの設定
         reloadButtonIndicator.center = self.view.center
-        reloadButtonIndicator.color = UIColor.green
-        reloadButtonIndicator.backgroundColor = UIColor.lightGray
+        reloadButtonIndicator.color = UIColor.white
+        reloadButtonIndicator.backgroundColor = UIColor.gray
         reloadButtonIndicator.layer.masksToBounds = true
         reloadButtonIndicator.layer.cornerRadius = 5.0
         reloadButtonIndicator.layer.opacity = 0.8
@@ -279,4 +296,42 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 //セルのレイアウト
 //日付を「月/日　時：分」にするok
 
+//タブをイラストに
+//差分を洗い出す
 
+/*
+差分
+ 
+全体
+１色の違いok
+２ロード中のアニメーションの違い　okswiftのインジゲータとして用意されているものを使用
+ 
+新着画邂
+１広告の有無ok
+２更新ボタンの位置ok
+　　　　　　　　　　　３アイコンが若干違い、画質悪い
+４日付がセルの上部にある(元は下部)　okユーザー名が無い中でバランスを考えると上部が良い
+//５ユーザー名の有無
+ 
+サポート画面
+１ヘッダーの大きさok
+　　　　　　　　　　　２レビュー機能がまだできていない
+３WEBビューを表示した時のツールバーok
+４WEBビューに移動後のタイトルの有無ok
+//５WEBビューのナビゲーションバーのおすすめ
+
+検索画面
+//１更新ボタンの有無
+//２投稿に遷移するナビゲーションバーアイテムの有無
+//３広告の有無
+//４タイトルが検索orダンジョン別
+
+投稿ボタン
+//１コピーしてある文字列をルームIDに代入するボタンの有無
+ 例を消すルームID
+２広告の有無ok
+//３レイアウトが大幅に違う
+//４ナビゲーションバーのおすすめ
+//５投稿ダンジョン選択画面にモーダルで移動するため、戻るボタンの違いとアニメーションの違い
+
+*/
