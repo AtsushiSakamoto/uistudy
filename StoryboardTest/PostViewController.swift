@@ -40,7 +40,7 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
         self.title = self.title! + ""
 
         bannerView.delegate = self
-        bannerView.adUnitID = "ca-app-pub-3607945421999798/5225503666"
+        bannerView.adUnitID = "ca-app-pub-3607945421999798/4255696064"
         bannerView.rootViewController = self
         
         let request = GADRequest()
@@ -56,8 +56,11 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
         print("postview viewDidApper")
         
         let pasteboard = UIPasteboard.general
-        if let string = pasteboard.string {
-            self.roomidTextField.text = string
+        if let string = pasteboard.string{
+            let id = string.components(separatedBy: CharacterSet.whitespaces).joined()
+            if id.characters.count <= 8{
+                self.roomidTextField.text = id
+            }
         }
     }
     
@@ -200,7 +203,6 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
         //転送データの生成
         let postData:Parameters? = [
             
-            "user_id": "sakamoto",
             "room_id" : self.roomidTextField.text!,
             "my_reader" : self.readerTextField.text!,
             "comment" : self.commentTextView.text!,
@@ -211,7 +213,7 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
         print(postData!)
         
         //PHPにAlamofireを用いてPOSTを投げ、レスポンスを貰う
-        Alamofire.request("http://52.199.28.109/entry.php", method: .post, parameters: postData!, encoding: JSONEncoding.default).responseJSON { response in
+        Alamofire.request("http://52.199.28.109/v1/entry.php", method: .post, parameters: postData!, encoding: JSONEncoding.default).responseJSON { response in
             
             //受け取ったAny?クラスのデータをJson?→Dictionaty?と変える
             let json = JSON(response.result.value ?? 0)
@@ -338,7 +340,7 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
     
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString text: String) -> Bool {
-        
+        //入力文字数の制限
         if(textField == roomidTextField){
             
             // 入力済みの文字と入力された文字を合わせて取得.

@@ -44,7 +44,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         setIndicator()
         
         bannerView.delegate = self
-        bannerView.adUnitID = "ca-app-pub-3607945421999798/5225503666"
+        bannerView.adUnitID = "ca-app-pub-3607945421999798/4255696064"
         bannerView.rootViewController = self
         
         let request = GADRequest()
@@ -173,7 +173,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     func loadTable(){
         
         //Webサーバに対してHTTP通信のリクエストを出してデータを取得
-        let listUrl = "http://52.199.28.109/puzd_api.php"
+        let listUrl = "http://52.199.28.109/v1/posts.php"
         let parameters: Parameters = ["dungeon_id": searchDungeonId]
         Alamofire.request(listUrl, parameters: parameters).responseJSON{ response in
             
@@ -309,13 +309,13 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 新着画邂
 １広告の有無ok
 ２更新ボタンの位置ok
-　　　　　　　　　　　３アイコンが若干違い、画質悪い
+３アイコンが若干違い、画質悪い
 ４日付がセルの上部にある(元は下部)　okユーザー名が無い中でバランスを考えると上部が良い
 //５ユーザー名の有無
  
 サポート画面
 １ヘッダーの大きさok
-　　　　　　　　　　　２レビュー機能がまだできていない
+　　　　　　　　　　　２レビュー機能ができていない
 ３WEBビューを表示した時のツールバーok
 ４WEBビューに移動後のタイトルの有無ok
 //５WEBビューのナビゲーションバーのおすすめ
@@ -334,4 +334,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 //４ナビゲーションバーのおすすめ
 //５投稿ダンジョン選択画面にモーダルで移動するため、戻るボタンの違いとアニメーションの違い
 
+ 
+起動画面を黒く
 */

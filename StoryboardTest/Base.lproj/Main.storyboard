@@ -54,7 +54,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="1GL-dK-ELM">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" title="◀︎戻る" id="Y4v-O8-io7">
+                        <barButtonItem key="leftBarButtonItem" title="戻る" id="Y4v-O8-io7">
                             <connections>
                                 <action selector="pushCloseButton:" destination="I3b-vq-JQM" id="elW-h2-9Qy"/>
                             </connections>
@@ -234,13 +234,13 @@
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="vc6-5o-I29"/>
-                                    <barButtonItem title="戻る" style="plain" id="ZGa-7P-39j">
+                                    <barButtonItem image="戻る.png" style="plain" id="ZGa-7P-39j">
                                         <connections>
                                             <action selector="touchReturnButton:" destination="Bxb-KB-IV1" id="4hO-nL-dMu"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="t6M-Dw-asO"/>
-                                    <barButtonItem image="replay.png" style="plain" id="zXm-Rc-UCP">
+                                    <barButtonItem image="更新.png" style="plain" id="zXm-Rc-UCP">
                                         <connections>
                                             <action selector="touchReloadButton:" destination="Bxb-KB-IV1" id="Bt2-Do-jkv"/>
                                         </connections>
@@ -424,7 +424,7 @@
                                     <constraint firstAttribute="height" constant="55" id="fxu-AU-Ut4"/>
                                     <constraint firstAttribute="width" constant="55" id="n2p-ZJ-Rq7"/>
                                 </constraints>
-                                <state key="normal" image="replay.png">
+                                <state key="normal" image="更新２.png">
                                     <color key="titleColor" red="0.0" green="0.59738164110534875" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -453,12 +453,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="XEU-KP-xNC">
-                        <barButtonItem key="leftBarButtonItem" image="search.png" id="iqe-60-WqA">
+                        <barButtonItem key="leftBarButtonItem" image="検索.png" id="iqe-60-WqA">
                             <connections>
                                 <segue destination="AeD-hh-o39" kind="push" identifier="search" id="NL8-zP-qlO"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="pen.png" id="g56-ci-G4h">
+                        <barButtonItem key="rightBarButtonItem" image="投稿.png" id="g56-ci-G4h">
                             <connections>
                                 <segue destination="Nou-Fc-DHj" kind="modal" id="Gni-aq-Ff2"/>
                             </connections>
@@ -570,11 +570,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="pen.png" width="24" height="24"/>
-        <image name="replay.png" width="48" height="48"/>
-        <image name="search.png" width="24" height="24"/>
         <image name="サポート.png" width="24" height="24"/>
+        <image name="戻る.png" width="24" height="24"/>
+        <image name="投稿.png" width="24" height="24"/>
         <image name="新着.png" width="24" height="24"/>
+        <image name="更新.png" width="24" height="24"/>
+        <image name="更新２.png" width="48" height="48"/>
+        <image name="検索.png" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="nVh-gp-oHx"/>

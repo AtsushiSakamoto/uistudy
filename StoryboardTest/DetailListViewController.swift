@@ -36,7 +36,7 @@ class DetailListViewController: UIViewController , UITableViewDelegate, UITableV
         
 
         bannerView.delegate = self
-        bannerView.adUnitID = "ca-app-pub-3607945421999798/5225503666"
+        bannerView.adUnitID = "ca-app-pub-3607945421999798/4255696064"
         bannerView.rootViewController = self
         
         let request = GADRequest()

@@ -10,9 +10,13 @@
 		20946C6AC8076405624D0485 /* Pods_StoryboardTestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 480DDE27CAAC5EBFDA9E9D8C /* Pods_StoryboardTestTests.framework */; };
 		3D9DFC097376265AD646E0C3 /* Pods_StoryboardTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2060657E0967EB4DD12FE0AF /* Pods_StoryboardTest.framework */; };
 		592B489B6B96201270540CE0 /* Pods_StoryboardTestUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8245B43CEB68B39591DC7552 /* Pods_StoryboardTestUITests.framework */; };
-		8D0A3FF11E6FCBA800F1A438 /* replay.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D0A3FF01E6FCBA800F1A438 /* replay.png */; };
-		8D0A3FF51E6FCE2A00F1A438 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D0A3FF41E6FCE2A00F1A438 /* search.png */; };
-		8D0A3FFD1E6FD70500F1A438 /* pen.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D0A3FFA1E6FD70500F1A438 /* pen.png */; };
+		8D22662B1E83B32800DE2101 /* 新着.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D22662A1E83B32800DE2101 /* 新着.png */; };
+		8D22662D1E83B39A00DE2101 /* 更新.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D22662C1E83B39A00DE2101 /* 更新.png */; };
+		8D2266311E83B47C00DE2101 /* 投稿.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D2266301E83B47C00DE2101 /* 投稿.png */; };
+		8D2266331E83B4D500DE2101 /* 戻る.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D2266321E83B4D500DE2101 /* 戻る.png */; };
+		8D2266351E83B59800DE2101 /* 検索.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D2266341E83B59800DE2101 /* 検索.png */; };
+		8D2266371E83B5DD00DE2101 /* 更新２.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D2266361E83B5DD00DE2101 /* 更新２.png */; };
+		8D2266391E83B63F00DE2101 /* サポート.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D2266381E83B63F00DE2101 /* サポート.png */; };
 		8D4F49871E553F09003B0652 /* DungeonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4F49861E553F09003B0652 /* DungeonViewController.swift */; };
 		8D59292D1E441FD7004C3B29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D59292C1E441FD7004C3B29 /* AppDelegate.swift */; };
 		8D5929321E441FD7004C3B29 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D5929301E441FD7004C3B29 /* Main.storyboard */; };
@@ -40,10 +44,8 @@
 		8D71BB411E5ACD5500C121AF /* SwiftyJSON.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8D71BB3D1E5ACC9900C121AF /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8D71BB421E5ACDE000C121AF /* Pods_StoryboardTest.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2060657E0967EB4DD12FE0AF /* Pods_StoryboardTest.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8D7F121D1E8364EB0012D09A /* image in Resources */ = {isa = PBXBuildFile; fileRef = 8D7F121C1E8364EB0012D09A /* image */; };
-		8D7F12211E837B900012D09A /* 新着.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D7F12201E837B900012D09A /* 新着.png */; };
 		8D805E491E5EB59D00E066BA /* MultiData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D805E481E5EB59D00E066BA /* MultiData.swift */; };
 		8D816E141E7664A6008FC02F /* SupportPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D816E131E7664A6008FC02F /* SupportPageViewController.swift */; };
-		8D930DA61E790FA20008EE36 /* サポート.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D930DA11E790FA20008EE36 /* サポート.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,9 +88,13 @@
 		5CEC0673355F4E2FEA3612D0 /* Pods-StoryboardTestUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StoryboardTestUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-StoryboardTestUITests/Pods-StoryboardTestUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8245B43CEB68B39591DC7552 /* Pods_StoryboardTestUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StoryboardTestUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		83F49639E5106D66EEABD694 /* Pods-StoryboardTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StoryboardTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StoryboardTest/Pods-StoryboardTest.debug.xcconfig"; sourceTree = "<group>"; };
-		8D0A3FF01E6FCBA800F1A438 /* replay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = replay.png; sourceTree = "<group>"; };
-		8D0A3FF41E6FCE2A00F1A438 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
-		8D0A3FFA1E6FD70500F1A438 /* pen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pen.png; sourceTree = "<group>"; };
+		8D22662A1E83B32800DE2101 /* 新着.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "新着.png"; sourceTree = "<group>"; };
+		8D22662C1E83B39A00DE2101 /* 更新.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "更新.png"; sourceTree = "<group>"; };
+		8D2266301E83B47C00DE2101 /* 投稿.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "投稿.png"; sourceTree = "<group>"; };
+		8D2266321E83B4D500DE2101 /* 戻る.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "戻る.png"; sourceTree = "<group>"; };
+		8D2266341E83B59800DE2101 /* 検索.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "検索.png"; sourceTree = "<group>"; };
+		8D2266361E83B5DD00DE2101 /* 更新２.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "更新２.png"; sourceTree = "<group>"; };
+		8D2266381E83B63F00DE2101 /* サポート.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "サポート.png"; sourceTree = "<group>"; };
 		8D4F49861E553F09003B0652 /* DungeonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DungeonViewController.swift; sourceTree = "<group>"; };
 		8D5929291E441FD7004C3B29 /* StoryboardTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoryboardTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D59292C1E441FD7004C3B29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -119,10 +125,8 @@
 		8D71BB3B1E5ACC9500C121AF /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../Library/Developer/Xcode/DerivedData/StoryboardTest-aecuzfwsoitzskemvjlqbvgejnox/Build/Products/Debug-iphoneos/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		8D71BB3D1E5ACC9900C121AF /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../../Library/Developer/Xcode/DerivedData/StoryboardTest-aecuzfwsoitzskemvjlqbvgejnox/Build/Products/Debug-iphoneos/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		8D7F121C1E8364EB0012D09A /* image */ = {isa = PBXFileReference; lastKnownFileType = folder; name = image; path = StoryboardTest/image; sourceTree = "<group>"; };
-		8D7F12201E837B900012D09A /* 新着.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "新着.png"; path = "../../../../Downloads/新着.png"; sourceTree = "<group>"; };
 		8D805E481E5EB59D00E066BA /* MultiData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiData.swift; sourceTree = "<group>"; };
 		8D816E131E7664A6008FC02F /* SupportPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupportPageViewController.swift; sourceTree = "<group>"; };
-		8D930DA11E790FA20008EE36 /* サポート.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "サポート.png"; sourceTree = "<group>"; };
 		9F4475157D2784DAB4B29207 /* Pods-StoryboardTestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StoryboardTestTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StoryboardTestTests/Pods-StoryboardTestTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E37AE5A0E800FB9BE99A42C4 /* Pods-StoryboardTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StoryboardTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-StoryboardTest/Pods-StoryboardTest.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -183,12 +187,14 @@
 		8D59292B1E441FD7004C3B29 /* StoryboardTest */ = {
 			isa = PBXGroup;
 			children = (
-				8D7F12201E837B900012D09A /* 新着.png */,
-				8D930DA11E790FA20008EE36 /* サポート.png */,
-				8D0A3FFA1E6FD70500F1A438 /* pen.png */,
-				8D0A3FF41E6FCE2A00F1A438 /* search.png */,
-				8D0A3FF01E6FCBA800F1A438 /* replay.png */,
 				8D5929301E441FD7004C3B29 /* Main.storyboard */,
+				8D2266341E83B59800DE2101 /* 検索.png */,
+				8D2266381E83B63F00DE2101 /* サポート.png */,
+				8D2266361E83B5DD00DE2101 /* 更新２.png */,
+				8D2266301E83B47C00DE2101 /* 投稿.png */,
+				8D2266321E83B4D500DE2101 /* 戻る.png */,
+				8D22662C1E83B39A00DE2101 /* 更新.png */,
+				8D22662A1E83B32800DE2101 /* 新着.png */,
 				8D59295A1E44230D004C3B29 /* ListViewController.swift */,
 				8D5E5D941E5FF2AE00FEFA17 /* CustomCell.swift */,
 				8D805E481E5EB59D00E066BA /* MultiData.swift */,
@@ -375,14 +381,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D2266331E83B4D500DE2101 /* 戻る.png in Resources */,
 				8D7F121D1E8364EB0012D09A /* image in Resources */,
-				8D930DA61E790FA20008EE36 /* サポート.png in Resources */,
-				8D0A3FF51E6FCE2A00F1A438 /* search.png in Resources */,
 				8D5929371E441FD7004C3B29 /* LaunchScreen.storyboard in Resources */,
+				8D2266391E83B63F00DE2101 /* サポート.png in Resources */,
+				8D2266371E83B5DD00DE2101 /* 更新２.png in Resources */,
+				8D2266311E83B47C00DE2101 /* 投稿.png in Resources */,
+				8D2266351E83B59800DE2101 /* 検索.png in Resources */,
+				8D22662D1E83B39A00DE2101 /* 更新.png in Resources */,
+				8D22662B1E83B32800DE2101 /* 新着.png in Resources */,
 				8D5929341E441FD7004C3B29 /* Assets.xcassets in Resources */,
-				8D0A3FFD1E6FD70500F1A438 /* pen.png in Resources */,
-				8D0A3FF11E6FCBA800F1A438 /* replay.png in Resources */,
-				8D7F12211E837B900012D09A /* 新着.png in Resources */,
 				8D5929321E441FD7004C3B29 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -719,7 +727,7 @@
 				INFOPLIST_FILE = StoryboardTest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.taiseiapp.padmulti2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.taiseiapp.pazzdramulti;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -735,7 +743,7 @@
 				INFOPLIST_FILE = StoryboardTest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.taiseiapp.padmulti2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.taiseiapp.pazzdramulti;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
