@@ -1,0 +1,20 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Main.cs">
+    <Files>
+      <File FileName="Assets/Script/Main.cs" Line="14" Column="12" />
+      <File FileName="Assets/Script/Kyokumenn.cs" Line="7" Column="1" />
+      <File FileName="Assets/Script/Te.cs" Line="21" Column="3" />
+      <File FileName="Assets/Script/Position.cs" Line="15" Column="36" />
+      <File FileName="Assets/Script/GameManager.cs" Line="18" Column="1" />
+      <File FileName="Assets/Script/Masu.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/Koma.cs" Line="10" Column="3" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/imple_user7/dev/git/unity/shougi/Assets/Script/Main.cs" line="138" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
