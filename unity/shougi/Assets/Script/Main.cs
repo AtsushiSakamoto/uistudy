@@ -7,12 +7,19 @@ public class Main : MonoBehaviour {
 
 
 	public static Kyokumenn k;
+	public Te te;
 	private Position from;
 	private Position to;
+	private int suji;
+	private int dan;
+	private int selectKoma = 0;
+	private int isSelectKoma = 0;  //コマを選択済みなら１
+
+/*
 	GameObject mainCamera;
 	GameObject Button;
 	Camera main;
-
+*/
 	//	public static int[,] ban = new int[11,11];
 	/*
 	public static int[,] shokibanmen =  new int[9,9]{
@@ -82,21 +89,136 @@ public class Main : MonoBehaviour {
 		}
 	}
 */
+/*
+	private GameObject getClickObject() {
+		
+		GameObject result = null;
+		// 左クリックされた場所のオブジェクトを取得
+		if (Input.GetMouseButtonDown (0)) {
+			Vector2 tapPoint = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+			Collider2D collition2d = Physics2D.OverlapPoint (tapPoint);
+			if (collition2d) {
+				result = collition2d.transform.gameObject;
+			}
+		}
+		return result;
+	}
+*/	
 	public void tap(){
 
+/*
+		GameObject obj = getClickObject ();
+		if (obj != null) {
+
+			Debug.Log("取得成功");
+		}else{
+			Debug.Log ("失敗");
+		}
+*/
 
 		Vector3 screenPos = Input.mousePosition;
 		Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
 
-		worldPos.x = worldPos.x + 2.8f;
-		worldPos.y = worldPos.y - 2.8f;
-		Debug.Log (worldPos);
+		worldPos.x = (worldPos.x + 2.8f)*90f/56f;
+		worldPos.y = (worldPos.y - 2.8f)*90f/56f;
+
+		suji = (int)worldPos.x + 1;
+		dan = 1 - (int)worldPos.y;
+
+		Debug.Log (suji);
+		Debug.Log (dan);
+
+
+		if (isSelectKoma == 0) {
+
+			if (1 <= suji && 9 >= suji && 1 <= dan && 9 >= dan) {
+				if (k.ban [suji, dan] != 0) {
+
+//					te.from.suji = suji;
+//					te.from.dan = dan;
+					isSelectKoma = 1;
+					selectKoma = k.ban [suji, dan];
+
+				} else if (isSelectKoma == 1) {
+
+					if (1 == 1) {
+
+						te.to.suji = suji;
+						te.to.dan = dan;
+						isSelectKoma = 2;
+					}
+				}
+			}
+
 /*
-		if (selectKoma == 0) {
-			switch (worldPos.x > )
-			this.from.suji =
+				switch ((int)worldPos.x) {
+				case 0:
+					from.suji = 1;
+					break;
+				case 1:
+					from.suji = 2;
+					break;
+				case 2:
+					from.suji = 3;
+					break;
+				case 3:
+					from.suji = 4;
+					break;
+				case 4:
+					from.suji = 5;
+					break;
+				case 5:
+					from.suji = 6;
+					break;
+				case 6:
+					from.suji = 7;
+					break;
+				case 7:
+					from.suji = 8;
+					break;
+				case 8:
+					from.suji = 9;
+					break;
+				default:
+					break;
+				}
+
+				switch ((int)worldPos.y) {
+				case 0:
+					from.dan = 1;
+					break;
+				case 1:
+					from.dan = 2;
+					break;
+				case 2:
+					from.dan = 3;
+					break;
+				case 3:
+					from.dan = 4;
+					break;
+				case 4:
+					from.dan = 5;
+					break;
+				case 5:
+					from.dan = 6;
+					break;
+				case 6:
+					from.dan = 7;
+					break;
+				case 7:
+					from.dan = 8;
+					break;
+				case 8:
+					from.dan = 9;
+					break;
+				default:
+					break;
+
+				}*/
+
+			
 		}
-*/
+
 		/*
 		RectTransform CanvasRect = Canvas.GetComponent<RectTransform>();
 		Vector3 screenPos2 = Camera.main.WorldToViewportPoint (worldPos);
@@ -145,8 +267,8 @@ public class Main : MonoBehaviour {
 		k = new Kyokumenn ();
 		k.banshokika ();
 
-		mainCamera = GameObject.Find ("Main Camera");
-		Button = GameObject.Find ("96");
+//		mainCamera = GameObject.Find ("Main Camera");
+//		Button = GameObject.Find ("96");
 
 
 		/*

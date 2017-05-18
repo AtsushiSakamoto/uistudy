@@ -203,6 +203,7 @@ class PostViewController: UIViewController , UITableViewDelegate, UITableViewDat
         //転送データの生成
         let postData:Parameters? = [
             
+
             "room_id" : self.roomidTextField.text!,
             "my_reader" : self.readerTextField.text!,
             "comment" : self.commentTextView.text!,
