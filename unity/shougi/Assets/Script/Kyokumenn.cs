@@ -1,77 +1,145 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Kyokumenn: MonoBehaviour {
+public class Kyokumenn {
 
-	public int[,] ban = new int[11,11];
 
-	public static int[,] shokibanmen =  new int[9,9]{
-		{2,3,4,5,8,5,4,3,2},
-		{0,7,0,0,0,0,0,8,0},
-		{1,1,1,1,1,1,1,1,1},
+	public int[,] banKoma = new int[11,11];                  //盤の駒
+	public  int turn = new int();                             //現在の手番
+	public List<List<int>> hand;
+
+
+	public static int[,] HASAMI_BAN =  new int[9,9]{           //ハサミ将棋初期の盤面
+		{17,17,17,17,17,17,17,17,17},
+		{0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0},
+		{1,1,1,1,1,1,1,1,1}
+	};
+
+	public static int[,] SHOKI_BAN =  new int[9,9]{           //初期の盤面
+		{18,19,20,21,24,21,20,19,18},
+		{0,23,0,0,0,0,0,22,0},
+		{17,17,17,17,17,17,17,17,17},
 		{0,0,0,0,0,0,0,0,0},
 		{0,0,0,0,0,0,0,0,0},
 		{0,0,0,0,0,0,0,0,0},
 		{1,1,1,1,1,1,1,1,1},
-		{0,8,0,0,0,0,0,7,0},
+		{0,6,0,0,0,0,0,7,0},
 		{2,3,4,5,8,5,4,3,2}
 	};
 
-	public void banshokika(){
+	public void BanShokika(){
 
-		//対局開始時盤面を入れる
-		for (int dan = 1; dan <= 9; dan++) {
-			for (int suji = 9; suji >= 1; suji--) {
-				this.ban[dan,suji]= shokibanmen[dan - 1, 9 - suji];
+		for (int dan = 1; dan <= 9; dan++) {                  //初期盤面を入れる
+			for (int suji = 1; suji <= 9; suji++) {
+				this.banKoma[dan,suji]= Kyokumenn.SHOKI_BAN[dan-1,suji-1];
 			}
 		}
-
 	}
 
-	public void logKyokumen(){
-		for (int dan = 1; dan <= 9; dan++) {
-			for (int suji = 9; suji >= 1; suji--) {
-				Debug.Log (this.ban [dan, suji]);
+	public List<Te> GenerateLegalMoves(){
+		//合法手を格納する変数
+		List<Te> teList = new List<Te>();
+		for (int dan = 1; dan <= 9; dan++) {                  
+			for (int suji = 1; suji <= 9; suji++) {
+				
+				int koma = this.banKoma [dan, suji];
+				//探索する駒が手番の駒かどうか
+				if ((this.turn % 2 == 1 && koma >= 1 && koma <= 16) || (this.turn % 2 == 0 && koma >= 17)) {
+					
+					//各方向に移動する手を生成
+					for(int direct = 0;direct < 12;direct++){
+						if (KomaMoves.canMove [direct, koma]) {
+
+							Te te = new Te ();
+							te.to_dan = dan + KomaMoves.diffDan [direct];
+							te.to_suji = suji + KomaMoves.diffSuji [direct];
+							te.from_dan = dan;
+							te.from_suji = suji;
+							te.koma = koma;
+							//移動先は盤内か
+							if(1 <= te.to_dan && te.to_dan <= 9 && 1 <= te.to_suji  && te.to_suji <= 9){
+								
+								//移動先に自分の駒はないか
+								int toKoma = this.banKoma[te.to_dan,te.to_suji];
+								if ((this.turn % 2 == 1 && (toKoma == 0 || toKoma >= 17)) || (this.turn % 2 == 0 && toKoma <= 16)) {
+									te.promote = false;
+									teList.Add (te.DeepCopy());
+
+									//移動先が敵陣
+									if((te.to_dan <= 3 && this.turn % 2 == 1) || (te.to_dan >= 7 && this.turn % 2 == 0)){
+
+										//成れる駒
+										if(KomaMoves.canPromote[koma]){
+											te.promote = true;
+											teList.Add (te.DeepCopy());
+										}
+									}
+								}
+							}
+						}
+					}
+
+					//各方向に「飛ぶ」手を生成
+					for(int direct = 0;direct < 8;direct++){
+						
+						if (KomaMoves.canJump [direct, koma]) {
+							
+							for (int i = 1; i < 9; i++) {
+								//移動先を生成
+								Te te = new Te ();
+								te.to_dan = dan + (KomaMoves.diffDan [direct] * i);
+								te.to_suji = suji + (KomaMoves.diffSuji [direct] * i);
+								te.from_dan = dan;
+								te.from_suji = suji;
+								te.koma = koma;
+
+	
+
+								//移動先は盤内か
+								if(1 <= te.to_dan && te.to_dan <= 9 && 1 <= te.to_suji  && te.to_suji <= 9){
+									//移動先に自分の駒はないか
+									int toKoma = this.banKoma[te.to_dan,te.to_suji];
+									if ((this.turn % 2 == 1 && (toKoma == 0 || toKoma >= 17)) || (this.turn % 2 == 0 && toKoma <= 16)) {
+										te.promote = false;
+										teList.Add (te.DeepCopy());
+
+										//移動先が敵陣
+										if((te.to_dan <= 3 && this.turn % 2 == 1) || (te.to_dan >= 7 && this.turn % 2 == 0)){
+
+											//成れる駒
+											if(KomaMoves.canPromote[koma]){
+												te.promote = true;
+												teList.Add (te.DeepCopy());
+											}
+										}
+
+									}
+									//空きマスでなければここでループ終わり
+									if(toKoma != 0) break;
+								}
+							}
+						}
+					}
+				}
 			}
 		}
-		Debug.Log (ban [7, 6]);
+		return teList;
 	}
 
-	//ある位置のコマを取得する。
-	public int get(Position p){
-		//磐外なら「磐外＝壁」を返す。
-		if(p.suji<1||9<p.suji||p.dan<1||9<p.dan){
-			return Koma.WALL;
-		}
-		return this.ban [p.dan,p.suji];
-	}
 
-	//ある位置に駒をおく
-	public void put(Position p,int koma){
-		this.ban [p.dan, p.suji] = koma;
 
-		/*
-		for (int suji = 9; suji >= 1; suji--) {
-			Debug.Log (ban [7, suji]);
-		}
-*/
 
-	}
-
-	//与えられた手で一手すすめる。
-	public void move(Te te){
-		Debug.Log ("move go!!");
-		//元の位置をEMPTYに
-		this.put(te.from,Koma.EMPTY);
-		//移動先に進める
-		this.put(te.to,te.koma);
-
-	}
 
 	// Use this for initialization
 	void Start () {
-
 
 	}
 

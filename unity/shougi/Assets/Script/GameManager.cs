@@ -2,65 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour {
 
-
+	public GameObject obj;
 
 	public  GameObject[] masu = new GameObject[81];            //ボタン：マス
 	public Sprite[] komaPicture = new Sprite[27];              //アイコン：駒
+	private Kyokumenn k = new Kyokumenn();
 
-
-	private int[,] banKoma = new int[11,11];                  //盤の駒
-
-
-	public struct Te{                                                //手の構造体
-		public int koma;
-		public int from_dan;
-		public int from_suji;
-		public int to_dan;
-		public int to_suji;
-	}
-
-	private int turn = 0;                                    //ターンを管理
-	private Te te;                                           //手を格納
+	static Te te = new Te();                                           //手を格納
 	private int isSelectKoma;                                //駒を選択しているか
-	int seKoma = 9;                                          //先手のコマ数
-	int goKoma = 9;                                          //後手のコマ数
 
-	private static int[,] HASAMI_BAN =  new int[9,9]{           //初期の盤面
-		{14,14,14,14,14,14,14,14,14},
-		{0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0},
-		{1,1,1,1,1,1,1,1,1}
-	};
 
-	private static int[,] SHOKI_BAN =  new int[9,9]{           //初期の盤面
-		{15,16,17,18,21,18,17,16,15},
-		{0,20,0,0,0,0,0,19,0},
-		{14,14,14,14,14,14,14,14,14},
-		{0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0},
-		{1,1,1,1,1,1,1,1,1},
-		{0,6,0,0,0,0,0,7,0},
-		{2,3,4,5,8,5,4,3,2}
-	};
 
 	// Use this for initialization
 	void Start () {
-		
-		this.isSelectKoma = 0;                                 //スタート時は駒を選択していない
-		this.turn = 0;
 
-		for (int dan = 1; dan <= 9; dan++) {                  //初期盤面を入れる
-			for (int suji = 1; suji <= 9; suji++) {
-				banKoma[dan,suji]= SHOKI_BAN[dan-1,suji-1];
+		this.isSelectKoma = 0;                                 //スタート時は駒を選択していない
+		k.turn = 1;                                           //１ターン目
+
+		k.BanShokika ();                                       //盤面を初期化
+
+		for (int i = 1;i <= 9 ; i++){
+			for (int j = 1; j <= 9; j++) {
+				int num = (i - 1) * 9 + j - 1;
+				masu [num].GetComponent<Button> ().interactable = false;
+				masu [num].GetComponent<Image>().sprite = komaPicture[k.banKoma[i,j]];
 			}
 		}
 
@@ -71,17 +40,7 @@ public class GameManager : MonoBehaviour {
 		
 	}
 
-	public void PushHasami(){
-	
-		Debug.Log ("HASAMI化！");
-		for (int dan = 1; dan <= 9; dan++) {                  //初期盤面を入れる
-			for (int suji = 1; suji <= 9; suji++) {
-				banKoma[dan,suji]= HASAMI_BAN[dan-1,suji-1];
-				int num = (dan - 1) * 9 + suji - 1;
-				masu [num].GetComponent<Image>().sprite = komaPicture[banKoma[dan,suji]];
-			}
-		}
-	}
+
 	//マス1−1をタップ
 	public void PushButtonMasu11(){
 		SelectMasu (1, 1);
@@ -420,12 +379,13 @@ public class GameManager : MonoBehaviour {
 
 	}
 */
+/*
 	public void PushButtonMove(){
 
 		//手が生成されていれば駒を動かす
 		if(isSelectKoma == 2){
 
-			if (LegalMove (te)) {
+			if (LegalMoveHasami (te)) {
 				Put (te.from_dan, te.from_suji, 0);
 				Put (te.to_dan, te.to_suji, te.koma);
 				isSelectKoma = 0;
@@ -434,32 +394,29 @@ public class GameManager : MonoBehaviour {
 		}
 
 	}
-
+*/
 
 	//マス目を選択する
 	void SelectMasu(int dan,int suji){
 		//駒を選択していない場合fromに選択したマス目と駒を入れる
 		if (isSelectKoma == 0) {
-			int koma = banKoma [dan, suji];
-			if(turn % 2 == 0 && koma <= 13 && 1<=koma || turn % 2 == 1 && koma<26 && 14<= koma){
+
+
+			te.koma = k.banKoma [dan, suji];
+			if(k.turn % 2 == 1 && te.koma <= 16 && 1 <= te.koma || k.turn % 2 == 0 && te.koma < 32 && 17 <= te.koma){
 
 				te.from_dan = dan;
 				te.from_suji = suji;
-				te.koma = koma;
 				int num = (dan - 1) * 9 + suji - 1;
 				masu [num].GetComponent<Image> ().color = Color.red;
 				isSelectKoma = 1;
 
 			}
-		} else {                                          //駒選択済みの場合toのマス目に入れる
-/*
- * if (isSelectKoma == 2) {
-				int num = (te.to_dan - 1) * 9 + te.to_suji - 1;
-				masu [num].GetComponent<Image> ().color = Color.yellow;
-			}
-*/
+		} else {  
+			
 			te.to_dan = dan;
 			te.to_suji = suji;
+
 			int num2 = (dan - 1) * 9 + suji - 1;
 //			masu [num2].GetComponent<Image>().color = Color.red;
 
@@ -471,14 +428,44 @@ public class GameManager : MonoBehaviour {
 
 			//手が生成されていれば駒を動かす
 			if(isSelectKoma == 1){
+
+				te.promote = false;
+				//移動先が敵陣
+				if((te.to_dan <= 3 && k.turn % 2 == 1) || (te.to_dan >= 7 && k.turn % 2 == 0)){
+					//成れる駒
+					if(KomaMoves.canPromote[te.koma]){
+						//メッセージボックス表示
+						bool pro = EditorUtility.DisplayDialog("成りますか？", "", "Yes", "No");
+						if (pro) {
+							te.promote = true;
+						}
+					}
+
+				}
+
 				//合法手ならば移動
 				if (LegalMove (te)) {
+					//駒があった場所を空にする
 					Put (te.from_dan, te.from_suji, 0);
-					Put (te.to_dan, te.to_suji, te.koma);
-					isSelectKoma = 0;
+					//成る場合は成った駒を、ならない場合はそのままの駒を移動先におく
+					if (te.promote) {
+						Put (te.to_dan, te.to_suji, te.koma + 8);
+					} else {
+						Put (te.to_dan, te.to_suji, te.koma);
+					}
+					/*
+					//移動先に相手の駒があったらとる
+					int toKoma = k.banKoma [te.to_dan, te.to_suji];
+					if (0 < toKoma && toKoma <= 16) {
+						
+						k.hand [1].Add (toKoma);
 
-					//移動後に挟めている駒があったらとる
-					TakeKoma(te.to_dan,te.to_suji,te.koma);
+					} else if(toKoma != 0 && 17 <= toKoma){
+						
+						k.hand [0].Add (toKoma);
+					}
+					*/
+					isSelectKoma = 0;
 
 					//手番を変える
 					this.ChangeTurn();
@@ -488,87 +475,10 @@ public class GameManager : MonoBehaviour {
 
 	}
 
-	//駒を挟んで、または囲んでとる
-	void TakeKoma(int dan,int suji,int koma){
-		//移動後の駒の下に相手の駒がある場合
-		if (this.banKoma [dan + 1, suji] != koma && this.banKoma [dan + 1, suji] != 0) {
-			
-			int i = 2;     //指した手と探索する位置の差
-			//駒がある時、段数を増やして探索し挟んでとる
-			while(this.banKoma [dan + i, suji] != 0) {
-				
-				if (this.banKoma[dan + i, suji] == koma){
-					for(int j = 1; j < i; j++){
-						banKoma[dan + j,suji] = 0;
-						masu [(dan + j - 1) * 9 + suji - 1].GetComponent<Image>().sprite = komaPicture[0];
-					}
-					break;
-				}
-				i = i + 1;
-			}
-
-			//囲んでとる
-
-		}
-		//移動後の駒の上に相手の駒がある場合
-		if (this.banKoma [dan - 1, suji] != koma && this.banKoma [dan - 1, suji] != 0) {
-
-			int i =  2;     //指した手と探索する位置の差
-			//駒がある時、段数を増やして探索する
-			while(this.banKoma [dan - i, suji] != 0) {
-
-				if (this.banKoma[dan - i, suji] == koma){
-					for(int j = 1; j < i; j++){
-						banKoma[dan - j,suji] = 0;
-						masu [(dan - j - 1) * 9 + suji - 1].GetComponent<Image>().sprite = komaPicture[0];
-					}
-					break;
-				}
-				i = i + 1;
-			}
-		}
-		//移動後の駒の右に相手の駒がある場合
-		if (this.banKoma [dan , suji + 1] != koma && this.banKoma [dan, suji + 1] != 0) {
-
-			int i =  2;     //指した手と探索する位置の差
-			//駒がある時、段数を増やして探索する
-			while(this.banKoma [dan , suji + i] != 0) {
-
-				if (this.banKoma[dan , suji + i] == koma){
-					for(int j = 1; j < i; j++){
-						banKoma[dan ,suji + j] = 0;
-						masu [(dan  - 1) * 9 + suji + j - 1].GetComponent<Image>().sprite = komaPicture[0];
-					}
-					break;
-				}
-				i = i + 1;
-			}
-		}
-		//移動後の駒の左に相手の駒がある場合
-		if (this.banKoma [dan , suji - 1] != koma && this.banKoma [dan, suji - 1] != 0) {
-
-			int i =  2;     //指した手と探索する位置の差
-			//駒がある時、段数を増やして探索する
-			while(this.banKoma [dan , suji - i] != 0) {
-
-				if (this.banKoma[dan , suji - i] == koma){
-					for(int j = 1; j < i; j++){
-						banKoma[dan ,suji - j] = 0;
-						masu [(dan  - 1) * 9 + suji - j - 1].GetComponent<Image>().sprite = komaPicture[0];
-					}
-					break;
-				}
-				i = i + 1;
-			}
-		}
-
-
-
-	}
 
 	//駒を置く
 	void Put(int dan,int suji,int koma){
-		banKoma [dan, suji] = koma;
+		k.banKoma [dan, suji] = koma;
 
 		int num = (dan - 1) * 9 + suji - 1;
 		masu [num].GetComponent<Image>().sprite = komaPicture[koma];   //駒画像を移動後に変える
@@ -578,145 +488,61 @@ public class GameManager : MonoBehaviour {
 	public void Log(){
 		for (int dan = 1; dan <= 9; dan++) {
 			for (int suji = 1; suji <= 9; suji++) {
-				Debug.Log (banKoma [dan, suji]);
+				Debug.Log (k.banKoma [dan, suji]);
 			}
 		}
 	}
 
 	//手番を変える関数
-	public void ChangeTurn(){
-		
-		turn = turn + 1;
-		seKoma = 0;
-		goKoma = 0;
-
-		//勝利条件を満たしていれば終了
-		for (int i = 1;i <= 9 ; i++){
-			for (int j = 1; j <= 9; j++) {
-				if (banKoma [i, j] == 1) {
-					seKoma++;
-				}
-				if (banKoma [i, j] == 14) {
-					goKoma++;
-				}
-			}
-		}
-		if (seKoma <= 5 || goKoma - seKoma >= 3 ) {
-			Debug.Log("後手の勝利です");
-
-			for (int i = 1;i <= 9 ; i++){
-				for (int j = 1; j <= 9; j++) {
-					int num = (i - 1) * 9 + j - 1;
-					masu [num].GetComponent<Button> ().interactable = false;
-				}
-			}
-		} 
-		if (goKoma <= 5 || seKoma - goKoma >= 3) {
-			Debug.Log("先手の勝利です");
-
-			for (int i = 1;i <= 9 ; i++){
-				for (int j = 1; j <= 9; j++) {
-					int num = (i - 1) * 9 + j - 1;
-					masu [num].GetComponent<Button> ().interactable = false;
-				}
-			}
-
-		}
-
+	void ChangeTurn(){
+		k.turn = k.turn + 1;
 	}
+
 	//ゲームを初めから
 	public void Restart(){
-		
+
 		this.isSelectKoma = 0;                                 //スタート時は駒を選択していない
-		this.turn = 0;
+		k.turn = 1;
+		k.BanShokika();
 
 		for (int dan = 1; dan <= 9; dan++) {                  //初期盤面を入れる
 			for (int suji = 1; suji <= 9; suji++) {
-				banKoma[dan,suji]= SHOKI_BAN[dan-1,suji-1];
+				k.banKoma[dan,suji]= Kyokumenn.SHOKI_BAN[dan-1,suji-1];
 			}
 		}
 		for (int i = 1;i <= 9 ; i++){
 			for (int j = 1; j <= 9; j++) {
 				int num = (i - 1) * 9 + j - 1;
 				masu [num].GetComponent<Button> ().interactable = true;
-				masu [num].GetComponent<Image>().sprite = komaPicture[banKoma[i,j]];
+				masu [num].GetComponent<Image>().sprite = komaPicture[k.banKoma[i,j]];
 			}
 		}
 	}
 
-	//合法手かどうか調べる関数
+
+	//合法手を返す関数
+
 	public bool LegalMove(Te te){
 
-//		int move;                                       //駒の動きの種類
-		int danMin;                                     //段移動前後の小さい方
-		int danMax;                                     //段移動前後の大きい方
-		int sujiMin;                                    //筋移動前後の小さい方
-		int sujiMax;                                    //筋移動前後の大きい方
-		int komaTo = banKoma[te.to_dan,te.to_suji];
+		//合法手を持ってくる関数を作成し、その中にteがあればtrueを返す
+		var teList = new List<Te>();
+		teList = k.GenerateLegalMoves();
 
-		if (te.from_dan != te.to_dan && te.from_suji != te.to_suji) {
-			return false;
-		}
 
-		if (komaTo != 0) {
-			return false;
-		}
-/*
-		if (turn % 2 == 0) {
-			
-			if (komaTo <= 13 && 1 <= komaTo) {
-				return false;
-			}
-		} else {
-			if (komaTo >= 14) {
-				return false;
-			}
+		for(int i = 0;i < teList.Count;i++){
 
-		}
-
-*/
-		//move1 縦方向の移動の場合
-		if (te.from_dan != te.to_dan && te.from_suji == te.to_suji) {
-//			move = 1;
-			//移動前後でどちらが大きいか
-			if (te.from_dan > te.to_dan) {
-				danMin = te.to_dan;
-				danMax = te.from_dan;
-			} else {
-				danMax = te.to_dan;
-				danMin = te.from_dan;
-			}
-
-			//間に駒があったらfalse
-			for(int i = danMin + 1;i < danMax ;i++){
-				if (banKoma [i, te.from_suji] != 0) {
-					Debug.Log("不適な手");
-					return false;
-				}
+//			if(teList[i].koma == 3)
+//			print (teList [i].promote);
+			if(te.koma == teList [i].koma 
+				&& te.from_dan == teList [i].from_dan 
+				&& te.from_suji == teList [i].from_suji 
+				&& te.to_dan == teList [i].to_dan 
+				&& te.to_suji == teList [i].to_suji
+				&& ((te.promote && teList[i].promote) || (!te.promote && !teList[i].promote))
+				){
+				return true;
 			}
 		}
-
-		//move2 横方向の移動の場合
-		if (te.from_dan == te.to_dan && te.from_suji != te.to_suji) {
-//			move = 2;
-			//移動前後でどちらが大きいか
-			if (te.from_suji >= te.to_suji) {
-				sujiMin = te.to_suji;
-				sujiMax = te.from_suji;
-			} else {
-				sujiMax = te.to_suji;
-				sujiMin = te.from_suji;
-			}
-
-			//間に駒があったらfalse
-			for(int i = sujiMin +1 ;i < sujiMax ;i++){
-				if (banKoma [te.to_dan,i] != 0) {
-					Debug.Log("不適な手");
-					return false;
-				}
-			}
-		}
-			
-		return true;
+		return false;
 	}
 }
