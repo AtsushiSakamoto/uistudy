@@ -8,7 +8,7 @@ public class Kyokumenn {
 
 	public int[,] banKoma = new int[11,11];                  //盤の駒
 	public  int turn = new int();                             //現在の手番
-	public List<List<int>> hand;
+	public List<List<int>> hand = new List<List<int>>{new List<int>(),new List<int>()};
 
 
 	public static int[,] HASAMI_BAN =  new int[9,9]{           //ハサミ将棋初期の盤面
