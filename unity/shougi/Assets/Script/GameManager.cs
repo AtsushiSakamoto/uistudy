@@ -6,10 +6,11 @@ using UnityEditor;
 
 public class GameManager : MonoBehaviour {
 
-	public GameObject obj;
 
 	public  GameObject[] masu = new GameObject[81];            //ボタン：マス
 	public Sprite[] komaPicture = new Sprite[27];              //アイコン：駒
+	public GameObject[] hand = new GameObject[16];             //テキスト:持ち駒数
+	public GameObject[] motiGoma = new GameObject[16];         //ボタン：持ち駒
 	private Kyokumenn k = new Kyokumenn();
 
 	static Te te = new Te();                                           //手を格納
@@ -40,59 +41,59 @@ public class GameManager : MonoBehaviour {
 		
 	}
 
-	//持ち駒１をタップ
+	//持ち駒11をタップ
 	public void PushButtonMotigoma11(){
 		SelectMotigoma (1, 1);
 	}
-	//持ち駒１をタップ
+	//持ち駒12をタップ
 	public void PushButtonMotigoma12(){
 		SelectMotigoma (1, 2);
 	}
-	//持ち駒１をタップ
+	//持ち駒13をタップ
 	public void PushButtonMotigoma13(){
 		SelectMotigoma (1, 3);
 	}
-	//持ち駒１をタップ
+	//持ち駒14をタップ
 	public void PushButtonMotigoma14(){
 		SelectMotigoma (1, 4);
 	}
-	//持ち駒１をタップ
+	//持ち駒15をタップ
 	public void PushButtonMotigoma15(){
 		SelectMotigoma (1, 5);
 	}
-	//持ち駒１をタップ
+	//持ち駒16をタップ
 	public void PushButtonMotigoma16(){
 		SelectMotigoma (1, 6);
 	}
-	//持ち駒１をタップ
+	//持ち駒17をタップ
 	public void PushButtonMotigoma17(){
 		SelectMotigoma (1, 7);
 	}
-	//持ち駒１をタップ
+	//持ち駒01をタップ
 	public void PushButtonMotigoma01(){
 		SelectMotigoma (0, 17);
 	}
-	//持ち駒１をタップ
+	//持ち駒02をタップ
 	public void PushButtonMotigoma02(){
 		SelectMotigoma (0, 18);
 	}
-	//持ち駒１をタップ
+	//持ち駒03をタップ
 	public void PushButtonMotigoma03(){
 		SelectMotigoma (0, 19);
 	}
-	//持ち駒１をタップ
+	//持ち駒04をタップ
 	public void PushButtonMotigoma04(){
 		SelectMotigoma (0, 20);
 	}
-	//持ち駒１をタップ
+	//持ち駒05をタップ
 	public void PushButtonMotigoma05(){
 		SelectMotigoma (0, 21);
 	}
-	//持ち駒１をタップ
+	//持ち駒06をタップ
 	public void PushButtonMotigoma06(){
 		SelectMotigoma (0, 22);
 	}
-	//持ち駒１をタップ
+	//持ち駒07をタップ
 	public void PushButtonMotigoma07(){
 		SelectMotigoma (0, 23);
 	}
@@ -458,26 +459,40 @@ public class GameManager : MonoBehaviour {
 		//持ち駒がタップされている場合
 		if(isSelectMotigoma == 1){
 
-			if (true) {
+			//駒は(0,0)点から来るものとする
+			te.to_dan = dan;
+			te.to_suji = suji;
+			te.from_dan = 0;
+			te.from_suji = 0;
+			te.promote = false;
 
-				te.to_dan = dan;
-				te.to_suji = suji;
-
+			//合法手ならば移動
+			if (LegalMove (te)) {
+				//使った持ち駒を減らす
 				k.hand [k.turn % 2] [te.koma] -= 1;
 
+				//持ち駒数の表示を正しくし、タップマーカーを消す
+				if (k.turn % 2 == 1) {
+					hand [te.koma].GetComponent<Text> ().text = k.hand [1] [te.koma].ToString ();
+					motiGoma [te.koma].GetComponent<Image> ().color = new Color (241f / 255f, 217f / 255f, 33f / 255f, 200f / 255f);
+				} else {
+					hand [te.koma - 8].GetComponent<Text> ().text = k.hand [0] [te.koma].ToString ();
+					motiGoma [te.koma - 8].GetComponent<Image> ().color = new Color (241f / 255f, 217f / 255f, 33f / 255f, 200f / 255f);
+				}
+				//行き先に駒をおく
 				Put (te.to_dan, te.to_suji, te.koma);
 
+				//駒、持ち駒の選択フラグを消す
 				isSelectKoma = 0;
 				isSelectMotigoma = 0;
 
 				//手番を変える
-				this.ChangeTurn();
-			}
-		}
-		
-		//駒を選択していない場合fromに選択したマス目と駒を入れる
-		if (isSelectKoma == 0) {
+				this.ChangeTurn ();
 
+
+			}
+		} else if (isSelectKoma == 0) {
+			//駒を選択していない場合fromに選択したマス目と駒を入れる
 
 			te.koma = k.banKoma [dan, suji];
 			if(k.turn % 2 == 1 && te.koma <= 16 && 1 <= te.koma || k.turn % 2 == 0 && te.koma < 32 && 17 <= te.koma){
@@ -525,19 +540,21 @@ public class GameManager : MonoBehaviour {
 
 					//移動先に相手の駒があったらとる
 					int toKoma = k.banKoma [te.to_dan, te.to_suji];
+					if (8 < toKoma && toKoma <= 16 || 24 < toKoma && toKoma <= 32) {
+						toKoma -= 8;
+					}
+
 					if (0 != toKoma && toKoma <= 16) {
 
 						print("後手が駒をとりました");
-						if (8 <= toKoma && toKoma <= 16 || 24 <= toKoma && toKoma <= 32) {
-							toKoma -= 8;
-						}
 						k.hand [0] [toKoma + 16] += 1;                       //先手の駒なら後手に追加
+						hand[toKoma + 8].GetComponent<Text>().text = k.hand [0] [toKoma + 16].ToString();
 
 					} else if(toKoma != 0 && 17 <= toKoma){
 
 						print("先手が駒をとりました");
 						k.hand [1] [toKoma - 16] += 1;                         //後手の駒なら先手に追加
-						print(k.hand [1][0]);
+						hand[toKoma -16].GetComponent<Text>().text = k.hand [1] [toKoma - 16].ToString();
 					}
 
 					//駒があった場所を空にする
@@ -566,22 +583,34 @@ public class GameManager : MonoBehaviour {
 		if (isSelectMotigoma == 0) {
 			//タップした駒の持ち主とターンがあっていた場合
 			if (k.turn % 2 == turn) {
+				
 				if (k.hand [k.turn % 2] [koma] > 0) {
+					
 					print ("b");
 					te.koma = koma;
 					isSelectMotigoma = 1;
+
+					if (k.turn % 2 == 1) {
+						motiGoma [koma].GetComponent<Image> ().color = Color.red;
+					} else {
+						motiGoma [koma - 8].GetComponent<Image> ().color = Color.red;
+					}
 				}
 			}
 		}else{
 
 			if (isSelectMotigoma == 1) {
-				print ("c");
 				//タップした駒の持ち主とターンがあっていた場合
 				if (k.turn % 2 == turn) {
-					print ("d");
 					//同じ持ち駒をタップした時、アンタップする
 					if (te.koma == koma) {
+						
 						isSelectMotigoma = 0;
+						if (k.turn % 2 == 1) {
+							motiGoma [koma].GetComponent<Image> ().color = new Color (241f / 255f, 217f / 255f, 33f / 255f,200f/255f);
+						} else {
+							motiGoma [koma - 8].GetComponent<Image> ().color = new Color (241f / 255f, 217f / 255f, 33f / 255f,200f/255f);
+						}
 					}
 				}
 
@@ -598,13 +627,6 @@ public class GameManager : MonoBehaviour {
 		masu [num].GetComponent<Image>().color = new Color (241f / 255f, 217f / 255f, 33f / 255f,200f/255f);
 	}
 
-	public void Log(){
-		for (int dan = 1; dan <= 9; dan++) {
-			for (int suji = 1; suji <= 9; suji++) {
-				Debug.Log (k.banKoma [dan, suji]);
-			}
-		}
-	}
 
 	//手番を変える関数
 	void ChangeTurn(){
@@ -619,11 +641,13 @@ public class GameManager : MonoBehaviour {
 		k.BanShokika();
 		k.hand =new List<List<int>>{new List<int>{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,},new List<int>{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}};
 
-		for (int dan = 1; dan <= 9; dan++) {                  //初期盤面を入れる
+		//初期盤面を入れる
+		for (int dan = 1; dan <= 9; dan++) {
 			for (int suji = 1; suji <= 9; suji++) {
 				k.banKoma[dan,suji]= Kyokumenn.SHOKI_BAN[dan-1,suji-1];
 			}
 		}
+		//ボタンを有効にし、駒を正しく
 		for (int i = 1;i <= 9 ; i++){
 			for (int j = 1; j <= 9; j++) {
 				int num = (i - 1) * 9 + j - 1;
@@ -642,11 +666,9 @@ public class GameManager : MonoBehaviour {
 		var teList = new List<Te>();
 		teList = k.GenerateLegalMoves();
 
-
+		print (teList.Count);
 		for(int i = 0;i < teList.Count;i++){
 
-//			if(teList[i].koma == 3)
-//			print (teList [i].promote);
 			if(te.koma == teList [i].koma 
 				&& te.from_dan == teList [i].from_dan 
 				&& te.from_suji == teList [i].from_suji 

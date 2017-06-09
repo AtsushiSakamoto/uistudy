@@ -47,6 +47,8 @@ public class Kyokumenn {
 	public List<Te> GenerateLegalMoves(){
 		//合法手を格納する変数
 		List<Te> teList = new List<Te>();
+		Te te = new Te ();
+
 		for (int dan = 1; dan <= 9; dan++) {                  
 			for (int suji = 1; suji <= 9; suji++) {
 				
@@ -58,7 +60,7 @@ public class Kyokumenn {
 					for(int direct = 0;direct < 12;direct++){
 						if (KomaMoves.canMove [direct, koma]) {
 
-							Te te = new Te ();
+
 							te.to_dan = dan + KomaMoves.diffDan [direct];
 							te.to_suji = suji + KomaMoves.diffSuji [direct];
 							te.from_dan = dan;
@@ -93,8 +95,8 @@ public class Kyokumenn {
 						if (KomaMoves.canJump [direct, koma]) {
 							
 							for (int i = 1; i < 9; i++) {
+								
 								//移動先を生成
-								Te te = new Te ();
 								te.to_dan = dan + (KomaMoves.diffDan [direct] * i);
 								te.to_suji = suji + (KomaMoves.diffSuji [direct] * i);
 								te.from_dan = dan;
@@ -131,6 +133,61 @@ public class Kyokumenn {
 				}
 			}
 		}
+
+		//持ち駒からだす手を追加(銀、金、角、飛車)
+		if (this.turn % 2 == 1) {                              //先手の場合
+			//銀~飛車までループ
+			for (int i = 4; i <= 7; i++) {
+				//探索中の駒を持っているか
+				if (this.hand [1] [i] >= 1) {
+					te.koma = i;
+
+					for (int dan = 1; dan <= 9; dan++) {                  
+						for (int suji = 1; suji <= 9; suji++) {
+							//駒は(0,0)点からとおく
+							te.to_dan = dan;
+							te.to_suji = suji;
+							te.from_dan = 0;
+							te.from_suji = 0;
+							te.promote = false;
+
+							if (this.banKoma [dan, suji] == 0) {
+								teList.Add (te.DeepCopy ());
+							}
+						}
+					}
+				}
+			}
+		} else {                                                //後手の場合
+			//銀~飛車までループ
+			for (int i = 20; i <= 23; i++) {
+				//探索中の駒を持っているか
+				if (this.hand [0] [i ] >= 1) {
+					te.koma = i;
+
+					for (int dan = 1; dan <= 9; dan++) {                  
+						for (int suji = 1; suji <= 9; suji++) {
+							//駒は(0,0)点からとおく
+							te.to_dan = dan;
+							te.to_suji = suji;
+							te.from_dan = 0;
+							te.from_suji = 0;
+							te.promote = false;
+
+							if (this.banKoma [dan, suji] == 0) {
+								teList.Add (te.DeepCopy ());
+							}
+						}
+					}
+				}
+			}
+		}
+
+		//歩を出す
+
+		//香を出す
+		//桂馬を出す
+
 		return teList;
 	}
 
