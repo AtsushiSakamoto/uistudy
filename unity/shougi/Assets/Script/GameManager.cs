@@ -41,6 +41,85 @@ public class GameManager : MonoBehaviour {
 		
 	}
 
+	//ランダム永久ループ
+	public void rupe(){
+		while (k.GenerateLegalMoves ().Count > 0) {
+			this.random ();
+		}
+	}
+
+
+	//コンピューターにランダムに打たせる
+	public void random(){
+		
+		var teList = new List<Te>();
+		teList = k.GenerateLegalMoves();
+
+		Te te = teList [Random.Range(0, teList.Count)];
+
+		if (te.from_dan == 0) {
+
+			//使った持ち駒を減らす
+			k.hand [k.turn % 2] [te.koma] -= 1;
+
+			//持ち駒数の表示を正しくし、タップマーカーを消す
+			if (k.turn % 2 == 1) {
+				hand [te.koma].GetComponent<Text> ().text = k.hand [1] [te.koma].ToString ();
+				motiGoma [te.koma].GetComponent<Image> ().color = new Color (241f / 255f, 217f / 255f, 33f / 255f, 200f / 255f);
+			} else {
+				hand [te.koma - 8].GetComponent<Text> ().text = k.hand [0] [te.koma].ToString ();
+				motiGoma [te.koma - 8].GetComponent<Image> ().color = new Color (241f / 255f, 217f / 255f, 33f / 255f, 200f / 255f);
+			}
+			//行き先に駒をおく
+			Put (te.to_dan, te.to_suji, te.koma);
+
+			//駒、持ち駒の選択フラグを消す
+			isSelectKoma = 0;
+			isSelectMotigoma = 0;
+
+			//手番を変える
+			this.ChangeTurn ();
+
+		} else {
+			
+			//移動先に相手の駒があったらとる
+			int toKoma = k.banKoma [te.to_dan, te.to_suji];
+			if (8 < toKoma && toKoma <= 16 || 24 < toKoma && toKoma <= 32) {
+				toKoma -= 8;
+			}
+
+			if (0 != toKoma && toKoma <= 16) {
+
+				k.hand [0] [toKoma + 16] += 1;                       //先手の駒なら後手に追加
+				hand [toKoma + 8].GetComponent<Text> ().text = k.hand [0] [toKoma + 16].ToString ();
+
+			} else if (toKoma != 0 && 17 <= toKoma) {
+
+				k.hand [1] [toKoma - 16] += 1;                         //後手の駒なら先手に追加
+				hand [toKoma - 16].GetComponent<Text> ().text = k.hand [1] [toKoma - 16].ToString ();
+			}
+
+			//駒があった場所を空にする
+			Put (te.from_dan, te.from_suji, 0);
+			//成る場合は成った駒を、ならない場合はそのままの駒を移動先におく
+			if (te.promote) {
+				Put (te.to_dan, te.to_suji, te.koma + 8);
+			} else {
+				Put (te.to_dan, te.to_suji, te.koma);
+			}
+
+		
+
+			isSelectKoma = 0;
+
+			//手番を変える
+			this.ChangeTurn ();
+		}
+	}
+
+
+
+
 	//持ち駒11をタップ
 	public void PushButtonMotigoma11(){
 		SelectMotigoma (1, 1);
@@ -465,7 +544,6 @@ public class GameManager : MonoBehaviour {
 			te.from_dan = 0;
 			te.from_suji = 0;
 			te.promote = false;
-
 			//合法手ならば移動
 			if (LegalMove (te)) {
 				//使った持ち駒を減らす
@@ -546,13 +624,11 @@ public class GameManager : MonoBehaviour {
 
 					if (0 != toKoma && toKoma <= 16) {
 
-						print("後手が駒をとりました");
 						k.hand [0] [toKoma + 16] += 1;                       //先手の駒なら後手に追加
 						hand[toKoma + 8].GetComponent<Text>().text = k.hand [0] [toKoma + 16].ToString();
 
 					} else if(toKoma != 0 && 17 <= toKoma){
-
-						print("先手が駒をとりました");
+						
 						k.hand [1] [toKoma - 16] += 1;                         //後手の駒なら先手に追加
 						hand[toKoma -16].GetComponent<Text>().text = k.hand [1] [toKoma - 16].ToString();
 					}
@@ -579,14 +655,13 @@ public class GameManager : MonoBehaviour {
 	}
 	//持ち駒を選択する
 	void SelectMotigoma(int turn,int koma){
-		print ("a");
 		if (isSelectMotigoma == 0) {
 			//タップした駒の持ち主とターンがあっていた場合
 			if (k.turn % 2 == turn) {
 				
 				if (k.hand [k.turn % 2] [koma] > 0) {
 					
-					print ("b");
+
 					te.koma = koma;
 					isSelectMotigoma = 1;
 
@@ -631,6 +706,22 @@ public class GameManager : MonoBehaviour {
 	//手番を変える関数
 	void ChangeTurn(){
 		k.turn = k.turn + 1;
+
+		//合法手が無くなったら
+		if (k.GenerateLegalMoves ().Count == 0) {
+			if (k.turn % 2 == 1) {
+				Debug.Log ("後手の勝ちです。");
+			} else {
+				Debug.Log ("先手の勝ちです。");
+			}
+			//勝敗がついたらボタンをオフに
+			for (int i = 1;i <= 9 ; i++){
+				for (int j = 1; j <= 9; j++) {
+					int num = (i - 1) * 9 + j - 1;
+					masu [num].GetComponent<Button> ().interactable = false;
+				}
+			}
+		}
 	}
 
 	//ゲームを初めから
@@ -666,9 +757,14 @@ public class GameManager : MonoBehaviour {
 		var teList = new List<Te>();
 		teList = k.GenerateLegalMoves();
 
-		print (teList.Count);
-		for(int i = 0;i < teList.Count;i++){
+		//打ち歩詰めならfalseを返す
+		if (k.IsUtifuDume (te)) {
+			return false;
+		}
 
+		for(int i = 0;i < teList.Count;i++){
+			
+			//合法手と一致すればtrue
 			if(te.koma == teList [i].koma 
 				&& te.from_dan == teList [i].from_dan 
 				&& te.from_suji == teList [i].from_suji 
