@@ -37,6 +37,11 @@ public class Kyokumenn {
 		{2,3,4,5,8,5,4,3,2}
 	};
 
+	public static int[] KomaValue = new int[32]{
+		0,100,600,700,1000,1200,1800,2000,10000,1200,1200,1200,1200,0,2000,2200,
+		0,-100,-600,-700,-1000,-1200,-1800,-2000,-10000,-1200,-1200,-1200,-1200,0,-2000,-2200
+	};
+
 	public void BanShokika(){
 
 		for (int dan = 1; dan <= 9; dan++) {                  //初期盤面を入れる
@@ -74,6 +79,26 @@ public class Kyokumenn {
 
 		return obj;
 	} 
+
+	//局面を評価する関数
+	public int evaluate(){
+
+		int eval = 0;
+		//盤面上の駒の価値を全部加算
+		for (int dan = 1; dan <= 9; dan++) {                  
+			for (int suji = 1; suji <= 9; suji++) {
+				int koma = this.banKoma [dan, suji];
+				eval += Kyokumenn.KomaValue [koma];
+			}
+		}
+		//持ち駒の加算
+		for(int i = 0;i < 2;i++){
+			for (int j = 0; j < 32; j++) {
+				eval += this.hand [i] [j] * Kyokumenn.KomaValue [j];
+			}
+		}
+		return eval;
+	}
 
 	public void Sub(ref int diffDan,int diffSuji){
 		diffDan = -diffDan;
@@ -192,6 +217,16 @@ public class Kyokumenn {
 											teList.Add (te.DeepCopy());
 										}
 									}
+
+									//移動元が敵陣
+									if((te.from_dan <= 3 && this.turn % 2 == 1) || (te.from_dan >= 7 && this.turn % 2 == 0)){
+
+										//成れる駒
+										if(KomaMoves.canPromote[koma]){
+											te.promote = true;
+											teList.Add (te.DeepCopy());
+										}
+									}
 								}
 							}
 						}
@@ -225,6 +260,15 @@ public class Kyokumenn {
 										}
 										//移動先が敵陣
 										if((te.to_dan <= 3 && this.turn % 2 == 1) || (te.to_dan >= 7 && this.turn % 2 == 0)){
+
+											//成れる駒
+											if(KomaMoves.canPromote[koma]){
+												te.promote = true;
+												teList.Add (te.DeepCopy());
+											}
+										}
+										//移動元が敵陣
+										if((te.from_dan <= 3 && this.turn % 2 == 1) || (te.from_dan >= 7 && this.turn % 2 == 0)){
 
 											//成れる駒
 											if(KomaMoves.canPromote[koma]){
