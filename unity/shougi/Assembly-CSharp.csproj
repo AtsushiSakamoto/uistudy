@@ -47,11 +47,15 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Script\GameManager.cs" />
-     <Compile Include="Assets\Script\GenerateMoves.cs" />
      <Compile Include="Assets\Script\Hasami.cs" />
+     <Compile Include="Assets\Script\Joseki.cs" />
      <Compile Include="Assets\Script\Koma.cs" />
      <Compile Include="Assets\Script\KomaMoves.cs" />
      <Compile Include="Assets\Script\Kyokumenn.cs" />
+     <Compile Include="Assets\Script\KyokumennArray.cs" />
+     <Compile Include="Assets\Script\Sikou.cs" />
+     <Compile Include="Assets\Script\SikouAlphaBeta.cs" />
+     <Compile Include="Assets\Script\SikouMinMax.cs" />
      <Compile Include="Assets\Script\Te.cs" />
  <Reference Include="UnityEngine.Analytics">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>

@@ -11,6 +11,19 @@ public class Te {
 	public int to_suji;
 	public bool promote;
 
+	public Te(){
+	}
+	public Te(int _koma,int _from_dan,int _from_suji,int _to_dan,int _to_suji,bool _promote){
+
+		koma = _koma;
+		from_dan = _from_dan;
+		from_suji = _from_suji;
+		to_dan = _to_dan;
+		to_suji = _to_suji;
+		promote = _promote;
+
+	}
+
 
 	public object Clone()                            // シャローコピーになります。
 	{

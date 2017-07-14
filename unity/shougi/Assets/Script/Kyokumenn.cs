@@ -1,13 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
 
 public class Kyokumenn {
 
-
 	public int[,] banKoma = new int[11,11];                  //盤の駒
+
+	//	public List<int[,]> banMemory;
 	public  int turn = new int();                             //現在の手番
 	public List<List<int>> hand = new List<List<int>>{new List<int>{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,},new List<int>{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}};
 
@@ -37,10 +37,91 @@ public class Kyokumenn {
 		{2,3,4,5,8,5,4,3,2}
 	};
 
-	public static int[] KomaValue = new int[32]{
-		0,100,600,700,1000,1200,1800,2000,10000,1200,1200,1200,1200,0,2000,2200,
+
+	public static int[] MotiKomaValue = new int[32]{
+		0,100,600,700,1000,1200,1800,2000,10000,1200,1200,1200,1200,0,2000,2500,
 		0,-100,-600,-700,-1000,-1200,-1800,-2000,-10000,-1200,-1200,-1200,-1200,0,-2000,-2200
 	};
+
+	public static int[] KomaValue = new int[32]{
+		0,100,600,700,1000,1200,1800,2000,10000,1200,1200,1200,1200,0,2000,2500,
+		0,-100,-600,-700,-1000,-1200,-1800,-2000,-10000,-1200,-1200,-1200,-1200,0,-2000,-2200
+	};
+
+
+
+	public static int[,] DanKomaValue = new int[32,9]{
+		
+		//空
+		{ 0,0,0,0,0,0,0,0,0},
+		//歩
+		{ 0,15,15,15,3,1, 0, 0, 0},
+		//香
+		{ 1,2,3,4,5,6,7,8,9},
+		//桂
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		//銀
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		//金
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		//角
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		//飛
+		{ 10,10,10, 0, 0, 0,  -5, 0, 0},
+		//王
+		{ 1200,1200,900,600,300,-10,0,0,0},
+		//と
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		//杏
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		//圭
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		//全
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		//金
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		//馬
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		//龍
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		//空
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		//歩
+		{ 0, 0, 0, -1, -3,-15,-15,-15, 0},
+		//香
+		{ -9,-8,-7, -6, -5, -4, -3, -2,-1},
+		//桂
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		//銀
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		//金
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		//角
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		//飛
+		{ 0, 0, 5, 0, 0, 0,-10,-10,-10},
+		//王
+		{ 0, 0, 0,10,-300,-600,-900,-1200,-1200},
+		//と
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		//杏
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		//圭
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		//全
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		//金
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		//馬
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		//龍
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0}
+
+	};
+
+
+
+
 
 	public void BanShokika(){
 
@@ -49,7 +130,12 @@ public class Kyokumenn {
 				this.banKoma[dan,suji]= Kyokumenn.SHOKI_BAN[dan-1,suji-1];
 			}
 		}
+
+		this.turn = 1;
+		this.hand = new List<List<int>>{new List<int>{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,},new List<int>{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}};
+
 	}
+
 
 	public object CloneKyokumenn()                            // シャローコピー
 	{
@@ -76,7 +162,6 @@ public class Kyokumenn {
 				obj.banKoma [i, j] = (int)this.banKoma [i, j];
 			}
 		}
-
 		return obj;
 	} 
 
@@ -88,23 +173,26 @@ public class Kyokumenn {
 		for (int dan = 1; dan <= 9; dan++) {                  
 			for (int suji = 1; suji <= 9; suji++) {
 				int koma = this.banKoma [dan, suji];
+				eval += Kyokumenn.DanKomaValue [koma,dan - 1];
 				eval += Kyokumenn.KomaValue [koma];
 			}
 		}
 		//持ち駒の加算
 		for(int i = 0;i < 2;i++){
 			for (int j = 0; j < 32; j++) {
-				eval += this.hand [i] [j] * Kyokumenn.KomaValue [j];
+				eval += this.hand [i] [j] * Kyokumenn.MotiKomaValue [j];
 			}
 		}
 		return eval;
 	}
 
+
+
 	public void Sub(ref int diffDan,int diffSuji){
 		diffDan = -diffDan;
 		diffSuji = -diffSuji;
 	}
-		
+
 	public void SearchGyoku(ref int danGyoku,ref int sujiGyoku,int turn){
 		//探す駒はturn側の玉
 		for(int dan = 1;dan <= 9;dan++){
@@ -118,6 +206,27 @@ public class Kyokumenn {
 	}
 
 
+	public void SortKyokumen(ref List<Te> teList){
+
+		for (int i = 0; i < teList.Count - 1; i++) {
+			for (int j = 0; j < teList.Count - 1; j++) {
+				Kyokumenn mae = this.DeepCopyKyokumenn ();
+				Kyokumenn ato = this.DeepCopyKyokumenn ();
+
+				mae.Move (teList [i]);
+				ato.Move (teList [i + 1]);
+
+				if (mae.evaluate () > ato.evaluate ()) {
+					Te tmp = teList [i].DeepCopy();
+					teList [i] = teList [i + 1].DeepCopy();
+					teList [i + 1] = tmp;
+
+				}
+			}	
+		}
+
+		return;
+	}
 
 	public void Put(int dan,int suji,int koma){
 		this.banKoma [dan, suji] = koma;
@@ -154,12 +263,14 @@ public class Kyokumenn {
 			}
 		}
 	}
+
+
 	//打ち歩詰めの判定関数
 	public bool IsUtifuDume(Te te){
 		//歩(1,17)で打たれた時(段が0)に相手に合法手がなければ打ち歩詰め
 		if (te.koma == 1 || te.koma == 17) {
 			if (te.from_dan == 0) {
-				
+
 				Kyokumenn temp = this.DeepCopyKyokumenn ();
 
 				temp.Move (te);
@@ -174,6 +285,33 @@ public class Kyokumenn {
 	} 
 
 
+
+
+	//局面が同一かどうか
+	public bool equals(Kyokumenn k){
+		//手番の比較
+		if(this.turn % 2 != k.turn % 2){
+			return false;
+		}
+
+		//盤面の比較
+		for(int suji = 1; suji <= 9; suji++){
+			for (int dan = 1; dan <= 9; dan++) {
+				if(this.banKoma[dan,suji] != k.banKoma[dan,suji]){
+					return false;
+				}
+			}
+		}
+		//持ち駒の比較
+		for(int koma = 0;koma < 32;koma++){
+			if (this.hand [0] [koma] !=  k.hand [0] [koma] || this.hand [1] [koma] !=  k.hand [1] [koma]) {
+				return false;
+			}
+		} 
+
+		return true;
+	}
+
 	public List<Te> GenerateLegalMoves(){
 		//合法手を格納する変数
 		List<Te> teList = new List<Te>();
@@ -182,11 +320,11 @@ public class Kyokumenn {
 
 		for (int dan = 1; dan <= 9; dan++) {                  
 			for (int suji = 1; suji <= 9; suji++) {
-				
+
 				int koma = this.banKoma [dan, suji];
 				//探索する駒が手番の駒かどうか
 				if ((this.turn % 2 == 1 && koma >= 1 && koma <= 16) || (this.turn % 2 == 0 && koma >= 17)) {
-					
+
 					//各方向に移動する手を生成
 					for(int direct = 0;direct < 12;direct++){
 						if (KomaMoves.canMove [direct, koma]) {
@@ -199,7 +337,7 @@ public class Kyokumenn {
 							te.koma = koma;
 							//移動先は盤内か
 							if(1 <= te.to_dan && te.to_dan <= 9 && 1 <= te.to_suji  && te.to_suji <= 9){
-								
+
 								//移動先に自分の駒はないか
 								int toKoma = this.banKoma[te.to_dan,te.to_suji];
 								if ((this.turn % 2 == 1 && (toKoma == 0 || toKoma >= 17)) || (this.turn % 2 == 0 && toKoma <= 16)) {
@@ -234,11 +372,11 @@ public class Kyokumenn {
 
 					//各方向に「飛ぶ」手を生成
 					for(int direct = 0;direct < 8;direct++){
-						
+
 						if (KomaMoves.canJump [direct, koma]) {
-							
+
 							for (int i = 1; i < 9; i++) {
-								
+
 								//移動先を生成
 								te.to_dan = dan + (KomaMoves.diffDan [direct] * i);
 								te.to_suji = suji + (KomaMoves.diffSuji [direct] * i);
@@ -246,7 +384,7 @@ public class Kyokumenn {
 								te.from_suji = suji;
 								te.koma = koma;
 
-	
+
 
 								//移動先は盤内か
 								if(1 <= te.to_dan && te.to_dan <= 9 && 1 <= te.to_suji  && te.to_suji <= 9){
@@ -338,7 +476,7 @@ public class Kyokumenn {
 		}
 
 		if (this.turn % 2 == 1) {                              //先手の場合
-			
+
 			//先手の持ち駒に歩がある
 			if (this.hand [1] [1] >= 1) {
 				te.koma = 1;
@@ -382,7 +520,7 @@ public class Kyokumenn {
 
 
 				for (int suji = 1; suji <= 9; suji++) {
-					
+
 					//これ以上進めない1段目を除き、駒がなければ香車を出す手を追加する
 					for (int dan = 2; dan <= 9; dan++) {                  
 
@@ -427,10 +565,10 @@ public class Kyokumenn {
 			}
 
 		} else {                         //後手の場合
-			
+
 			//持ち駒に歩がある
 			if (this.hand [0] [17] >= 1) {
-				
+
 				te.koma = 17;
 				//二歩チェック
 				for (int suji = 1; suji <= 9; suji++) {
@@ -468,7 +606,7 @@ public class Kyokumenn {
 				te.koma = 18;
 
 				for (int suji = 1; suji <= 9; suji++) {
-					
+
 					//これ以上進めない1段目を除き、駒がなければ香車を出す手を追加する
 					for (int dan = 1; dan <= 8; dan++) {                  
 
@@ -510,7 +648,7 @@ public class Kyokumenn {
 				}
 			}
 		}
-			
+
 
 		//王手を放置している手を抜く
 		int danGyoku = 0;
@@ -542,7 +680,7 @@ public class Kyokumenn {
 			}
 			// 玉の周り（８方向）から相手の駒の飛び利きがあるなら、その手は取り除く
 			for (int direct = 0; direct < 8 && !isOuteHouchi; direct++) {
-				
+
 				// 方向の反対方向にある駒を取得
 				int danSearch = danGyoku - KomaMoves.diffDan[direct] ;
 				int sujiSearch = sujiGyoku - KomaMoves.diffSuji [direct];
