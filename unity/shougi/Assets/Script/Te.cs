@@ -11,8 +11,21 @@ public class Te {
 	public int to_suji;
 	public bool promote;
 
+
+	public int from;
+	public int to;
+
 	public Te(){
 	}
+
+	public Te(int  _koma,int _from, int _to,bool _promote){
+		koma = _koma;
+		from = _from;
+		to= _to;
+		promote = _promote;
+	}
+
+
 	public Te(int _koma,int _from_dan,int _from_suji,int _to_dan,int _to_suji,bool _promote){
 
 		koma = _koma;
@@ -55,9 +68,9 @@ public class Te {
 	// Use this for initialization
 	void Start () {
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 }

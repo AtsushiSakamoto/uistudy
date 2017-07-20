@@ -539,7 +539,7 @@ public class Kyokumenn {
 
 			}
 
-			//先手の持ち駒に香車がある
+			//先手の持ち駒に桂馬がある
 			if (this.hand [1] [3] >= 1) {
 				te.koma = 3;
 

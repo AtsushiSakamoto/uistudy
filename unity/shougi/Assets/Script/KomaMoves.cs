@@ -35,6 +35,25 @@ public class KomaMoves {
 		1,0,-1,-1,1,-1,0,1,-1,1,1,-1
 	};
 
+
+	// 方向の定義に沿った、「移動」の定義
+	public static  int[] diff = {
+		diffSuji[0] +diffDan[0] * 9,
+		diffSuji[1] +diffDan[1] * 9,
+		diffSuji[2] +diffDan[2] * 9,
+		diffSuji[3] +diffDan[3] * 9,
+		diffSuji[4] +diffDan[4] * 9,
+		diffSuji[5] +diffDan[5] * 9,
+		diffSuji[6] +diffDan[6] * 9,
+		diffSuji[7]  +diffDan[7] * 9,
+		diffSuji[8]   +diffDan[8] * 9,
+		diffSuji[9] +diffDan[9] * 9,
+		diffSuji[10] +diffDan[10] * 9,
+		diffSuji[11] +diffDan[11] * 9
+	};
+
+
+
 	//ある方向にある駒が動けるかどうかを表すテーブル
 	//添え字の一つ目が方向で、二つ目が種類である
 	//「香車」「角」「飛車」などの一直線に動く動きについては、後のcanjumpで表し、このテーブルでは無効にする。

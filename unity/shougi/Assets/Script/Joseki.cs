@@ -10,15 +10,15 @@ using UnityEditor;
 public class Joseki{
 
 
-//	Joseki child = null;
+	//	Joseki child = null;
 	byte[][] josekiData;
 	int numJoseki;
-	Kyokumenn josekiKyokumenn;
+	KyokumennArray josekiKyokumenn;
 
 
 	public Joseki(string josekiFileName){
 
-/*
+		/*
 		if(josekiFileName.IndexOf(",") >= 0){
 
 			//「子」の定跡として,”,”以降のファイルを読み込む
@@ -41,22 +41,22 @@ public class Joseki{
 			}
 
 			for(int i = 0;i < numJoseki && f.Read(josekiData[i],0,512) > 0;i++){
-				
+
 			}
 
 		}catch(Exception){
-			
+
 			numJoseki = 0;
 			Debug.Log("定跡来てないよ〜(●・▽・●)");
 
 		}finally{
-			
+
 			f.Close ();
 		}
 	}
 
 
-	public Te josekiByteToTe(byte toByte,byte fromByte,Kyokumenn k){
+	public Te josekiByteToTe(byte toByte,byte fromByte,KyokumennArray k){
 
 		int f = ((int)fromByte) & 0xff;
 		int t = ((int)toByte) & 0xff;
@@ -73,14 +73,14 @@ public class Joseki{
 				koma = (f - 100) + 16;
 			}
 			fs = 0;
-			fd = 0;
+			fd = 1;
 		} else {
 
 			//fをこのプログラムの中で使う座標の方式へ変換
 			fs = 10 - ((f - 1) % 9 + 1);               //筋
 			fd = (f + 8) / 9;                          //段
 
-			koma = k.banKoma [fd, fs];
+			koma = k.banKoma [(fd - 1) * 9 + fs];
 		}
 
 		//tが100以上なら成り手
@@ -90,35 +90,37 @@ public class Joseki{
 		}
 		ts = 10 - ((t - 1) % 9 + 1);               //筋
 		td = (t + 8) / 9;                          //段
+		Te te = new Te();
+		te.koma = koma;
 
-		return new Te (koma, fd, fs, td, ts, promote);
+		te.from = (fd - 1) * 9 + fs;
+		te.to = (td - 1) * 9 + ts;
+		te.promote = promote;
+		return te;
 	}
 
-	public Te fromjoseki(Kyokumenn k,int tesu){
-
+	public Te fromjoseki(KyokumennArray k,int tesu){
 		//tesuには実際の手数が渡されるが、定跡データは0手目から始まるので1ずらしておく
 		tesu = tesu - 1;
 		//定跡にあった候補手を入れる
 		List <Te> teList = new List<Te>();
 		//定跡で進めた局面を作り、渡された局面と比較する
-		Kyokumenn josekiKyokumenn = new Kyokumenn();
+		KyokumennArray josekiKyokumenn = new KyokumennArray();
 
 		for (int i = 0; i < numJoseki; i++) {
 			//平手で初期化
 			josekiKyokumenn.BanShokika();
 
 			for (int j = 0; j < tesu; j++) {
-				
+
 				if (josekiData [i][ j * 2] == (byte)0 || josekiData [i][ j * 2] == (byte)0xff) {
 					break;
 					Debug.Log ("エラーですよ(●・▽・●)");
 				}
-
 				Te te = josekiByteToTe (josekiData [i][ j * 2], josekiData [i][j * 2 + 1], josekiKyokumenn);
 				josekiKyokumenn.Move (te);
 				josekiKyokumenn.turn += 1;
 			}
-
 			//局面が一致するか
 			if(josekiKyokumenn.equals(k)){
 				if (josekiData [i][tesu * 2] == (byte)0 || josekiData [i][tesu * 2] == (byte)0xff) {
@@ -131,9 +133,10 @@ public class Joseki{
 			}
 		}
 
+
 		if (teList.Count == 0) {
 			//候補手がない場合
-/*
+			/*
 			if(child != null){
 				//子定跡がある時は、その結果を返す
 				return child.fromjoseki(k,tesu);

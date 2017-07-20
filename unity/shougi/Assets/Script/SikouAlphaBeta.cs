@@ -17,7 +17,7 @@ public class SikouAlphaBeta {
 	int leaf = 0;
 	int node = 0;
 
-	private int GetMaxTe(ref Te t,Kyokumenn k,int alpha,int beta,int depth,int depthMax){
+	private int GetMaxTe(ref Te t,KyokumennArray k,int alpha,int beta,int depth,int depthMax){
 
 		int value = new int ();
 
@@ -36,9 +36,9 @@ public class SikouAlphaBeta {
 
 
 
-			if (node == 1) {
-				//k.SortKyokumen (ref teList);
-			}
+		if (node == 1) {
+			//k.SortKyokumen (ref teList);
+		}
 
 
 
@@ -50,7 +50,7 @@ public class SikouAlphaBeta {
 			Te te = teList [i];
 
 			//その手で一手進めた局面を作る
-			Kyokumenn nextKyokumenn = k.DeepCopyKyokumenn ();
+			KyokumennArray nextKyokumenn = k.DeepCopyKyokumenn ();
 			nextKyokumenn.Move (te);
 			nextKyokumenn.turn += 1;
 
@@ -69,10 +69,8 @@ public class SikouAlphaBeta {
 				//最善手を更新
 				best [depth, depth] = te;
 				t.koma = te.koma;
-				t.from_dan = te.from_dan;
-				t.from_suji = te.from_suji;
-				t.to_dan = te.to_dan;
-				t.to_suji = te.to_suji;
+				t.from = te.from;
+				t.to = te.to;
 				t.promote = te.promote;
 
 				for (int j = depth + 1; j < depthMax; j++) {
@@ -87,7 +85,7 @@ public class SikouAlphaBeta {
 		return value;
 	}
 
-	private int GetMinTe(ref Te t,Kyokumenn k,int alpha,int beta,int depth,int depthMax){
+	private int GetMinTe(ref Te t,KyokumennArray k,int alpha,int beta,int depth,int depthMax){
 
 		int value = new int ();
 
@@ -103,17 +101,9 @@ public class SikouAlphaBeta {
 		var teList = new List<Te>();
 		teList = k.GenerateLegalMoves();
 
-
 		if (node == 1) {
-			
-
-
-			if (node == 1) {
-				//k.SortKyokumen (ref teList);
-			}
-
+			//k.SortKyokumen (ref teList);
 		}
-
 
 		value = 1000000;
 
@@ -122,7 +112,7 @@ public class SikouAlphaBeta {
 			Te te = teList [i];
 
 			//その手で一手進めた局面を作る
-			Kyokumenn nextKyokumenn = k.DeepCopyKyokumenn();
+			KyokumennArray nextKyokumenn = k.DeepCopyKyokumenn();
 			nextKyokumenn.Move (te);
 			nextKyokumenn.turn += 1;
 
@@ -141,10 +131,8 @@ public class SikouAlphaBeta {
 				//最善手を更新
 				best [depth, depth] = te;
 				t.koma = te.koma;
-				t.from_dan = te.from_dan;
-				t.from_suji = te.from_suji;
-				t.to_dan = te.to_dan;
-				t.to_suji = te.to_suji;
+				t.from = te.from;
+				t.to = te.to;
 				t.promote = te.promote;
 
 				for (int j = depth + 1; j < depthMax; j++) {
@@ -159,7 +147,7 @@ public class SikouAlphaBeta {
 		return value;
 	}
 
-	private int GetMaxTeKai(ref Te t,Kyokumenn k,int alpha,int beta,int depth,int depthMax){
+	private int GetMaxTeKai(ref Te t,KyokumennArray k,int alpha,int beta,int depth,int depthMax){
 
 		int value = new int ();
 
@@ -192,7 +180,7 @@ public class SikouAlphaBeta {
 			Te te = teList [i];
 
 			//その手で一手進めた局面を作る
-			Kyokumenn nextKyokumenn = k.DeepCopyKyokumenn ();
+			KyokumennArray nextKyokumenn = k.DeepCopyKyokumenn ();
 			nextKyokumenn.Move (te);
 			nextKyokumenn.turn += 1;
 
@@ -211,10 +199,8 @@ public class SikouAlphaBeta {
 				//最善手を更新
 				best [depth, depth] = te;
 				t.koma = te.koma;
-				t.from_dan = te.from_dan;
-				t.from_suji = te.from_suji;
-				t.to_dan = te.to_dan;
-				t.to_suji = te.to_suji;
+				t.from = te.from;
+				t.to = te.to;
 				t.promote = te.promote;
 
 				for (int j = depth + 1; j < depthMax; j++) {
@@ -229,7 +215,7 @@ public class SikouAlphaBeta {
 		return value;
 	}
 
-	private int GetMinTeKai(ref Te t,Kyokumenn k,int alpha,int beta,int depth,int depthMax){
+	private int GetMinTeKai(ref Te t,KyokumennArray k,int alpha,int beta,int depth,int depthMax){
 
 		int value = new int ();
 
@@ -247,14 +233,10 @@ public class SikouAlphaBeta {
 
 
 		if (node == 1) {
-
-
-			if (node == 1) {
-				k.SortKyokumen (ref teList);
-			}
-
-
+			k.SortKyokumen (ref teList);
 		}
+
+
 
 
 		value = 1000000;
@@ -264,7 +246,7 @@ public class SikouAlphaBeta {
 			Te te = teList [i];
 
 			//その手で一手進めた局面を作る
-			Kyokumenn nextKyokumenn = k.DeepCopyKyokumenn();
+			KyokumennArray nextKyokumenn = k.DeepCopyKyokumenn();
 			nextKyokumenn.Move (te);
 			nextKyokumenn.turn += 1;
 
@@ -283,10 +265,8 @@ public class SikouAlphaBeta {
 				//最善手を更新
 				best [depth, depth] = te;
 				t.koma = te.koma;
-				t.from_dan = te.from_dan;
-				t.from_suji = te.from_suji;
-				t.to_dan = te.to_dan;
-				t.to_suji = te.to_suji;
+				t.from = te.from;
+				t.to = te.to;
 				t.promote = te.promote;
 
 				for (int j = depth + 1; j < depthMax; j++) {
@@ -301,7 +281,7 @@ public class SikouAlphaBeta {
 		return value;
 	}
 
-	public Te getNextTe(Kyokumenn k,int tesu){
+	public Te getNextTe(KyokumennArray k,int tesu){
 
 		Te te;
 
@@ -310,11 +290,11 @@ public class SikouAlphaBeta {
 			return te;
 		}
 
-
 		leaf =  0;
 		node = 0;
 		List<Te> teList = k.GenerateLegalMoves ();
 		te = teList[Random.Range (0, teList.Count)];
+
 
 		if (k.turn % 2 == 1) {
 			//評価値最大の手をえる
@@ -324,26 +304,29 @@ public class SikouAlphaBeta {
 			this.GetMinTe (ref te, k,-100000,1000000,0,DEPTH_MAX);
 		}
 
+
 		Debug.Log (leaf);
-		Debug.Log (node);
 		return te;
 	}
 
 
-	public Te getNextTeKai(Kyokumenn k,int tesu){
+	public Te getNextTeKai(KyokumennArray k,int tesu){
 
 		Te te;
 
-		if((te = joseki.fromjoseki(k,tesu)) != null){
+		if((te = joseki.fromjoseki(k,tesu)) != null  && k.josekiBool){
 			Debug.Log("定跡より");
 			return te;
 		}
-
+			
 
 		leaf =  0;
 		node = 0;
 		List<Te> teList = k.GenerateLegalMoves ();
 		te = teList[Random.Range (0, teList.Count)];
+
+		Debug.Log ("ランダム仮");
+		Debug.Log (te.koma);
 
 		if (k.turn % 2 == 1) {
 			//評価値最大の手をえる
@@ -353,8 +336,7 @@ public class SikouAlphaBeta {
 			this.GetMinTeKai (ref te, k,-100000,1000000,0,DEPTH_MAX);
 		}
 
-		Debug.Log (leaf);
-		Debug.Log (node);
+
 		return te;
 	}
 
