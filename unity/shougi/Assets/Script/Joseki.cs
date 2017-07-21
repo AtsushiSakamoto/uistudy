@@ -96,6 +96,7 @@ public class Joseki{
 		te.from = (fd - 1) * 9 + fs;
 		te.to = (td - 1) * 9 + ts;
 		te.promote = promote;
+		te.capture = k.banKoma [te.to];
 		return te;
 	}
 
@@ -115,7 +116,6 @@ public class Joseki{
 
 				if (josekiData [i][ j * 2] == (byte)0 || josekiData [i][ j * 2] == (byte)0xff) {
 					break;
-					Debug.Log ("エラーですよ(●・▽・●)");
 				}
 				Te te = josekiByteToTe (josekiData [i][ j * 2], josekiData [i][j * 2 + 1], josekiKyokumenn);
 				josekiKyokumenn.Move (te);

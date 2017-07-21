@@ -12,11 +12,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject[] hand = new GameObject[16];             //テキスト:持ち駒数
 	public GameObject[] motiGoma = new GameObject[16];         //ボタン：持ち駒
 	//	private Kyokumenn k = new Kyokumenn();
-
 	private KyokumennArray kk = new KyokumennArray ();
 	private List<Te> kihu = new List<Te> ();
-
-
 	static Te te = new Te();                                           //手を格納
 	private int isSelectKoma;                                //駒を選択しているか
 	private int isSelectMotigoma;                            //持ち駒を選択しているか
@@ -26,68 +23,50 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		//対局できるようにする
 		Restart ();
-		/*
-		for (int i = 1;i <= 9 ; i++){
-			for (int j = 1; j <= 9; j++) {
-				int num = (i - 1) * 9 + j - 1;
-				Masu [num].GetComponent<Button> ().interactable = false;
-				Masu [num].GetComponent<Image>().sprite = komaPicture[k.banKoma[i,j]];
-			}
-		}
-*/
 	}
 
 	// Update is called once per frame
 	void Update () {
 
+		//vsComがtrueならばAIが指す(先手)
 		if (vsCom) {
 			if (kk.turn % 2 == 0) {
 				//後手ならボタンをオフ
 				for (int i = 1;i <= 81 ; i++){
-
 					Masu [i - 1].GetComponent<Button> ().interactable = false;
-
 				}
 
 				AlphaBeta ();
 
+				//ボタンをオンに戻す
 				for (int i = 1;i <= 81 ; i++){
-
 					Masu [i - 1].GetComponent<Button> ().interactable = true;
-
 				}
 			}
-
 		}
-
+		//vsComがtrueならばAIが指す(後手)
 		if (vsComGote) {
 			if (kk.turn % 2 == 1) {
 				//先手ならボタンをオフ
 				for (int i = 1;i <= 81 ; i++){
-
 					Masu [i - 1].GetComponent<Button> ().interactable = false;
-
 				}
 
 				AlphaBeta ();
 
+				//ボタンをオンに戻す
 				for (int i = 1;i <= 81 ; i++){
-
 					Masu [i - 1].GetComponent<Button> ().interactable = true;
-
 				}
 			}
-
 		}
-
 	}
 
 	//人対AlphaBeta
 	public void VsCom(){
-
-
+		//後手にAIが指すフラグを立たせる
 		if (vsCom) {
 			vsCom = false;
 			Debug.Log ("vscom true> false");
@@ -95,13 +74,11 @@ public class GameManager : MonoBehaviour {
 			vsCom = true;
 			Debug.Log("vscom false> true");
 		}
-
-
 	}
 
 	//AlphaBeta対人
 	public void VsComGote(){
-
+		//先手にAIが指すフラグを立たせる
 		if (vsComGote) {
 			vsComGote = false;
 			Debug.Log ("vscom true> false");
@@ -112,7 +89,7 @@ public class GameManager : MonoBehaviour {
 
 	}
 
-	//MinMax対一手読み
+	//MinMax対一手読みTEST
 	public void test(){
 		while (kk.GenerateLegalMoves ().Count > 0) {
 			this.AlphaBeta ();
@@ -121,31 +98,30 @@ public class GameManager : MonoBehaviour {
 			this.AlphaBeta ();
 		}
 	}
-
+	//TEST
 	public void testKai(){
 		while (kk.GenerateLegalMoves ().Count > 0) {
-			this.AlphaBetaKai ();
+			this.AlphaBeta ();
 			if (kk.GenerateLegalMoves ().Count == 0)
 				break;
-			this.AlphaBetaKai ();
+			this.AlphaBeta ();
 		}
 	}
-
 
 
 	//コンピューターに打たせるAlphaBeta
 	public void AlphaBeta(){
 
-		//		Sikou s = new Sikou ();
-		SikouAlphaBeta s = new SikouAlphaBeta();
-		Te te = s.getNextTe (kk,kk.turn);
+		//Sikouクラスから次の手をもらう
+		Sikou s = new Sikou();
+		Te te = s.getNextTeKai (kk,kk.turn);
 
+		//合法手出ない場合は合法手の中からランダムに手を作る
 		if (!LegalMove (te)) {
-			
-			Debug.Log ("エラーAlphabeta");
+
+			Debug.Log ("Alphabetaが合法手を返さない");
 			var teList = new List<Te>();
 			teList = kk.GenerateLegalMoves();
-
 			te = teList [Random.Range(0, teList.Count)];
 		}
 
@@ -180,15 +156,15 @@ public class GameManager : MonoBehaviour {
 			if (8 < toKoma && toKoma <= 16 || 24 < toKoma && toKoma <= 32) {
 				toKoma -= 8;
 			}
-
+			//先手の駒なら後手に追加,後手の駒なら先手に追加
 			if (0 != toKoma && toKoma <= 16) {
 
-				kk.hand [0] [toKoma + 16] += 1;                       //先手の駒なら後手に追加
+				kk.hand [0] [toKoma + 16] += 1;
 				hand [toKoma + 8].GetComponent<Text> ().text = kk.hand [0] [toKoma + 16].ToString ();
 
 			} else if (toKoma != 0 && 17 <= toKoma) {
 
-				kk.hand [1] [toKoma - 16] += 1;                         //後手の駒なら先手に追加
+				kk.hand [1] [toKoma - 16] += 1;
 				hand [toKoma - 16].GetComponent<Text> ().text = kk.hand [1] [toKoma - 16].ToString ();
 			}
 
@@ -201,291 +177,10 @@ public class GameManager : MonoBehaviour {
 				Put (te.to, te.koma);
 			}
 
-
-
-			isSelectKoma = 0;
-
 			//手番を変える
 			this.ChangeTurn (te);
 		}
 	}
-
-
-	public void AlphaBetaKai(){
-
-		//		Sikou s = new Sikou ();
-		SikouAlphaBeta s = new SikouAlphaBeta();
-		Te te = s.getNextTeKai (kk,kk.turn);
-
-
-
-		if (te.from_dan == 0) {
-
-			//使った持ち駒を減らす
-			kk.hand [kk.turn % 2] [te.koma] -= 1;
-
-			//持ち駒数の表示を正しくし、タップマーカーを消す
-			if (kk.turn % 2 == 1) {
-				hand [te.koma].GetComponent<Text> ().text = kk.hand [1] [te.koma].ToString ();
-				motiGoma [te.koma].GetComponent<Image> ().color =  new Color (255f / 255f, 255f / 255f, 255f/ 255f, 255f / 255f);
-			} else {
-				hand [te.koma - 8].GetComponent<Text> ().text = kk.hand [0] [te.koma].ToString ();
-				motiGoma [te.koma - 8].GetComponent<Image> ().color  = new Color (255f / 255f, 255f / 255f, 255f / 255f, 255f / 255f);
-			}
-			//行き先に駒をおく
-			Put (te.to, te.koma);
-
-			//駒、持ち駒の選択フラグを消す
-			isSelectKoma = 0;
-			isSelectMotigoma = 0;
-
-			//手番を変える
-			this.ChangeTurn (te);
-
-		} else {
-
-			//移動先に相手の駒があったらとる
-			int toKoma = kk.banKoma [te.to];
-			if (8 < toKoma && toKoma <= 16 || 24 < toKoma && toKoma <= 32) {
-				toKoma -= 8;
-			}
-
-			if (0 != toKoma && toKoma <= 16) {
-
-				kk.hand [0] [toKoma + 16] += 1;                       //先手の駒なら後手に追加
-				hand [toKoma + 8].GetComponent<Text> ().text = kk.hand [0] [toKoma + 16].ToString ();
-
-			} else if (toKoma != 0 && 17 <= toKoma) {
-
-				kk.hand [1] [toKoma - 16] += 1;                         //後手の駒なら先手に追加
-				hand [toKoma - 16].GetComponent<Text> ().text = kk.hand [1] [toKoma - 16].ToString ();
-			}
-
-			//駒があった場所を空にする
-			Put (te.from, 0);
-			//成る場合は成った駒を、ならない場合はそのままの駒を移動先におく
-			if (te.promote) {
-				Put (te.to, te.koma + 8);
-			} else {
-				Put (te.to, te.koma);
-			}
-
-
-
-			isSelectKoma = 0;
-
-			//手番を変える
-			this.ChangeTurn (te);
-		}
-	}
-
-
-	/*
-	//コンピューターに打たせるMinMax
-	public void MinMax(){
-
-		//		Sikou s = new Sikou ();
-		SikouMinMax s = new SikouMinMax();
-		Te te = s.getNextTe (kk);
-
-		if (te.from_dan == 0) {
-
-			//使った持ち駒を減らす
-			kk.hand [kk.turn % 2] [te.koma] -= 1;
-
-			//持ち駒数の表示を正しくし、タップマーカーを消す
-			if (kk.turn % 2 == 1) {
-				hand [te.koma].GetComponent<Text> ().text = kk.hand [1] [te.koma].ToString ();
-				motiGoma [te.koma].GetComponent<Image> ().color =  new Color (255f / 255f, 255f / 255f, 255f / 255f, 255f / 255f);
-			} else {
-				hand [te.koma - 8].GetComponent<Text> ().text = kk.hand [0] [te.koma].ToString ();
-				motiGoma [te.koma - 8].GetComponent<Image> ().color = new Color (255f / 255f, 255f / 255f, 255f / 255f, 255f / 255f);
-			}
-			//行き先に駒をおく
-			Put (te.to_dan, te.to_suji, te.koma);
-
-			//駒、持ち駒の選択フラグを消す
-			isSelectKoma = 0;
-			isSelectMotigoma = 0;
-
-			//手番を変える
-			this.ChangeTurn (te);
-
-		} else {
-
-			//移動先に相手の駒があったらとる
-			int toKoma = kk.banKoma [te.to];
-			if (8 < toKoma && toKoma <= 16 || 24 < toKoma && toKoma <= 32) {
-				toKoma -= 8;
-			}
-
-			if (0 != toKoma && toKoma <= 16) {
-
-				kk.hand [0] [toKoma + 16] += 1;                       //先手の駒なら後手に追加
-				hand [toKoma + 8].GetComponent<Text> ().text = kk.hand [0] [toKoma + 16].ToString ();
-
-			} else if (toKoma != 0 && 17 <= toKoma) {
-
-				kk.hand [1] [toKoma - 16] += 1;                         //後手の駒なら先手に追加
-				hand [toKoma - 16].GetComponent<Text> ().text = kk.hand [1] [toKoma - 16].ToString ();
-			}
-
-			//駒があった場所を空にする
-			Put (te.from_dan, te.from_suji, 0);
-			//成る場合は成った駒を、ならない場合はそのままの駒を移動先におく
-			if (te.promote) {
-				Put (te.to_dan, te.to_suji, te.koma + 8);
-			} else {
-				Put (te.to_dan, te.to_suji, te.koma);
-			}
-
-
-
-			isSelectKoma = 0;
-
-			//手番を変える
-			this.ChangeTurn (te);
-		}
-	}
-	//コンピューターに打たせる一手読み
-	public void ItteYomi(){
-
-		//		Sikou s = new Sikou ();
-		SikouMinMax s = new SikouMinMax();
-		Te te = s.getNextTe (kk);
-
-		if (te.from_dan == 0) {
-
-			//使った持ち駒を減らす
-			kk.hand [kk.turn % 2] [te.koma] -= 1;
-
-			//持ち駒数の表示を正しくし、タップマーカーを消す
-			if (kk.turn % 2 == 1) {
-				hand [te.koma].GetComponent<Text> ().text = kk.hand [1] [te.koma].ToString ();
-				motiGoma [te.koma].GetComponent<Image> ().color =  new Color (255f / 255f, 255f/ 255f, 255f / 255f, 255f / 255f);
-			} else {
-				hand [te.koma - 8].GetComponent<Text> ().text = kk.hand [0] [te.koma].ToString ();
-				motiGoma [te.koma - 8].GetComponent<Image> ().color =  new Color (255f / 255f, 255f / 255f, 255f / 255f, 255f / 255f);
-			}
-			//行き先に駒をおく
-			Put (te.to_dan, te.to_suji, te.koma);
-
-			//駒、持ち駒の選択フラグを消す
-			isSelectKoma = 0;
-			isSelectMotigoma = 0;
-
-			//手番を変える
-			this.ChangeTurn (te);
-
-		} else {
-
-			//移動先に相手の駒があったらとる
-			int toKoma = kk.banKoma [te.to];
-			if (8 < toKoma && toKoma <= 16 || 24 < toKoma && toKoma <= 32) {
-				toKoma -= 8;
-			}
-
-			if (0 != toKoma && toKoma <= 16) {
-
-				kk.hand [0] [toKoma + 16] += 1;                       //先手の駒なら後手に追加
-				hand [toKoma + 8].GetComponent<Text> ().text = kk.hand [0] [toKoma + 16].ToString ();
-
-			} else if (toKoma != 0 && 17 <= toKoma) {
-
-				kk.hand [1] [toKoma - 16] += 1;                         //後手の駒なら先手に追加
-				hand [toKoma - 16].GetComponent<Text> ().text = kk.hand [1] [toKoma - 16].ToString ();
-			}
-
-			//駒があった場所を空にする
-			Put (te.from_dan, te.from_suji, 0);
-			//成る場合は成った駒を、ならない場合はそのままの駒を移動先におく
-			if (te.promote) {
-				Put (te.to_dan, te.to_suji, te.koma + 8);
-			} else {
-				Put (te.to_dan, te.to_suji, te.koma);
-			}
-
-
-
-			isSelectKoma = 0;
-
-			//手番を変える
-			this.ChangeTurn (te);
-		}
-	}
-
-	//コンピューターにランダムに打たせる
-	public void random(){
-
-		var teList = new List<Te>();
-		teList = kk.GenerateLegalMoves();
-
-		Te te = teList [Random.Range(0, teList.Count)];
-
-		if (te.from_dan == 0) {
-
-			//使った持ち駒を減らす
-			kk.hand [kk.turn % 2] [te.koma] -= 1;
-
-			//持ち駒数の表示を正しくし、タップマーカーを消す
-			if (kk.turn % 2 == 1) {
-				hand [te.koma].GetComponent<Text> ().text = kk.hand [1] [te.koma].ToString ();
-				motiGoma [te.koma].GetComponent<Image> ().color = new Color (255f / 255f, 255f / 255f, 255f / 255f, 200f / 255f);
-			} else {
-				hand [te.koma - 8].GetComponent<Text> ().text = kk.hand [0] [te.koma].ToString ();
-				motiGoma [te.koma - 8].GetComponent<Image> ().color = new Color (255f / 255f, 255f / 255f, 255f / 255f, 200f / 255f);
-			}
-			//行き先に駒をおく
-			Put (te.to_dan, te.to_suji, te.koma);
-
-			//駒、持ち駒の選択フラグを消す
-			isSelectKoma = 0;
-			isSelectMotigoma = 0;
-
-			//手番を変える
-			this.ChangeTurn (te);
-
-		} else {
-
-			//移動先に相手の駒があったらとる
-			int toKoma = kk.banKoma [te.to];
-			if (8 < toKoma && toKoma <= 16 || 24 < toKoma && toKoma <= 32) {
-				toKoma -= 8;
-			}
-
-			if (0 != toKoma && toKoma <= 16) {
-
-				kk.hand [0] [toKoma + 16] += 1;                       //先手の駒なら後手に追加
-				hand [toKoma + 8].GetComponent<Text> ().text = kk.hand [0] [toKoma + 16].ToString ();
-
-			} else if (toKoma != 0 && 17 <= toKoma) {
-
-				kk.hand [1] [toKoma - 16] += 1;                         //後手の駒なら先手に追加
-				hand [toKoma - 16].GetComponent<Text> ().text = kk.hand [1] [toKoma - 16].ToString ();
-			}
-
-			//駒があった場所を空にする
-			Put (te.from_dan, te.from_suji, 0);
-			//成る場合は成った駒を、ならない場合はそのままの駒を移動先におく
-			if (te.promote) {
-				Put (te.to_dan, te.to_suji, te.koma + 8);
-			} else {
-				Put (te.to_dan, te.to_suji, te.koma);
-			}
-
-
-
-			isSelectKoma = 0;
-
-			//手番を変える
-			this.ChangeTurn (te);
-		}
-	}
-
-	*/
-
-
-
 
 	//持ち駒11をタップ
 	public void PushButtonMotigoma11(){
@@ -909,6 +604,7 @@ public class GameManager : MonoBehaviour {
 			te.to = masu;
 			te.from = 0;
 			te.promote = false;
+			te.capture = 0;
 			//合法手ならば移動
 			if (LegalMove (te)) {
 				//使った持ち駒を減らす
@@ -979,6 +675,7 @@ public class GameManager : MonoBehaviour {
 
 					//移動先に相手の駒があったらとる
 					int toKoma = kk.banKoma [te.to];
+					te.capture = toKoma;
 					if (8 < toKoma && toKoma <= 16 || 24 < toKoma && toKoma <= 32) {
 						toKoma -= 8;
 					}
@@ -1065,10 +762,10 @@ public class GameManager : MonoBehaviour {
 	}
 
 
-	//手番を変える関数
+	//手番を進める関数
 	void ChangeTurn(Te te){
 		kk.turn = kk.turn + 1;
-		kihu.Add (te);
+		kihu.Add (te.DeepCopy());
 
 		//合法手が無くなったら
 		if (kk.GenerateLegalMoves ().Count == 0) {
@@ -1099,6 +796,7 @@ public class GameManager : MonoBehaviour {
 	public void Restart(){
 
 		this.isSelectKoma = 0;                                 //スタート時は駒を選択していない
+		kihu.Clear();
 		kk.turn = 1;
 		kk.BanShokika();
 		kk.hand =new List<List<int>>{new List<int>{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,},new List<int>{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}};
@@ -1172,27 +870,29 @@ public class GameManager : MonoBehaviour {
 
 	public void back(){
 
-		Te teLast = kihu [kihu.Count - 1];
-
-		if(teLast)
-
-		Te te = new Te (teLast.koma,teLast.to,teLast.from,false);
-		kk.Move (te);
-		kk.turn -= 1;
+		if(kk.turn - 2 >= 0){
+			
+			Te teLast = kihu [kk.turn - 2];
+			kihu.RemoveAt (kk.turn - 2);
 
 
+			kk.Back (teLast);
+			kk.turn -= 1;
 
-		//ボタンを有効にし、駒を正しく
-		for (int i = 1;i <= 81 ; i++){
-			Masu [i - 1].GetComponent<Button> ().interactable = true;
-			Masu [i - 1].GetComponent<Image>().sprite = komaPicture[kk.banKoma[i]];
+
+
+			//ボタンを有効にし、駒を正しく
+			for (int i = 1;i <= 81 ; i++){
+				Masu [i - 1].GetComponent<Button> ().interactable = true;
+				Masu [i - 1].GetComponent<Image>().sprite = komaPicture[kk.banKoma[i]];
+			}
+
+
+			for(int koma = 1;koma < 8;koma++){
+				hand[koma].GetComponent<Text>().text = kk.hand [1] [koma].ToString();
+				hand[koma + 8].GetComponent<Text>().text = kk.hand [0] [koma + 16].ToString();
+			}
+
 		}
-
-
-		for(int koma = 1;koma < 8;koma++){
-			hand[koma].GetComponent<Text>().text = kk.hand [1] [koma].ToString();
-			hand[koma + 8].GetComponent<Text>().text = kk.hand [0] [koma + 16].ToString();
-		}
-
 	}
 }

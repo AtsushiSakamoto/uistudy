@@ -41,12 +41,12 @@ public class KyokumennArray {
 	} ;
 
 	public static int[] MotiKomaValue = new int[32]{
-		0,100,600,700,1000,1200,1800,2000,10000,1200,1200,1200,1200,0,2000,2200,
-		0,-100,-600,-700,-1000,-1200,-1800,-2000,-10000,-1200,-1200,-1200,-1200,0,-2000,-2200
+		0, 105 ,630, 735, 1050, 1260, 1890, 2100, 10000, 1200, 1200, 1200, 1200,0, 2000, 2200,
+		0,-105,-630,-735,-1050,-1260,-1890,-2100,-10000,-1200,-1200,-1200,-1200,0,-2000,-2200
 	};
 
 	public static int[] KomaValue = new int[32]{
-		0,   100,   600,   700,  1000,  1200,  1800,  2000, 10000,  1200,  1200,  1200,  1200,0,  2000,  2200,
+		0,   100,   600,   700,  1000,  1200,  1900,  2000, 10000,  1200,  1200,  1200,  1200,0,  2150,  2300,
 		0,  -100,  -600,  -700, -1000, -1200, -1800, -2000,-10000, -1200, -1200, -1200, -1200,0, -2000, -2200
 	};
 
@@ -203,7 +203,7 @@ public class KyokumennArray {
 		}
 	}
 
-	public void SortKyokumen(ref List<Te> teList){
+	public void SortTe(ref List<Te> teList){
 
 		for (int i = 0; i < teList.Count - 1; i++) {
 			for (int j = 0; j < teList.Count - 1; j++) {
@@ -213,11 +213,22 @@ public class KyokumennArray {
 				mae.Move (teList [i]);
 				ato.Move (teList [i + 1]);
 
-				if (mae.evaluate() > ato.evaluate ()) {
-					Te tmp = teList [i].DeepCopy();
-					teList [i] = teList [i + 1].DeepCopy();
-					teList [i + 1] = tmp;
+				if (this.turn % 2 == 1) {
 
+					if (mae.evaluate () > ato.evaluate ()) {
+						Te tmp = teList [i].DeepCopy ();
+						teList [i] = teList [i + 1].DeepCopy ();
+						teList [i + 1] = tmp;
+
+					}
+				} else {
+					
+					if (mae.evaluate () < ato.evaluate ()) {
+						Te tmp = teList [i].DeepCopy ();
+						teList [i] = teList [i + 1].DeepCopy ();
+						teList [i + 1] = tmp;
+
+					}
 				}
 			}	
 		}
@@ -263,6 +274,51 @@ public class KyokumennArray {
 				this.Put (te.to, te.koma);
 			}
 		}
+
+	}
+
+	public void Back(Te te){
+
+		//取った駒を盤に戻す
+		Put(te.to,te.capture);
+
+		//取った駒がある時
+		if(te.capture != 0){
+
+			//持ち駒を減らす
+			if (8 < te.capture && te.capture <= 16 || 24 < te.capture && te.capture <= 32) {
+				te.capture -= 8;
+			}
+			//先手の駒か後手の駒か
+			if (0 != te.capture && te.capture <= 16) {
+
+				this.hand [0] [te.capture + 16] -= 1;       
+
+			} else if(te.capture != 0 && 17 <= te.capture){
+
+				this.hand [1] [te.capture - 16] -= 1;                      
+			}
+
+		}
+
+		if (te.from == 0) {
+			//駒打ちなので元の位置に戻す
+			//先手の駒か後手の駒か
+			if (0 != te.koma && te.koma <= 16) {
+
+				this.hand [1] [te.koma] += 1;       
+
+			} else if (te.koma != 0 && 17 <= te.koma) {
+
+				this.hand [0] [te.koma] += 1;                      
+			}
+		} else {
+			//盤上の駒を動かしたので、その駒を元に戻す
+			Put(te.from,te.koma);
+
+		}
+
+
 
 	}
 
@@ -333,6 +389,7 @@ public class KyokumennArray {
 						te.to = masu + KomaMoves.diff [direct];
 						te.from = masu;
 
+
 						if ((masu % 9 == 0 && te.to % 9 == 1) || (masu % 9 == 1 && te.to % 9 == 0)) {
 							continue;
 						}
@@ -340,8 +397,10 @@ public class KyokumennArray {
 						//移動先は盤内か
 						if(1 <= te.to && te.to <= 81){
 
+
 							//移動先に自分の駒はないか
 							int toKoma = this.banKoma[te.to];
+							te.capture = this.banKoma [te.to];
 							if ((this.turn % 2 == 1 && (toKoma == 0 || toKoma >= 17)) || (this.turn % 2 == 0 && toKoma <= 16)) {
 								//桂馬は敵二段目まで、歩は一段目までで成らずはできない
 								if ((te.koma != 3 || te.to  > 18) && (te.koma != 19 || te.to < 64) && (te.koma != 1 || te.to >= 10) && (te.koma != 17 || te.to <= 72)) {
@@ -380,6 +439,7 @@ public class KyokumennArray {
 						te.from = masu;
 						te.koma = koma;
 
+
 						for (int i = 1; i < 9; i++) {
 
 							//移動先を生成
@@ -394,6 +454,7 @@ public class KyokumennArray {
 							if(1 <= te.to && te.to <= 81){
 								//移動先に自分の駒はないか
 								int toKoma = this.banKoma[te.to];
+								te.capture = this.banKoma [te.to];
 								if ((this.turn % 2 == 1 && (toKoma == 0 || toKoma >= 17)) || (this.turn % 2 == 0 && toKoma <= 16)) {
 									//香車は敵の一段目まで行って成らずは不可
 									if ((te.koma != 2 || te.to > 9) && (te.koma != 18 || te.to < 73)) {
@@ -444,6 +505,7 @@ public class KyokumennArray {
 						te.to = masu;
 						te.from = 0;
 						te.promote = false;
+						te.capture = this.banKoma [te.to];
 
 						if (this.banKoma [masu] == 0) {
 							teList.Add (te.DeepCopy ());
@@ -465,6 +527,7 @@ public class KyokumennArray {
 						te.to = masu;
 						te.from = 0;
 						te.promote = false;
+						te.capture = this.banKoma [te.to];
 
 						if (this.banKoma [masu] == 0) {
 							teList.Add (te.DeepCopy ());
@@ -502,6 +565,7 @@ public class KyokumennArray {
 						te.to = (dan - 1) * 9 + suji;
 						te.from = 0;
 						te.promote = false;
+						te.capture = this.banKoma [te.to];
 
 						if (this.banKoma [(dan - 1) * 9 + suji] == 0) {
 							teList.Add (te.DeepCopy ());
@@ -526,6 +590,7 @@ public class KyokumennArray {
 					te.to = masu;
 					te.from = 0;
 					te.promote = false;
+					te.capture = this.banKoma [te.to];
 
 					if (this.banKoma [masu] == 0) {
 						teList.Add (te.DeepCopy ());
@@ -549,6 +614,7 @@ public class KyokumennArray {
 					te.to = masu;
 					te.from = 0;
 					te.promote = false;
+					te.capture = this.banKoma [te.to];
 
 					if (this.banKoma [masu] == 0) {
 						teList.Add (te.DeepCopy ());
@@ -583,6 +649,7 @@ public class KyokumennArray {
 						te.to = (dan - 1) * 9 + suji;
 						te.from = 0;
 						te.promote = false;
+						te.capture = this.banKoma [te.to];
 
 						if (this.banKoma [(dan - 1) * 9 + suji] == 0) {
 							teList.Add (te.DeepCopy ());
@@ -606,6 +673,7 @@ public class KyokumennArray {
 					te.to = masu;
 					te.from = 0;
 					te.promote = false;
+					te.capture = this.banKoma [te.to];
 
 					if (this.banKoma [masu] == 0) {
 						teList.Add (te.DeepCopy ());
@@ -628,6 +696,7 @@ public class KyokumennArray {
 					te.to = masu;
 					te.from = 0;
 					te.promote = false;
+					te.capture = this.banKoma [te.to];
 
 					if (this.banKoma [masu] == 0) {
 						teList.Add (te.DeepCopy ());
@@ -642,11 +711,11 @@ public class KyokumennArray {
 		int gyoku = 0;
 
 		for (int i = 0; i < teList.Count; i++) {
-			KyokumennArray temp = this.DeepCopyKyokumenn ();
+	//		KyokumennArray temp = this.DeepCopyKyokumenn ();
 			bool isOuteHouchi = false;
 			Te teTest = teList [i].DeepCopy();
-			temp.Move (teTest);
-			temp.SearchGyoku (ref gyoku, this.turn);
+			this.Move (teTest);
+			this.SearchGyoku (ref gyoku, this.turn);
 
 			// 玉の周辺（１２方向）から相手の駒が利いていたら、その手は取り除く
 			for (int direct = 0; direct < 12 && !isOuteHouchi; direct++) {
@@ -659,7 +728,7 @@ public class KyokumennArray {
 				}
 
 				if (1 <= masuSerch && masuSerch <= 81) {
-					int koma = temp.banKoma [masuSerch];
+					int koma = this.banKoma [masuSerch];
 					//その駒が敵の駒で手番の玉を取れるか
 					if (this.turn % 2 == 1 && 17 <= koma || this.turn % 2 == 0 && koma <= 16 && 1 <= koma) {
 						//動けるなら、この手は王手を放置しているので追加しない
@@ -685,7 +754,7 @@ public class KyokumennArray {
 						break;
 					}
 
-					int koma = temp.banKoma [masuSerch];
+					int koma = this.banKoma [masuSerch];
 					// 味方駒で利きが遮られているなら、チェック終わり
 					if(this.turn % 2 == 1 && koma <= 16 && 1 <= koma || this.turn % 2 == 0 && 17 <= koma){
 						break;
@@ -707,6 +776,7 @@ public class KyokumennArray {
 
 			}
 
+			this.Back (teTest);
 
 			if (!isOuteHouchi) {
 				removed.Add (teList [i]);

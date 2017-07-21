@@ -72,6 +72,7 @@ public class SikouAlphaBeta {
 				t.from = te.from;
 				t.to = te.to;
 				t.promote = te.promote;
+				t.capture = k.banKoma [te.to];
 
 				for (int j = depth + 1; j < depthMax; j++) {
 					best [depth, j] = best [depth + 1, j];
@@ -134,6 +135,7 @@ public class SikouAlphaBeta {
 				t.from = te.from;
 				t.to = te.to;
 				t.promote = te.promote;
+				t.capture = k.banKoma [te.to];
 
 				for (int j = depth + 1; j < depthMax; j++) {
 					best [depth, j] = best [depth + 1, j];
@@ -167,7 +169,7 @@ public class SikouAlphaBeta {
 
 
 		if (node == 1) {
-			k.SortKyokumen (ref teList);
+			k.SortTe (ref teList);
 		}
 
 
@@ -202,6 +204,7 @@ public class SikouAlphaBeta {
 				t.from = te.from;
 				t.to = te.to;
 				t.promote = te.promote;
+				t.capture = k.banKoma [te.to];
 
 				for (int j = depth + 1; j < depthMax; j++) {
 					best [depth, j] = best [depth + 1, j];
@@ -233,7 +236,7 @@ public class SikouAlphaBeta {
 
 
 		if (node == 1) {
-			k.SortKyokumen (ref teList);
+			k.SortTe (ref teList);
 		}
 
 
@@ -268,6 +271,7 @@ public class SikouAlphaBeta {
 				t.from = te.from;
 				t.to = te.to;
 				t.promote = te.promote;
+				t.capture = k.banKoma [te.to];
 
 				for (int j = depth + 1; j < depthMax; j++) {
 					best [depth, j] = best [depth + 1, j];
@@ -325,9 +329,6 @@ public class SikouAlphaBeta {
 		List<Te> teList = k.GenerateLegalMoves ();
 		te = teList[Random.Range (0, teList.Count)];
 
-		Debug.Log ("ランダム仮");
-		Debug.Log (te.koma);
-
 		if (k.turn % 2 == 1) {
 			//評価値最大の手をえる
 			this.GetMaxTeKai (ref te, k,-1000000,1000000,0,DEPTH_MAX);
@@ -336,6 +337,7 @@ public class SikouAlphaBeta {
 			this.GetMinTeKai (ref te, k,-100000,1000000,0,DEPTH_MAX);
 		}
 
+		Debug.Log ("leaf:" + leaf.ToString () + "   node:" + node.ToString ());
 
 		return te;
 	}

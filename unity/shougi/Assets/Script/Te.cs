@@ -10,6 +10,7 @@ public class Te {
 	public int to_dan;
 	public int to_suji;
 	public bool promote;
+	public int capture;
 
 
 	public int from;
@@ -23,6 +24,14 @@ public class Te {
 		from = _from;
 		to= _to;
 		promote = _promote;
+	}
+
+	public Te(int  _koma,int _from, int _to,bool _promote,int _capture){
+		koma = _koma;
+		from = _from;
+		to= _to;
+		promote = _promote;
+		capture = _capture;
 	}
 
 
