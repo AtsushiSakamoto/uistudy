@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEditor;
 
 
 public class Joseki{
@@ -13,11 +10,13 @@ public class Joseki{
 	//	Joseki child = null;
 	byte[][] josekiData;
 	int numJoseki;
-	KyokumennArray josekiKyokumenn;
+	Kyokumenn josekiKyokumenn;
+	public string path;
 
 
-	public Joseki(string josekiFileName){
 
+	public Joseki(string josekiPath){
+		
 		/*
 		if(josekiFileName.IndexOf(",") >= 0){
 
@@ -29,7 +28,9 @@ public class Joseki{
 		}
 */
 		//ファイルから定跡データを読み込む
-		FileStream f = new FileStream(josekiFileName,FileMode.Open,FileAccess.Read);
+		path = josekiPath;
+		FileStream f = new FileStream(path,FileMode.Open,FileAccess.Read);
+
 		try{
 
 
@@ -56,7 +57,7 @@ public class Joseki{
 	}
 
 
-	public Te josekiByteToTe(byte toByte,byte fromByte,KyokumennArray k){
+	public Te josekiByteToTe(byte toByte,byte fromByte,Kyokumenn k){
 
 		int f = ((int)fromByte) & 0xff;
 		int t = ((int)toByte) & 0xff;
@@ -100,13 +101,13 @@ public class Joseki{
 		return te;
 	}
 
-	public Te fromjoseki(KyokumennArray k,int tesu){
+	public Te fromjoseki(Kyokumenn k,int tesu){
 		//tesuには実際の手数が渡されるが、定跡データは0手目から始まるので1ずらしておく
 		tesu = tesu - 1;
 		//定跡にあった候補手を入れる
 		List <Te> teList = new List<Te>();
 		//定跡で進めた局面を作り、渡された局面と比較する
-		KyokumennArray josekiKyokumenn = new KyokumennArray();
+		Kyokumenn josekiKyokumenn = new Kyokumenn();
 
 		for (int i = 0; i < numJoseki; i++) {
 			//平手で初期化
@@ -154,10 +155,7 @@ public class Joseki{
 
 	}
 
-	// Use this for initialization
-	void Start () {
 
-	}
 
 	// Update is called once per frame
 	void Update () {

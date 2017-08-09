@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEditor;
 
 public class SikouAlphaBeta {
 	Joseki joseki;
@@ -17,7 +14,7 @@ public class SikouAlphaBeta {
 	int leaf = 0;
 	int node = 0;
 
-	private int GetMaxTe(ref Te t,KyokumennArray k,int alpha,int beta,int depth,int depthMax){
+	private int GetMaxTe(ref Te t,Kyokumenn k,int alpha,int beta,int depth,int depthMax){
 
 		int value = new int ();
 
@@ -50,7 +47,7 @@ public class SikouAlphaBeta {
 			Te te = teList [i];
 
 			//その手で一手進めた局面を作る
-			KyokumennArray nextKyokumenn = k.DeepCopyKyokumenn ();
+			Kyokumenn nextKyokumenn = k.DeepCopyKyokumenn ();
 			nextKyokumenn.Move (te);
 			nextKyokumenn.turn += 1;
 
@@ -86,7 +83,7 @@ public class SikouAlphaBeta {
 		return value;
 	}
 
-	private int GetMinTe(ref Te t,KyokumennArray k,int alpha,int beta,int depth,int depthMax){
+	private int GetMinTe(ref Te t,Kyokumenn k,int alpha,int beta,int depth,int depthMax){
 
 		int value = new int ();
 
@@ -113,7 +110,7 @@ public class SikouAlphaBeta {
 			Te te = teList [i];
 
 			//その手で一手進めた局面を作る
-			KyokumennArray nextKyokumenn = k.DeepCopyKyokumenn();
+			Kyokumenn nextKyokumenn = k.DeepCopyKyokumenn();
 			nextKyokumenn.Move (te);
 			nextKyokumenn.turn += 1;
 
@@ -149,7 +146,7 @@ public class SikouAlphaBeta {
 		return value;
 	}
 
-	private int GetMaxTeKai(ref Te t,KyokumennArray k,int alpha,int beta,int depth,int depthMax){
+	private int GetMaxTeKai(ref Te t,Kyokumenn k,int alpha,int beta,int depth,int depthMax){
 
 		int value = new int ();
 
@@ -182,7 +179,7 @@ public class SikouAlphaBeta {
 			Te te = teList [i];
 
 			//その手で一手進めた局面を作る
-			KyokumennArray nextKyokumenn = k.DeepCopyKyokumenn ();
+			Kyokumenn nextKyokumenn = k.DeepCopyKyokumenn ();
 			nextKyokumenn.Move (te);
 			nextKyokumenn.turn += 1;
 
@@ -218,7 +215,7 @@ public class SikouAlphaBeta {
 		return value;
 	}
 
-	private int GetMinTeKai(ref Te t,KyokumennArray k,int alpha,int beta,int depth,int depthMax){
+	private int GetMinTeKai(ref Te t,Kyokumenn k,int alpha,int beta,int depth,int depthMax){
 
 		int value = new int ();
 
@@ -249,7 +246,7 @@ public class SikouAlphaBeta {
 			Te te = teList [i];
 
 			//その手で一手進めた局面を作る
-			KyokumennArray nextKyokumenn = k.DeepCopyKyokumenn();
+			Kyokumenn nextKyokumenn = k.DeepCopyKyokumenn();
 			nextKyokumenn.Move (te);
 			nextKyokumenn.turn += 1;
 
@@ -285,7 +282,7 @@ public class SikouAlphaBeta {
 		return value;
 	}
 
-	public Te getNextTe(KyokumennArray k,int tesu){
+	public Te getNextTe(Kyokumenn k,int tesu){
 
 		Te te;
 
@@ -314,7 +311,7 @@ public class SikouAlphaBeta {
 	}
 
 
-	public Te getNextTeKai(KyokumennArray k,int tesu){
+	public Te getNextTeKai(Kyokumenn k,int tesu){
 
 		Te te;
 
@@ -342,8 +339,8 @@ public class SikouAlphaBeta {
 		return te;
 	}
 
-	public SikouAlphaBeta(){
-		joseki = new Joseki("public.bin");
+	public SikouAlphaBeta(string path){
+		joseki = new Joseki(path);
 	}
 
 

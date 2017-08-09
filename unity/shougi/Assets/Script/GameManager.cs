@@ -1,30 +1,40 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor;
 
 public class GameManager : MonoBehaviour {
 
 
-	public  GameObject[] Masu = new GameObject[81];            //ボタン：マス
-	public Sprite[] komaPicture = new Sprite[27];              //アイコン：駒
-	public GameObject[] hand = new GameObject[16];             //テキスト:持ち駒数
-	public GameObject[] motiGoma = new GameObject[16];         //ボタン：持ち駒
-	//	private Kyokumenn k = new Kyokumenn();
-	private KyokumennArray kk = new KyokumennArray ();
+	public  GameObject[] Masu;            //ボタン：マス
+	public Sprite[] komaPicture;              //アイコン：駒
+	public GameObject[] hand;             //テキスト:持ち駒数
+	public GameObject[] motiGoma;         //ボタン：持ち駒
+	public GameObject popupCanvas;
+	public GameObject sente;
+	public GameObject gote;
+		
+	private Kyokumenn kk = new Kyokumenn ();
 	private List<Te> kihu = new List<Te> ();
 	static Te te = new Te();                                           //手を格納
+	private Sikou sikou;
 	private int isSelectKoma;                                //駒を選択しているか
 	private int isSelectMotigoma;                            //持ち駒を選択しているか
+	bool promote = new bool();
 	bool vsCom = false;
 	bool vsComGote = false;
+	private bool pushButtonBool = false;
+	public static string JOSEKIPATH;
 
 
 	// Use this for initialization
 	void Start () {
 		//対局できるようにする
 		Restart ();
+
+		JOSEKIPATH = System.IO.Path.Combine(Application.streamingAssetsPath, "public.bin");
+		sikou = new Sikou (JOSEKIPATH);
 	}
 
 	// Update is called once per frame
@@ -70,10 +80,13 @@ public class GameManager : MonoBehaviour {
 		if (vsCom) {
 			vsCom = false;
 			Debug.Log ("vscom true> false");
+			gote.GetComponent<Text> ().text = "P";
 		} else{
 			vsCom = true;
 			Debug.Log("vscom false> true");
+			gote.GetComponent<Text> ().text = "C";
 		}
+
 	}
 
 	//AlphaBeta対人
@@ -82,39 +95,20 @@ public class GameManager : MonoBehaviour {
 		if (vsComGote) {
 			vsComGote = false;
 			Debug.Log ("vscom true> false");
+			sente.GetComponent<Text> ().text = "P";
 		} else{
 			vsComGote = true;
 			Debug.Log("vscom false> true");
+			sente.GetComponent<Text> ().text = "C";
 		}
 
 	}
-
-	//MinMax対一手読みTEST
-	public void test(){
-		while (kk.GenerateLegalMoves ().Count > 0) {
-			this.AlphaBeta ();
-			if (kk.GenerateLegalMoves ().Count == 0)
-				break;
-			this.AlphaBeta ();
-		}
-	}
-	//TEST
-	public void testKai(){
-		while (kk.GenerateLegalMoves ().Count > 0) {
-			this.AlphaBeta ();
-			if (kk.GenerateLegalMoves ().Count == 0)
-				break;
-			this.AlphaBeta ();
-		}
-	}
-
 
 	//コンピューターに打たせるAlphaBeta
 	public void AlphaBeta(){
 
 		//Sikouクラスから次の手をもらう
-		Sikou s = new Sikou();
-		Te te = s.getNextTeKai (kk,kk.turn);
+		Te te = sikou.getNextTeKai (kk,kk.turn);
 
 		//合法手出ない場合は合法手の中からランダムに手を作る
 		if (!LegalMove (te)) {
@@ -641,75 +635,92 @@ public class GameManager : MonoBehaviour {
 				isSelectKoma = 1;
 
 			}
-		} else {  
-
-			te.to = masu;
-
-			//			masu [num2].GetComponent<Image>().color = Color.red;
-
-			//選択中の駒をタップで選択を外す
-			if (te.from == te.to) {
-				Masu [masu - 1].GetComponent<Image> ().color =  new Color (255f / 255f, 255f / 255f, 255f / 255f, 255f / 255f);
-				isSelectKoma = 0;
-			}
-
-			//手が生成されていれば駒を動かす
-			if(isSelectKoma == 1){
-
-				te.promote = false;
-				//移動先か移動元が敵陣
-				if((te.to <= 27 && kk.turn % 2 == 1) || (te.to >= 55 && kk.turn % 2 == 0) || (te.from <= 27 && kk.turn % 2 == 1) || (te.from >= 55 && kk.turn % 2 == 0)){
-					//成れる駒
-					if(KomaMoves.canPromote[te.koma]){
-						//メッセージボックス表示
-						bool pro = EditorUtility.DisplayDialog("成りますか？", "", "Yes", "No");
-						if (pro) {
-							te.promote = true;
-						}
-					}
-
-				}
-
-				//合法手ならば移動
-				if (LegalMove (te)) {
-
-					//移動先に相手の駒があったらとる
-					int toKoma = kk.banKoma [te.to];
-					te.capture = toKoma;
-					if (8 < toKoma && toKoma <= 16 || 24 < toKoma && toKoma <= 32) {
-						toKoma -= 8;
-					}
-
-					if (0 != toKoma && toKoma <= 16) {
-
-						kk.hand [0] [toKoma + 16] += 1;                       //先手の駒なら後手に追加
-						hand[toKoma + 8].GetComponent<Text>().text = kk.hand [0] [toKoma + 16].ToString();
-
-					} else if(toKoma != 0 && 17 <= toKoma){
-
-						kk.hand [1] [toKoma - 16] += 1;                         //後手の駒なら先手に追加
-						hand[toKoma -16].GetComponent<Text>().text = kk.hand [1] [toKoma - 16].ToString();
-					}
-
-					//駒があった場所を空にする
-					Put (te.from, 0);
-					//成る場合は成った駒を、ならない場合はそのままの駒を移動先におく
-					if (te.promote) {
-						Put (te.to, te.koma + 8);
-					} else {
-						Put (te.to, te.koma);
-					}
-
-
-
-					isSelectKoma = 0;
-
-					//手番を変える
-					this.ChangeTurn(te);
-				}
-			}
+		} else {
+			StartCoroutine(MessageWait(masu,te));
 		}
 
+	}
+
+	IEnumerator MessageWait(int masu,Te te){
+
+
+		te.to = masu;
+
+		//			masu [num2].GetComponent<Image>().color = Color.red;
+
+		//選択中の駒をタップで選択を外す
+		if (te.from == te.to) {
+			Masu [masu - 1].GetComponent<Image> ().color =  new Color (255f / 255f, 255f / 255f, 255f / 255f, 255f / 255f);
+			isSelectKoma = 0;
+		}
+
+
+		//手が生成されていれば駒を動かす
+		if(isSelectKoma == 1){
+
+			te.promote = false;
+			//移動先か移動元が敵陣
+			if((te.to <= 27 && kk.turn % 2 == 1) || (te.to >= 55 && kk.turn % 2 == 0) || (te.from <= 27 && kk.turn % 2 == 1) || (te.from >= 55 && kk.turn % 2 == 0)){
+				//成れる駒
+				if(KomaMoves.canPromote[te.koma]){
+					//メッセージボックス表示
+
+
+					popupCanvas.GetComponent<Canvas>().enabled = true;
+
+					Debug.Log ("Start");
+
+					while (!pushButtonBool) {
+						yield return new WaitForEndOfFrame ();
+					}
+					pushButtonBool = false;
+					Debug.Log ("Gorl");
+
+
+					popupCanvas.GetComponent<Canvas>().enabled = false; 
+					te.promote = promote;
+				}
+
+			}
+
+			//合法手ならば移動
+			if (LegalMove (te)) {
+
+				//移動先に相手の駒があったらとる
+				int toKoma = kk.banKoma [te.to];
+				te.capture = toKoma;
+				if (8 < toKoma && toKoma <= 16 || 24 < toKoma && toKoma <= 32) {
+					toKoma -= 8;
+				}
+
+				if (0 != toKoma && toKoma <= 16) {
+
+					kk.hand [0] [toKoma + 16] += 1;                       //先手の駒なら後手に追加
+					hand[toKoma + 8].GetComponent<Text>().text = kk.hand [0] [toKoma + 16].ToString();
+
+				} else if(toKoma != 0 && 17 <= toKoma){
+
+					kk.hand [1] [toKoma - 16] += 1;                         //後手の駒なら先手に追加
+					hand[toKoma -16].GetComponent<Text>().text = kk.hand [1] [toKoma - 16].ToString();
+				}
+
+				//駒があった場所を空にする
+				Put (te.from, 0);
+				//成る場合は成った駒を、ならない場合はそのままの駒を移動先におく
+				if (te.promote) {
+					Put (te.to, te.koma + 8);
+				} else {
+					Put (te.to, te.koma);
+				}
+
+
+
+				isSelectKoma = 0;
+
+				//手番を変える
+				this.ChangeTurn(te);
+			}
+		}
 	}
 	//持ち駒を選択する
 	void SelectMotigoma(int turn,int koma){
@@ -795,17 +806,20 @@ public class GameManager : MonoBehaviour {
 	//ゲームを初めから
 	public void Restart(){
 
+		popupCanvas.GetComponent<Canvas>().enabled = false;
 		this.isSelectKoma = 0;                                 //スタート時は駒を選択していない
-		kihu.Clear();
+		if (kihu.Count != 0) {
+			kihu.Clear ();
+		}
 		kk.turn = 1;
 		kk.BanShokika();
-		kk.hand =new List<List<int>>{new List<int>{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,},new List<int>{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}};
+//		kk.hand =new List<List<int>>{new List<int>{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,},new List<int>{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}};
 
 		//初期盤面を入れる
 		for (int masu = 0; masu <= 81; masu++) {
 
 			//				k.banKoma[dan,suji]= Kyokumenn.SHOKI_BAN[dan-1,suji-1];
-			kk.banKoma[masu]= KyokumennArray.SHOKI_BAN[masu];
+			kk.banKoma[masu]= Kyokumenn.SHOKI_BAN[masu];
 		}
 
 		//ボタンを有効にし、駒を正しく
@@ -868,6 +882,16 @@ public class GameManager : MonoBehaviour {
 
 	}
 
+	public void PromoteYes(){
+		promote = true;
+		pushButtonBool = true;
+	}
+
+	public void PromoteNo(){
+		promote = false;
+		pushButtonBool = true;
+	}
+
 	public void back(){
 
 		if(kk.turn - 2 >= 0){
@@ -896,3 +920,4 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 }
+

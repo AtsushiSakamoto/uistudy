@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿
 public class KomaMoves {
 
 //　　通常８方向の定義(盤面上の動き)
