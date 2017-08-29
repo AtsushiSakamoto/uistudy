@@ -1114,17 +1114,17 @@ extern const int32_t g_FieldOffsetTable1698[5];
 extern const int32_t g_FieldOffsetTable1699[8];
 extern const int32_t g_FieldOffsetTable1700[2];
 extern const int32_t g_FieldOffsetTable1701[6];
-extern const int32_t g_FieldOffsetTable1703[18];
+extern const int32_t g_FieldOffsetTable1703[22];
 extern const int32_t g_FieldOffsetTable1704[6];
+extern const int32_t g_FieldOffsetTable1705[5];
 extern const int32_t g_FieldOffsetTable1706[4];
 extern const int32_t g_FieldOffsetTable1707[6];
-extern const int32_t g_FieldOffsetTable1708[12];
+extern const int32_t g_FieldOffsetTable1708[15];
 extern const int32_t g_FieldOffsetTable1709[7];
-extern const int32_t g_FieldOffsetTable1710[6];
-extern const int32_t g_FieldOffsetTable1711[9];
-extern const int32_t g_FieldOffsetTable1712[49];
+extern const int32_t g_FieldOffsetTable1710[9];
+extern const int32_t g_FieldOffsetTable1711[49];
 
-extern const int32_t* g_FieldOffsetTable[1721] = 
+extern const int32_t* g_FieldOffsetTable[1720] = 
 {
 	NULL,
 	NULL,
@@ -2831,14 +2831,13 @@ extern const int32_t* g_FieldOffsetTable[1721] =
 	NULL,
 	g_FieldOffsetTable1703,
 	g_FieldOffsetTable1704,
-	NULL,
+	g_FieldOffsetTable1705,
 	g_FieldOffsetTable1706,
 	g_FieldOffsetTable1707,
 	g_FieldOffsetTable1708,
 	g_FieldOffsetTable1709,
 	g_FieldOffsetTable1710,
 	g_FieldOffsetTable1711,
-	g_FieldOffsetTable1712,
 	NULL,
 	NULL,
 	NULL,
@@ -4568,8 +4567,7 @@ extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1716;
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1717;
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1718;
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1719;
-extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1720;
-extern const Il2CppTypeDefinitionSizes* g_Il2CppTypeDefinitionSizesTable[1721] = 
+extern const Il2CppTypeDefinitionSizes* g_Il2CppTypeDefinitionSizesTable[1720] = 
 {
 	&g_typeDefinitionSize0,
 	&g_typeDefinitionSize1,
@@ -6291,5 +6289,4 @@ extern const Il2CppTypeDefinitionSizes* g_Il2CppTypeDefinitionSizesTable[1721] =
 	&g_typeDefinitionSize1717,
 	&g_typeDefinitionSize1718,
 	&g_typeDefinitionSize1719,
-	&g_typeDefinitionSize1720,
 };

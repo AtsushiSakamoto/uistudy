@@ -1,7 +1,6 @@
 <linker>
 <assembly fullname="Assembly-CSharp">
 <type fullname="GameManager" preserve="all"/>
-<type fullname="GameMenu" preserve="all"/>
 </assembly>
 <assembly fullname="UnityEngine.Analytics">
 <type fullname="UnityEngine.Analytics.AnalyticsTracker" preserve="all"/>

@@ -10970,28 +10970,29 @@ extern "C" void GameManager_SelectMasu_m744587337 ();
 extern "C" void GameManager_MessageWait_m231401234 ();
 extern "C" void GameManager_SelectMotigoma_m229220281 ();
 extern "C" void GameManager_Put_m4054158487 ();
-extern "C" void GameManager_ChangeTurn_m3615800304 ();
+extern "C" void GameManager_Changeturn_m2960816764 ();
 extern "C" void GameManager_Restart_m4281311397 ();
 extern "C" void GameManager_LegalMove_m2831387561 ();
-extern "C" void GameManager_KihuPrint_m566494602 ();
 extern "C" void GameManager_PromoteYes_m555112783 ();
 extern "C" void GameManager_PromoteNo_m2548255265 ();
+extern "C" void GameManager_endGame_m3802825903 ();
 extern "C" void GameManager_back_m4238445209 ();
-extern "C" void GameManager__cctor_m3728246245 ();
+extern "C" void U3CChangeturnU3Ec__Iterator1__ctor_m1653709352 ();
+extern "C" void U3CChangeturnU3Ec__Iterator1_MoveNext_m3450831684 ();
+extern "C" void U3CChangeturnU3Ec__Iterator1_System_Collections_Generic_IEnumeratorU3CobjectU3E_get_Current_m1582126240 ();
+extern "C" void U3CChangeturnU3Ec__Iterator1_System_Collections_IEnumerator_get_Current_m4121622440 ();
+extern "C" void U3CChangeturnU3Ec__Iterator1_Dispose_m1407820575 ();
+extern "C" void U3CChangeturnU3Ec__Iterator1_Reset_m3338054025 ();
 extern "C" void U3CMessageWaitU3Ec__Iterator0__ctor_m1829521276 ();
 extern "C" void U3CMessageWaitU3Ec__Iterator0_MoveNext_m4126312144 ();
 extern "C" void U3CMessageWaitU3Ec__Iterator0_System_Collections_Generic_IEnumeratorU3CobjectU3E_get_Current_m3323360854 ();
 extern "C" void U3CMessageWaitU3Ec__Iterator0_System_Collections_IEnumerator_get_Current_m4286271406 ();
 extern "C" void U3CMessageWaitU3Ec__Iterator0_Dispose_m746354261 ();
 extern "C" void U3CMessageWaitU3Ec__Iterator0_Reset_m2263204039 ();
-extern "C" void GameMenu__ctor_m2447242784 ();
 extern "C" void Joseki__ctor_m560662120 ();
 extern "C" void Joseki_josekiByteToTe_m4287541468 ();
 extern "C" void Joseki_fromjoseki_m1875441701 ();
-extern "C" void Joseki_Update_m4017063111 ();
 extern "C" void KomaMoves__ctor_m627631101 ();
-extern "C" void KomaMoves_Start_m2753652533 ();
-extern "C" void KomaMoves_Update_m1795042648 ();
 extern "C" void KomaMoves__cctor_m110008300 ();
 extern "C" void Kyokumenn__ctor_m3363507090 ();
 extern "C" void Kyokumenn_BanShokika_m3492060145 ();
@@ -11000,7 +11001,6 @@ extern "C" void Kyokumenn_ShallowCopyKyokumenn_m2185693200 ();
 extern "C" void Kyokumenn_DeepCopyKyokumenn_m3059867844 ();
 extern "C" void Kyokumenn_evaluate_m1772424965 ();
 extern "C" void Kyokumenn_Sub_m748819006 ();
-extern "C" void Kyokumenn_SearchGyoku_m1285255276 ();
 extern "C" void Kyokumenn_SearchHisya_m3084428943 ();
 extern "C" void Kyokumenn_SearchKaku_m3576141517 ();
 extern "C" void Kyokumenn_SortTe_m1019972576 ();
@@ -11010,8 +11010,6 @@ extern "C" void Kyokumenn_Back_m2619537226 ();
 extern "C" void Kyokumenn_IsUtifuDume_m2554673129 ();
 extern "C" void Kyokumenn_equals_m3204339742 ();
 extern "C" void Kyokumenn_GenerateLegalMoves_m1922359528 ();
-extern "C" void Kyokumenn_Start_m2975740210 ();
-extern "C" void Kyokumenn_Update_m1644261173 ();
 extern "C" void Kyokumenn__cctor_m1378785783 ();
 extern "C" void Sikou__ctor_m743204914 ();
 extern "C" void Sikou_NegaMax_m4241757879 ();
@@ -11019,14 +11017,6 @@ extern "C" void Sikou_NegaMaxKai_m3735278982 ();
 extern "C" void Sikou_getNextTe_m2567480106 ();
 extern "C" void Sikou_getNextTeKai_m1260611739 ();
 extern "C" void Sikou__cctor_m2297957059 ();
-extern "C" void SikouAlphaBeta__ctor_m3080756810 ();
-extern "C" void SikouAlphaBeta_GetMaxTe_m898329871 ();
-extern "C" void SikouAlphaBeta_GetMinTe_m2027652697 ();
-extern "C" void SikouAlphaBeta_GetMaxTeKai_m168308 ();
-extern "C" void SikouAlphaBeta_GetMinTeKai_m1024477534 ();
-extern "C" void SikouAlphaBeta_getNextTe_m1490989558 ();
-extern "C" void SikouAlphaBeta_getNextTeKai_m1197529021 ();
-extern "C" void SikouAlphaBeta__cctor_m517265745 ();
 extern "C" void Te__ctor_m108260294 ();
 extern "C" void Te__ctor_m2138715736 ();
 extern "C" void Te__ctor_m2641416185 ();
@@ -11034,9 +11024,7 @@ extern "C" void Te__ctor_m1459362478 ();
 extern "C" void Te_Clone_m2227565058 ();
 extern "C" void Te_ShallowCopy_m2326522815 ();
 extern "C" void Te_DeepCopy_m1960120545 ();
-extern "C" void Te_Start_m2343835002 ();
-extern "C" void Te_Update_m980309479 ();
-extern const Il2CppMethodPointer g_MethodPointers[11022] = 
+extern const Il2CppMethodPointer g_MethodPointers[11010] = 
 {
 	Locale_GetText_m1954433032,
 	Locale_GetText_m2553164138,
@@ -21994,28 +21982,29 @@ extern const Il2CppMethodPointer g_MethodPointers[11022] =
 	GameManager_MessageWait_m231401234,
 	GameManager_SelectMotigoma_m229220281,
 	GameManager_Put_m4054158487,
-	GameManager_ChangeTurn_m3615800304,
+	GameManager_Changeturn_m2960816764,
 	GameManager_Restart_m4281311397,
 	GameManager_LegalMove_m2831387561,
-	GameManager_KihuPrint_m566494602,
 	GameManager_PromoteYes_m555112783,
 	GameManager_PromoteNo_m2548255265,
+	GameManager_endGame_m3802825903,
 	GameManager_back_m4238445209,
-	GameManager__cctor_m3728246245,
+	U3CChangeturnU3Ec__Iterator1__ctor_m1653709352,
+	U3CChangeturnU3Ec__Iterator1_MoveNext_m3450831684,
+	U3CChangeturnU3Ec__Iterator1_System_Collections_Generic_IEnumeratorU3CobjectU3E_get_Current_m1582126240,
+	U3CChangeturnU3Ec__Iterator1_System_Collections_IEnumerator_get_Current_m4121622440,
+	U3CChangeturnU3Ec__Iterator1_Dispose_m1407820575,
+	U3CChangeturnU3Ec__Iterator1_Reset_m3338054025,
 	U3CMessageWaitU3Ec__Iterator0__ctor_m1829521276,
 	U3CMessageWaitU3Ec__Iterator0_MoveNext_m4126312144,
 	U3CMessageWaitU3Ec__Iterator0_System_Collections_Generic_IEnumeratorU3CobjectU3E_get_Current_m3323360854,
 	U3CMessageWaitU3Ec__Iterator0_System_Collections_IEnumerator_get_Current_m4286271406,
 	U3CMessageWaitU3Ec__Iterator0_Dispose_m746354261,
 	U3CMessageWaitU3Ec__Iterator0_Reset_m2263204039,
-	GameMenu__ctor_m2447242784,
 	Joseki__ctor_m560662120,
 	Joseki_josekiByteToTe_m4287541468,
 	Joseki_fromjoseki_m1875441701,
-	Joseki_Update_m4017063111,
 	KomaMoves__ctor_m627631101,
-	KomaMoves_Start_m2753652533,
-	KomaMoves_Update_m1795042648,
 	KomaMoves__cctor_m110008300,
 	Kyokumenn__ctor_m3363507090,
 	Kyokumenn_BanShokika_m3492060145,
@@ -22024,7 +22013,6 @@ extern const Il2CppMethodPointer g_MethodPointers[11022] =
 	Kyokumenn_DeepCopyKyokumenn_m3059867844,
 	Kyokumenn_evaluate_m1772424965,
 	Kyokumenn_Sub_m748819006,
-	Kyokumenn_SearchGyoku_m1285255276,
 	Kyokumenn_SearchHisya_m3084428943,
 	Kyokumenn_SearchKaku_m3576141517,
 	Kyokumenn_SortTe_m1019972576,
@@ -22034,8 +22022,6 @@ extern const Il2CppMethodPointer g_MethodPointers[11022] =
 	Kyokumenn_IsUtifuDume_m2554673129,
 	Kyokumenn_equals_m3204339742,
 	Kyokumenn_GenerateLegalMoves_m1922359528,
-	Kyokumenn_Start_m2975740210,
-	Kyokumenn_Update_m1644261173,
 	Kyokumenn__cctor_m1378785783,
 	Sikou__ctor_m743204914,
 	Sikou_NegaMax_m4241757879,
@@ -22043,14 +22029,6 @@ extern const Il2CppMethodPointer g_MethodPointers[11022] =
 	Sikou_getNextTe_m2567480106,
 	Sikou_getNextTeKai_m1260611739,
 	Sikou__cctor_m2297957059,
-	SikouAlphaBeta__ctor_m3080756810,
-	SikouAlphaBeta_GetMaxTe_m898329871,
-	SikouAlphaBeta_GetMinTe_m2027652697,
-	SikouAlphaBeta_GetMaxTeKai_m168308,
-	SikouAlphaBeta_GetMinTeKai_m1024477534,
-	SikouAlphaBeta_getNextTe_m1490989558,
-	SikouAlphaBeta_getNextTeKai_m1197529021,
-	SikouAlphaBeta__cctor_m517265745,
 	Te__ctor_m108260294,
 	Te__ctor_m2138715736,
 	Te__ctor_m2641416185,
@@ -22058,6 +22036,4 @@ extern const Il2CppMethodPointer g_MethodPointers[11022] =
 	Te_Clone_m2227565058,
 	Te_ShallowCopy_m2326522815,
 	Te_DeepCopy_m1960120545,
-	Te_Start_m2343835002,
-	Te_Update_m980309479,
 };

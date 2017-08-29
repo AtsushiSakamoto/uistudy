@@ -70,7 +70,7 @@
 			<method name="PushButtonMasu86"/>
 			<method name="PushButtonMotigoma04"/>
 			<method name="PushButtonMasu47"/>
-			<method name="KihuPrint"/>
+			<method name="endGame"/>
 			<method name="PushButtonMotigoma07"/>
 			<method name="PushButtonMasu68"/>
 			<method name="PushButtonMasu71"/>
@@ -86,6 +86,7 @@
 			<method name="PushButtonMasu79"/>
 			<method name="PushButtonMasu45"/>
 			<method name="PushButtonMasu96"/>
+			<method name="Restart"/>
 			<method name="PushButtonMasu66"/>
 			<method name="VsComGote"/>
 			<method name="PromoteYes"/>
@@ -100,7 +101,6 @@
 			<method name="PromoteNo"/>
 			<method name="PushButtonMotigoma14"/>
 			<method name="PushButtonMotigoma13"/>
-			<method name="AlphaBeta"/>
 			<method name="PushButtonMasu89"/>
 			<method name="PushButtonMasu43"/>
 			<method name="PushButtonMasu25"/>

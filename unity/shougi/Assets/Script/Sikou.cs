@@ -1,13 +1,16 @@
 ﻿
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
+using UnityEngine.UI;
+
 
 public class Sikou{
 	
 	Joseki joseki;
 	private  bool isJoseki = true;
 	//読みの深さ
-	static int DEPTH_MAX = 3;
+	public int DEPTH_MAX = 4;
 	//読みの最大深さ・・・これ以上の読みは不可能
 	static int LIMIT_DEPTH = 16;
 
@@ -16,6 +19,14 @@ public class Sikou{
 
 	int leaf = 0;
 	int node = 0;
+//	float countTime;
+
+	/*
+	public void Update () {
+		countTime += Time.deltaTime;
+		Debug.Log ("(●・▽・●)");
+	}
+*/
 
 	private int NegaMax(ref Te t,Kyokumenn k,int alpha,int beta,int depth,int depthMax){
 
@@ -133,13 +144,13 @@ public class Sikou{
 
 			//その手で一手進めた局面を作る
 			//		KyokumennArray nextKyokumenn = k.DeepCopyKyokumenn ();
-			k.Move (te.DeepCopy());
+			k.Move (te);
 			k.turn += 1;
 
 			Te tempTe = new Te ();
 
 			int eval = -NegaMax (ref tempTe, k, -beta, -alpha, depth + 1, depthMax);
-			k.Back (te.DeepCopy());
+			k.Back (te);
 			k.turn -= 1;
 
 			//大きかったら
@@ -177,7 +188,6 @@ public class Sikou{
 		Te te;
 
 		if((te = joseki.fromjoseki(k,tesu)) != null){
-			Debug.Log("定跡より");
 			return te;
 		}
 
@@ -195,7 +205,6 @@ public class Sikou{
 			this.NegaMax (ref te, k,-100000,1000000,0,DEPTH_MAX);
 		}
 
-
 		return te;
 	}
 
@@ -203,10 +212,10 @@ public class Sikou{
 
 		Te te;
 
+
 		if (isJoseki) {
 			//定跡から外れたら探索しない
 			if ((te = joseki.fromjoseki (k, tesu)) != null) {
-				Debug.Log ("定跡より");
 				return te;
 			} else {
 				isJoseki = false;
@@ -227,10 +236,10 @@ public class Sikou{
 			this.NegaMaxKai (ref te, k,-100000,1000000,0,DEPTH_MAX);
 		}
 
-
-		Debug.Log (leaf);
 		return te;
 	}
+
+
 
 
 	public Sikou(string path){

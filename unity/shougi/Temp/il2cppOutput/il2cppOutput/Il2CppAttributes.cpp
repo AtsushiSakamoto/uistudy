@@ -22323,6 +22323,13 @@ static void GameManager_t2252321495_CustomAttributesCacheGenerator_GameManager_M
 		DebuggerHiddenAttribute__ctor_m2012788180(tmp, NULL);
 	}
 }
+static void GameManager_t2252321495_CustomAttributesCacheGenerator_GameManager_Changeturn_m2960816764(CustomAttributesCache* cache)
+{
+	{
+		DebuggerHiddenAttribute_t638884887 * tmp = (DebuggerHiddenAttribute_t638884887 *)cache->attributes[0];
+		DebuggerHiddenAttribute__ctor_m2012788180(tmp, NULL);
+	}
+}
 static void U3CMessageWaitU3Ec__Iterator0_t3189582139_CustomAttributesCacheGenerator(CustomAttributesCache* cache)
 {
 	{
@@ -22365,6 +22372,48 @@ static void U3CMessageWaitU3Ec__Iterator0_t3189582139_CustomAttributesCacheGener
 		DebuggerHiddenAttribute__ctor_m2012788180(tmp, NULL);
 	}
 }
+static void U3CChangeturnU3Ec__Iterator1_t444237997_CustomAttributesCacheGenerator(CustomAttributesCache* cache)
+{
+	{
+		CompilerGeneratedAttribute_t497097752 * tmp = (CompilerGeneratedAttribute_t497097752 *)cache->attributes[0];
+		CompilerGeneratedAttribute__ctor_m3017743394(tmp, NULL);
+	}
+}
+static void U3CChangeturnU3Ec__Iterator1_t444237997_CustomAttributesCacheGenerator_U3CChangeturnU3Ec__Iterator1__ctor_m1653709352(CustomAttributesCache* cache)
+{
+	{
+		DebuggerHiddenAttribute_t638884887 * tmp = (DebuggerHiddenAttribute_t638884887 *)cache->attributes[0];
+		DebuggerHiddenAttribute__ctor_m2012788180(tmp, NULL);
+	}
+}
+static void U3CChangeturnU3Ec__Iterator1_t444237997_CustomAttributesCacheGenerator_U3CChangeturnU3Ec__Iterator1_System_Collections_Generic_IEnumeratorU3CobjectU3E_get_Current_m1582126240(CustomAttributesCache* cache)
+{
+	{
+		DebuggerHiddenAttribute_t638884887 * tmp = (DebuggerHiddenAttribute_t638884887 *)cache->attributes[0];
+		DebuggerHiddenAttribute__ctor_m2012788180(tmp, NULL);
+	}
+}
+static void U3CChangeturnU3Ec__Iterator1_t444237997_CustomAttributesCacheGenerator_U3CChangeturnU3Ec__Iterator1_System_Collections_IEnumerator_get_Current_m4121622440(CustomAttributesCache* cache)
+{
+	{
+		DebuggerHiddenAttribute_t638884887 * tmp = (DebuggerHiddenAttribute_t638884887 *)cache->attributes[0];
+		DebuggerHiddenAttribute__ctor_m2012788180(tmp, NULL);
+	}
+}
+static void U3CChangeturnU3Ec__Iterator1_t444237997_CustomAttributesCacheGenerator_U3CChangeturnU3Ec__Iterator1_Dispose_m1407820575(CustomAttributesCache* cache)
+{
+	{
+		DebuggerHiddenAttribute_t638884887 * tmp = (DebuggerHiddenAttribute_t638884887 *)cache->attributes[0];
+		DebuggerHiddenAttribute__ctor_m2012788180(tmp, NULL);
+	}
+}
+static void U3CChangeturnU3Ec__Iterator1_t444237997_CustomAttributesCacheGenerator_U3CChangeturnU3Ec__Iterator1_Reset_m3338054025(CustomAttributesCache* cache)
+{
+	{
+		DebuggerHiddenAttribute_t638884887 * tmp = (DebuggerHiddenAttribute_t638884887 *)cache->attributes[0];
+		DebuggerHiddenAttribute__ctor_m2012788180(tmp, NULL);
+	}
+}
 static void U3CPrivateImplementationDetailsU3E_t1486305142_CustomAttributesCacheGenerator(CustomAttributesCache* cache)
 {
 	{
@@ -22372,7 +22421,7 @@ static void U3CPrivateImplementationDetailsU3E_t1486305142_CustomAttributesCache
 		CompilerGeneratedAttribute__ctor_m3017743394(tmp, NULL);
 	}
 }
-extern const CustomAttributesCacheGenerator g_AttributeGenerators[2620] = 
+extern const CustomAttributesCacheGenerator g_AttributeGenerators[2627] = 
 {
 	NULL,
 	g_mscorlib_Assembly_CustomAttributesCacheGenerator,
@@ -24987,11 +25036,18 @@ extern const CustomAttributesCacheGenerator g_AttributeGenerators[2620] =
 	FieldWithTarget_t2256174789_CustomAttributesCacheGenerator_m_StaticString,
 	g_AssemblyU2DCSharp_Assembly_CustomAttributesCacheGenerator,
 	GameManager_t2252321495_CustomAttributesCacheGenerator_GameManager_MessageWait_m231401234,
+	GameManager_t2252321495_CustomAttributesCacheGenerator_GameManager_Changeturn_m2960816764,
 	U3CMessageWaitU3Ec__Iterator0_t3189582139_CustomAttributesCacheGenerator,
 	U3CMessageWaitU3Ec__Iterator0_t3189582139_CustomAttributesCacheGenerator_U3CMessageWaitU3Ec__Iterator0__ctor_m1829521276,
 	U3CMessageWaitU3Ec__Iterator0_t3189582139_CustomAttributesCacheGenerator_U3CMessageWaitU3Ec__Iterator0_System_Collections_Generic_IEnumeratorU3CobjectU3E_get_Current_m3323360854,
 	U3CMessageWaitU3Ec__Iterator0_t3189582139_CustomAttributesCacheGenerator_U3CMessageWaitU3Ec__Iterator0_System_Collections_IEnumerator_get_Current_m4286271406,
 	U3CMessageWaitU3Ec__Iterator0_t3189582139_CustomAttributesCacheGenerator_U3CMessageWaitU3Ec__Iterator0_Dispose_m746354261,
 	U3CMessageWaitU3Ec__Iterator0_t3189582139_CustomAttributesCacheGenerator_U3CMessageWaitU3Ec__Iterator0_Reset_m2263204039,
+	U3CChangeturnU3Ec__Iterator1_t444237997_CustomAttributesCacheGenerator,
+	U3CChangeturnU3Ec__Iterator1_t444237997_CustomAttributesCacheGenerator_U3CChangeturnU3Ec__Iterator1__ctor_m1653709352,
+	U3CChangeturnU3Ec__Iterator1_t444237997_CustomAttributesCacheGenerator_U3CChangeturnU3Ec__Iterator1_System_Collections_Generic_IEnumeratorU3CobjectU3E_get_Current_m1582126240,
+	U3CChangeturnU3Ec__Iterator1_t444237997_CustomAttributesCacheGenerator_U3CChangeturnU3Ec__Iterator1_System_Collections_IEnumerator_get_Current_m4121622440,
+	U3CChangeturnU3Ec__Iterator1_t444237997_CustomAttributesCacheGenerator_U3CChangeturnU3Ec__Iterator1_Dispose_m1407820575,
+	U3CChangeturnU3Ec__Iterator1_t444237997_CustomAttributesCacheGenerator_U3CChangeturnU3Ec__Iterator1_Reset_m3338054025,
 	U3CPrivateImplementationDetailsU3E_t1486305142_CustomAttributesCacheGenerator,
 };

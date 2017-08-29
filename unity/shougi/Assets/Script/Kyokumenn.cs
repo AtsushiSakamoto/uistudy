@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿//評価関数差分計算
+
+
+using System.Collections.Generic;
+using UnityEngine;
 
 public class Kyokumenn {
 
@@ -6,15 +10,19 @@ public class Kyokumenn {
 	public int[] banKoma = new int[82];
 
 	public  int turn = new int();                             //現在の手番
+	public bool josekiBool = true;                            //定跡の利用フラグ
+	private int gyokuSente = 77;                                 //先手玉の位置
+	private int gyokuGote = 5;                                 //後手玉の位置
+	public int eval;                                 //評価値を確保し駒の移動時に増減
+	public int sameKyokumenn;                                 //千日手のための同じ局面カウント
 
 	public int[][] hand = {
 		new int[32] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		new int[32] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 	};
 
-	public int senkei = 0;                //戦型0:不明,1:相掛かり,2;居飛車対振り飛車,3;振り飛車対居飛車,4;相振り
+	//public int senkei = 0;                //戦型0:不明,1:相掛かり,2;居飛車対振り飛車,3;振り飛車対居飛車,4;相振り
 
-	public bool josekiBool = true;
 
 	public static int[] SHOKI_BAN = new int[82]{
 		0,
@@ -30,13 +38,13 @@ public class Kyokumenn {
 	} ;
 
 	public static int[] MotiKomaValue = new int[32]{
-		0, 105 ,630, 735, 1050, 1260, 1890, 2100, 10000, 1200, 1200, 1200, 1200,0, 2000, 2200,
-		0,-105,-630,-735,-1050,-1260,-1890,-2100,-10000,-1200,-1200,-1200,-1200,0,-2000,-2200
+		0, 105 ,630, 735, 1050, 1260, 1910, 2100, 100000, 1200, 1200, 1200, 1200,0, 2000, 2200,
+		0,-105,-630,-735,-1050,-1260,-1910,-2100,-100000,-1200,-1200,-1200,-1200,0,-2000,-2200
 	};
 
 	public static int[] KomaValue = new int[32]{
 		0,   100,   600,   700,  1000,  1200,  1900,  2000, 10000,  1200,  1200,  1200,  1200,0,  2150,  2300,
-		0,  -100,  -600,  -700, -1000, -1200, -1800, -2000,-10000, -1200, -1200, -1200, -1200,0, -2000, -2200
+		0,  -100,  -600,  -700, -1000, -1200, -1800, -2000,-10000, -1200, -1200, -1200, -1200,0, -2150, -2300
 	};
 
 
@@ -74,7 +82,7 @@ public class Kyokumenn {
 		//馬
 		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		//龍
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{ 10,10,10, 0, 0, 0,  -5, 0, 0},
 		//空
 		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		//歩
@@ -106,7 +114,7 @@ public class Kyokumenn {
 		//馬
 		{ 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		//龍
-		{ 0, 0, 0, 0, 0, 0, 0, 0, 0}
+		{ 0, 0, 5, 0, 0, 0,-10,-10,-10}
 
 	};
 
@@ -314,12 +322,14 @@ public class Kyokumenn {
 		}
 
 		this.turn = 1;
-//		this.hand = new List<List<int>>{new List<int>{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,},new List<int>{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}};
+		this.josekiBool = true;
+		this.sameKyokumenn = 0;
+
 		this.hand = new int[][]{
 			new int[32]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 			new int[32]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 		};
-		this.senkei = 0;
+		//this.senkei = 0;
 	}
 
 	public object CloneKyokumenn()                            // シャローコピー
@@ -372,12 +382,12 @@ public class Kyokumenn {
 			senkei = 0;
 		}
 */
+
 		//盤面上の駒の価値を全部加算
 		for (int i = 1; i < 82;i++) {                  
 
 			int koma = this.banKoma [i];
 			eval += Kyokumenn.DanKomaValue [koma,(i - 1) / 9] + Kyokumenn.KomaValue [koma];
-
 			/*
 			switch (koma) {
 			case 4:
@@ -390,19 +400,20 @@ public class Kyokumenn {
 				eval += Kyokumenn.komagumiGyoku [senkei] [(i - 1) / 9] [(i - 1) % 9];
 				break;
 			case 20:
-				eval += Kyokumenn.komagumiGin [senkei] [8 - ((i - 1) / 9)] [8- ((i - 1) % 9)];
+				eval -= Kyokumenn.komagumiGin [senkei] [8 - ((i - 1) / 9)] [8- ((i - 1) % 9)];
 				break;
 			case 21:
-				eval += Kyokumenn.komagumiKin [senkei] [8 - ((i - 1) / 9)] [8- ((i - 1) % 9)];
+				eval -= Kyokumenn.komagumiKin [senkei] [8 - ((i - 1) / 9)] [8- ((i - 1) % 9)];
 				break;
 			case 24:
-				eval += Kyokumenn.komagumiGyoku [senkei] [8 - ((i - 1) / 9)] [8 - ((i - 1) % 9)];
+				eval -= Kyokumenn.komagumiGyoku [senkei] [8 - ((i - 1) / 9)] [8 - ((i - 1) % 9)];
 				break;
 			default:
+				eval += Kyokumenn.DanKomaValue [koma,(i - 1) / 9] + Kyokumenn.KomaValue [koma];
 				break;
 			}
-			*/
 
+*/
 		}
 
 		//持ち駒の加算
@@ -416,25 +427,11 @@ public class Kyokumenn {
 	}
 
 
-
 	public void Sub(ref int diffDan,int diffSuji){
 		diffDan = -diffDan;
 		diffSuji = -diffSuji;
 	}
 
-
-
-	public int SearchGyoku(int turn){
-		//探す駒はturn側の玉
-		for(int i = 1;i <= 81;i++){
-
-			if (this.banKoma [i] == 8 && turn % 2 == 1 || this.banKoma [i] == 24 && turn % 2 == 0) {
-				return i;
-			}
-
-		}
-		return 0;
-	}
 
 	public int SearchHisya(int turn){
 		//探す駒はturn側の飛車
@@ -461,21 +458,21 @@ public class Kyokumenn {
 	}
 
 	public void SortTe(ref List<Te> teList){
-
+		
 		for (int i = 0; i < teList.Count - 1; i++) {
 			for (int j = 0; j < teList.Count - 1; j++) {
 				
-				this.Move(teList[i].DeepCopy());
+				this.Move(teList[i]);
 				int evalS = this.evaluate ();
-				this.Back (teList [i].DeepCopy());
+				this.Back (teList [i]);
 
-				this.Move(teList[i + 1].DeepCopy());
+				this.Move(teList[i + 1]);
 				int evalL = this.evaluate ();
-				this.Back (teList [i + 1].DeepCopy());
+				this.Back (teList [i + 1]);
 
 				if (this.turn % 2 == 1) {
 
-					if (evalS > evalL) {
+					if (evalS < evalL) {
 						Te tmp = teList [i].DeepCopy ();
 						teList [i] = teList [i + 1].DeepCopy ();
 						teList [i + 1] = tmp;
@@ -483,7 +480,7 @@ public class Kyokumenn {
 					}
 				} else {
 					
-					if (evalS < evalL) {
+					if (evalS > evalL) {
 						Te tmp = teList [i].DeepCopy ();
 						teList [i] = teList [i + 1].DeepCopy ();
 						teList [i + 1] = tmp;
@@ -496,7 +493,16 @@ public class Kyokumenn {
 		return;
 	}
 
+	//指定したところに駒を置く
 	public void Put(int i,int koma){
+		
+		if(koma == 8){
+			gyokuSente = i;
+		}
+		if(koma == 24){
+			gyokuGote = i;
+		}
+
 		this.banKoma [i] = koma;
 	}
 
@@ -547,18 +553,27 @@ public class Kyokumenn {
 
 			//持ち駒を減らす
 			if (8 < te.capture && te.capture <= 16 || 24 < te.capture && te.capture <= 32) {
-				te.capture -= 8;
+				//先手の駒か後手の駒か
+				if (0 != te.capture && te.capture <= 16) {
+
+					this.hand [0] [te.capture + 8] -= 1;       
+
+				} else if (te.capture != 0 && 17 <= te.capture) {
+
+					this.hand [1] [te.capture - 24] -= 1;                      
+				}
+
+			} else {
+				
+				if (0 != te.capture && te.capture <= 16) {
+
+					this.hand [0] [te.capture + 16] -= 1;       
+
+				} else if (te.capture != 0 && 17 <= te.capture) {
+
+					this.hand [1] [te.capture - 16] -= 1;                      
+				}
 			}
-			//先手の駒か後手の駒か
-			if (0 != te.capture && te.capture <= 16) {
-
-				this.hand [0] [te.capture + 16] -= 1;       
-
-			} else if(te.capture != 0 && 17 <= te.capture){
-
-				this.hand [1] [te.capture - 16] -= 1;                      
-			}
-
 		}
 
 		if (te.from == 0) {
@@ -746,7 +761,6 @@ public class Kyokumenn {
 							}
 						}
 					}
-
 				}
 			}
 		}
@@ -969,13 +983,18 @@ public class Kyokumenn {
 
 		//王手を放置している手を抜く
 		int gyoku = 0;
+			
 
 		for (int i = 0; i < teList.Count; i++) {
-	//		KyokumennArray temp = this.DeepCopyKyokumenn ();
 			bool isOuteHouchi = false;
-			Te teTest = teList [i].DeepCopy();
-			this.Move (teTest.DeepCopy());
-			gyoku = this.SearchGyoku (this.turn);
+			Te teTest = teList [i];
+			this.Move (teTest);
+
+			if(this.turn % 2 == 1){
+				gyoku = gyokuSente;
+			}else{
+				gyoku = gyokuGote;
+			}
 
 			// 玉の周辺（１２方向）から相手の駒が利いていたら、その手は取り除く
 			for (int direct = 0; direct < 12 && !isOuteHouchi; direct++) {
@@ -1036,7 +1055,7 @@ public class Kyokumenn {
 
 			}
 
-			this.Back (teTest.DeepCopy());
+			this.Back (teTest);
 
 			if (!isOuteHouchi) {
 				removed.Add (teList [i]);
@@ -1048,15 +1067,4 @@ public class Kyokumenn {
 
 
 
-
-
-	// Use this for initialization
-	void Start () {
-
-	}
-
-	// Update is called once per frame
-	void Update () {
-
-	}
 }

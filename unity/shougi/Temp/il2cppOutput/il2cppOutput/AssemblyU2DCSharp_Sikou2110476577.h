@@ -34,6 +34,8 @@ public:
 	Joseki_t3207443615 * ___joseki_0;
 	// System.Boolean Sikou::isJoseki
 	bool ___isJoseki_1;
+	// System.Int32 Sikou::DEPTH_MAX
+	int32_t ___DEPTH_MAX_2;
 	// Te[0...,0...] Sikou::best
 	TeU5BU2CU5D_t855127995* ___best_4;
 	// System.Int32 Sikou::leaf
@@ -57,6 +59,14 @@ public:
 	inline void set_isJoseki_1(bool value)
 	{
 		___isJoseki_1 = value;
+	}
+
+	inline static int32_t get_offset_of_DEPTH_MAX_2() { return static_cast<int32_t>(offsetof(Sikou_t2110476577, ___DEPTH_MAX_2)); }
+	inline int32_t get_DEPTH_MAX_2() const { return ___DEPTH_MAX_2; }
+	inline int32_t* get_address_of_DEPTH_MAX_2() { return &___DEPTH_MAX_2; }
+	inline void set_DEPTH_MAX_2(int32_t value)
+	{
+		___DEPTH_MAX_2 = value;
 	}
 
 	inline static int32_t get_offset_of_best_4() { return static_cast<int32_t>(offsetof(Sikou_t2110476577, ___best_4)); }
@@ -88,20 +98,10 @@ public:
 struct Sikou_t2110476577_StaticFields
 {
 public:
-	// System.Int32 Sikou::DEPTH_MAX
-	int32_t ___DEPTH_MAX_2;
 	// System.Int32 Sikou::LIMIT_DEPTH
 	int32_t ___LIMIT_DEPTH_3;
 
 public:
-	inline static int32_t get_offset_of_DEPTH_MAX_2() { return static_cast<int32_t>(offsetof(Sikou_t2110476577_StaticFields, ___DEPTH_MAX_2)); }
-	inline int32_t get_DEPTH_MAX_2() const { return ___DEPTH_MAX_2; }
-	inline int32_t* get_address_of_DEPTH_MAX_2() { return &___DEPTH_MAX_2; }
-	inline void set_DEPTH_MAX_2(int32_t value)
-	{
-		___DEPTH_MAX_2 = value;
-	}
-
 	inline static int32_t get_offset_of_LIMIT_DEPTH_3() { return static_cast<int32_t>(offsetof(Sikou_t2110476577_StaticFields, ___LIMIT_DEPTH_3)); }
 	inline int32_t get_LIMIT_DEPTH_3() const { return ___LIMIT_DEPTH_3; }
 	inline int32_t* get_address_of_LIMIT_DEPTH_3() { return &___LIMIT_DEPTH_3; }

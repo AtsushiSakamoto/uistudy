@@ -51,7 +51,6 @@
      <Compile Include="Assets\Script\KomaMoves.cs" />
      <Compile Include="Assets\Script\Kyokumenn.cs" />
      <Compile Include="Assets\Script\Sikou.cs" />
-     <Compile Include="Assets\Script\SikouAlphaBeta.cs" />
      <Compile Include="Assets\Script\Te.cs" />
  <Reference Include="UnityEngine.Analytics">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>

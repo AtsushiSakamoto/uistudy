@@ -20,12 +20,11 @@
 #include "AssemblyU2DCSharp_U3CModuleU3E3783534214.h"
 #include "AssemblyU2DCSharp_GameManager2252321495.h"
 #include "AssemblyU2DCSharp_GameManager_U3CMessageWaitU3Ec__3189582139.h"
-#include "AssemblyU2DCSharp_GameMenu2628062091.h"
+#include "AssemblyU2DCSharp_GameManager_U3CChangeturnU3Ec__It444237997.h"
 #include "AssemblyU2DCSharp_Joseki3207443615.h"
 #include "AssemblyU2DCSharp_KomaMoves4018054682.h"
 #include "AssemblyU2DCSharp_Kyokumenn1278207725.h"
 #include "AssemblyU2DCSharp_Sikou2110476577.h"
-#include "AssemblyU2DCSharp_SikouAlphaBeta3579571383.h"
 #include "AssemblyU2DCSharp_Te2287866363.h"
 #include "AssemblyU2DCSharp_U3CPrivateImplementationDetailsU1486305137.h"
 #include "AssemblyU2DCSharp_U3CPrivateImplementationDetailsU2375206766.h"
@@ -66,26 +65,30 @@ extern const int32_t g_FieldOffsetTable1701[6] =
 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1702 = { sizeof (U3CModuleU3E_t3783534221), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1703 = { sizeof (GameManager_t2252321495), -1, sizeof(GameManager_t2252321495_StaticFields), 0 };
-extern const int32_t g_FieldOffsetTable1703[18] = 
+extern const int32_t g_FieldOffsetTable1703[22] = 
 {
 	GameManager_t2252321495::get_offset_of_Masu_2(),
 	GameManager_t2252321495::get_offset_of_komaPicture_3(),
 	GameManager_t2252321495::get_offset_of_hand_4(),
 	GameManager_t2252321495::get_offset_of_motiGoma_5(),
 	GameManager_t2252321495::get_offset_of_popupCanvas_6(),
-	GameManager_t2252321495::get_offset_of_sente_7(),
-	GameManager_t2252321495::get_offset_of_gote_8(),
-	GameManager_t2252321495::get_offset_of_kk_9(),
-	GameManager_t2252321495::get_offset_of_kihu_10(),
-	GameManager_t2252321495_StaticFields::get_offset_of_te_11(),
-	GameManager_t2252321495::get_offset_of_sikou_12(),
-	GameManager_t2252321495::get_offset_of_isSelectKoma_13(),
-	GameManager_t2252321495::get_offset_of_isSelectMotigoma_14(),
-	GameManager_t2252321495::get_offset_of_promote_15(),
-	GameManager_t2252321495::get_offset_of_vsCom_16(),
-	GameManager_t2252321495::get_offset_of_vsComGote_17(),
-	GameManager_t2252321495::get_offset_of_pushButtonBool_18(),
-	GameManager_t2252321495_StaticFields::get_offset_of_JOSEKIPATH_19(),
+	GameManager_t2252321495::get_offset_of_resultCanvas_7(),
+	GameManager_t2252321495::get_offset_of_winner_8(),
+	GameManager_t2252321495::get_offset_of_sente_9(),
+	GameManager_t2252321495::get_offset_of_gote_10(),
+	GameManager_t2252321495::get_offset_of_turn_11(),
+	GameManager_t2252321495_StaticFields::get_offset_of_JOSEKIPATH_12(),
+	GameManager_t2252321495::get_offset_of_kk_13(),
+	GameManager_t2252321495::get_offset_of_kihu_14(),
+	GameManager_t2252321495::get_offset_of_historykyokumenn_15(),
+	GameManager_t2252321495::get_offset_of_te_16(),
+	GameManager_t2252321495::get_offset_of_sikou_17(),
+	GameManager_t2252321495::get_offset_of_isSelectKoma_18(),
+	GameManager_t2252321495::get_offset_of_isSelectMotigoma_19(),
+	GameManager_t2252321495::get_offset_of_promote_20(),
+	GameManager_t2252321495::get_offset_of_vsCom_21(),
+	GameManager_t2252321495::get_offset_of_vsComGote_22(),
+	GameManager_t2252321495::get_offset_of_pushButtonBool_23(),
 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1704 = { sizeof (U3CMessageWaitU3Ec__Iterator0_t3189582139), -1, 0, 0 };
 extern const int32_t g_FieldOffsetTable1704[6] = 
@@ -97,7 +100,15 @@ extern const int32_t g_FieldOffsetTable1704[6] =
 	U3CMessageWaitU3Ec__Iterator0_t3189582139::get_offset_of_U24disposing_4(),
 	U3CMessageWaitU3Ec__Iterator0_t3189582139::get_offset_of_U24PC_5(),
 };
-extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1705 = { sizeof (GameMenu_t2628062091), -1, 0, 0 };
+extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1705 = { sizeof (U3CChangeturnU3Ec__Iterator1_t444237997), -1, 0, 0 };
+extern const int32_t g_FieldOffsetTable1705[5] = 
+{
+	U3CChangeturnU3Ec__Iterator1_t444237997::get_offset_of_te_0(),
+	U3CChangeturnU3Ec__Iterator1_t444237997::get_offset_of_U24this_1(),
+	U3CChangeturnU3Ec__Iterator1_t444237997::get_offset_of_U24current_2(),
+	U3CChangeturnU3Ec__Iterator1_t444237997::get_offset_of_U24disposing_3(),
+	U3CChangeturnU3Ec__Iterator1_t444237997::get_offset_of_U24PC_4(),
+};
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1706 = { sizeof (Joseki_t3207443615), -1, 0, 0 };
 extern const int32_t g_FieldOffsetTable1706[4] = 
 {
@@ -117,44 +128,37 @@ extern const int32_t g_FieldOffsetTable1707[6] =
 	KomaMoves_t4018054682_StaticFields::get_offset_of_canPromote_5(),
 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1708 = { sizeof (Kyokumenn_t1278207725), -1, sizeof(Kyokumenn_t1278207725_StaticFields), 0 };
-extern const int32_t g_FieldOffsetTable1708[12] = 
+extern const int32_t g_FieldOffsetTable1708[15] = 
 {
 	Kyokumenn_t1278207725::get_offset_of_banKoma_0(),
 	Kyokumenn_t1278207725::get_offset_of_turn_1(),
-	Kyokumenn_t1278207725::get_offset_of_hand_2(),
-	Kyokumenn_t1278207725::get_offset_of_senkei_3(),
-	Kyokumenn_t1278207725::get_offset_of_josekiBool_4(),
-	Kyokumenn_t1278207725_StaticFields::get_offset_of_SHOKI_BAN_5(),
-	Kyokumenn_t1278207725_StaticFields::get_offset_of_MotiKomaValue_6(),
-	Kyokumenn_t1278207725_StaticFields::get_offset_of_KomaValue_7(),
-	Kyokumenn_t1278207725_StaticFields::get_offset_of_DanKomaValue_8(),
-	Kyokumenn_t1278207725_StaticFields::get_offset_of_komagumiGin_9(),
-	Kyokumenn_t1278207725_StaticFields::get_offset_of_komagumiKin_10(),
-	Kyokumenn_t1278207725_StaticFields::get_offset_of_komagumiGyoku_11(),
+	Kyokumenn_t1278207725::get_offset_of_josekiBool_2(),
+	Kyokumenn_t1278207725::get_offset_of_gyokuSente_3(),
+	Kyokumenn_t1278207725::get_offset_of_gyokuGote_4(),
+	Kyokumenn_t1278207725::get_offset_of_eval_5(),
+	Kyokumenn_t1278207725::get_offset_of_sameKyokumenn_6(),
+	Kyokumenn_t1278207725::get_offset_of_hand_7(),
+	Kyokumenn_t1278207725_StaticFields::get_offset_of_SHOKI_BAN_8(),
+	Kyokumenn_t1278207725_StaticFields::get_offset_of_MotiKomaValue_9(),
+	Kyokumenn_t1278207725_StaticFields::get_offset_of_KomaValue_10(),
+	Kyokumenn_t1278207725_StaticFields::get_offset_of_DanKomaValue_11(),
+	Kyokumenn_t1278207725_StaticFields::get_offset_of_komagumiGin_12(),
+	Kyokumenn_t1278207725_StaticFields::get_offset_of_komagumiKin_13(),
+	Kyokumenn_t1278207725_StaticFields::get_offset_of_komagumiGyoku_14(),
 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1709 = { sizeof (Sikou_t2110476577), -1, sizeof(Sikou_t2110476577_StaticFields), 0 };
 extern const int32_t g_FieldOffsetTable1709[7] = 
 {
 	Sikou_t2110476577::get_offset_of_joseki_0(),
 	Sikou_t2110476577::get_offset_of_isJoseki_1(),
-	Sikou_t2110476577_StaticFields::get_offset_of_DEPTH_MAX_2(),
+	Sikou_t2110476577::get_offset_of_DEPTH_MAX_2(),
 	Sikou_t2110476577_StaticFields::get_offset_of_LIMIT_DEPTH_3(),
 	Sikou_t2110476577::get_offset_of_best_4(),
 	Sikou_t2110476577::get_offset_of_leaf_5(),
 	Sikou_t2110476577::get_offset_of_node_6(),
 };
-extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1710 = { sizeof (SikouAlphaBeta_t3579571383), -1, sizeof(SikouAlphaBeta_t3579571383_StaticFields), 0 };
-extern const int32_t g_FieldOffsetTable1710[6] = 
-{
-	SikouAlphaBeta_t3579571383::get_offset_of_joseki_0(),
-	SikouAlphaBeta_t3579571383_StaticFields::get_offset_of_DEPTH_MAX_1(),
-	SikouAlphaBeta_t3579571383_StaticFields::get_offset_of_LIMIT_DEPTH_2(),
-	SikouAlphaBeta_t3579571383::get_offset_of_best_3(),
-	SikouAlphaBeta_t3579571383::get_offset_of_leaf_4(),
-	SikouAlphaBeta_t3579571383::get_offset_of_node_5(),
-};
-extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1711 = { sizeof (Te_t2287866363), -1, 0, 0 };
-extern const int32_t g_FieldOffsetTable1711[9] = 
+extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1710 = { sizeof (Te_t2287866363), -1, 0, 0 };
+extern const int32_t g_FieldOffsetTable1710[9] = 
 {
 	Te_t2287866363::get_offset_of_koma_0(),
 	Te_t2287866363::get_offset_of_from_dan_1(),
@@ -166,8 +170,8 @@ extern const int32_t g_FieldOffsetTable1711[9] =
 	Te_t2287866363::get_offset_of_from_7(),
 	Te_t2287866363::get_offset_of_to_8(),
 };
-extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1712 = { sizeof (U3CPrivateImplementationDetailsU3E_t1486305142), -1, sizeof(U3CPrivateImplementationDetailsU3E_t1486305142_StaticFields), 0 };
-extern const int32_t g_FieldOffsetTable1712[49] = 
+extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1711 = { sizeof (U3CPrivateImplementationDetailsU3E_t1486305142), -1, sizeof(U3CPrivateImplementationDetailsU3E_t1486305142_StaticFields), 0 };
+extern const int32_t g_FieldOffsetTable1711[49] = 
 {
 	U3CPrivateImplementationDetailsU3E_t1486305142_StaticFields::get_offset_of_U24fieldU2DE3A563EB395A5D016222BA56A00EBC75B4F7D48F_0(),
 	U3CPrivateImplementationDetailsU3E_t1486305142_StaticFields::get_offset_of_U24fieldU2DCED9309A49D018F3CB3A74C3935487C1EC3E200B_1(),
@@ -175,9 +179,9 @@ extern const int32_t g_FieldOffsetTable1712[49] =
 	U3CPrivateImplementationDetailsU3E_t1486305142_StaticFields::get_offset_of_U24fieldU2D80045965BEDE3FBE3031C6AF47A28259C2D3B915_3(),
 	U3CPrivateImplementationDetailsU3E_t1486305142_StaticFields::get_offset_of_U24fieldU2DF79D3A3EC44B46DE281C1A967F7BBC52739E3B66_4(),
 	U3CPrivateImplementationDetailsU3E_t1486305142_StaticFields::get_offset_of_U24fieldU2DC54C2BF7C46221E66F11EA2B9DCA4BF1051173F5_5(),
-	U3CPrivateImplementationDetailsU3E_t1486305142_StaticFields::get_offset_of_U24fieldU2DDF35FFF80949B63C94E32C1BA72610A7FC1E3371_6(),
-	U3CPrivateImplementationDetailsU3E_t1486305142_StaticFields::get_offset_of_U24fieldU2D22EBB05695ED93B3C2630641BC071CB81A78D0FF_7(),
-	U3CPrivateImplementationDetailsU3E_t1486305142_StaticFields::get_offset_of_U24fieldU2D41DC8537984889BDDD6025583E6B99FB3ED08C10_8(),
+	U3CPrivateImplementationDetailsU3E_t1486305142_StaticFields::get_offset_of_U24fieldU2DBCB6596DE23E94C4F37CA06ADFDD64AC207D41A2_6(),
+	U3CPrivateImplementationDetailsU3E_t1486305142_StaticFields::get_offset_of_U24fieldU2DC080BCFD790032F5742C58447E3B19212EA8C3AD_7(),
+	U3CPrivateImplementationDetailsU3E_t1486305142_StaticFields::get_offset_of_U24fieldU2D95D28DB3542C4017C2E04CA22CA701747C4FB259_8(),
 	U3CPrivateImplementationDetailsU3E_t1486305142_StaticFields::get_offset_of_U24fieldU2D18D80EA510949ED9C4CC1CE8B137D8E6211F8166_9(),
 	U3CPrivateImplementationDetailsU3E_t1486305142_StaticFields::get_offset_of_U24fieldU2D0403E74222012A1F548BA1D5A440EE9BFAC926B2_10(),
 	U3CPrivateImplementationDetailsU3E_t1486305142_StaticFields::get_offset_of_U24fieldU2D97997D1118A18EB542F16F029FF0B41C637799CF_11(),
@@ -219,14 +223,14 @@ extern const int32_t g_FieldOffsetTable1712[49] =
 	U3CPrivateImplementationDetailsU3E_t1486305142_StaticFields::get_offset_of_U24fieldU2D6CD5C7A620321F7A844E34A03B6B7A558C2DF366_47(),
 	U3CPrivateImplementationDetailsU3E_t1486305142_StaticFields::get_offset_of_U24fieldU2D6126BC87F9728314902C33362460AA459FD9E8D3_48(),
 };
-extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1713 = { sizeof (U24ArrayTypeU3D48_t2375206766)+ sizeof (Il2CppObject), sizeof(U24ArrayTypeU3D48_t2375206766 ), 0, 0 };
-extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1714 = { sizeof (U24ArrayTypeU3D384_t3113433889)+ sizeof (Il2CppObject), sizeof(U24ArrayTypeU3D384_t3113433889 ), 0, 0 };
-extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1715 = { sizeof (U24ArrayTypeU3D256_t3066379751)+ sizeof (Il2CppObject), sizeof(U24ArrayTypeU3D256_t3066379751 ), 0, 0 };
-extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1716 = { sizeof (U24ArrayTypeU3D32_t1568637719)+ sizeof (Il2CppObject), sizeof(U24ArrayTypeU3D32_t1568637719 ), 0, 0 };
-extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1717 = { sizeof (U24ArrayTypeU3D328_t2306864831)+ sizeof (Il2CppObject), sizeof(U24ArrayTypeU3D328_t2306864831 ), 0, 0 };
-extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1718 = { sizeof (U24ArrayTypeU3D128_t2306864765)+ sizeof (Il2CppObject), sizeof(U24ArrayTypeU3D128_t2306864765 ), 0, 0 };
-extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1719 = { sizeof (U24ArrayTypeU3D1152_t2882533397)+ sizeof (Il2CppObject), sizeof(U24ArrayTypeU3D1152_t2882533397 ), 0, 0 };
-extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1720 = { sizeof (U24ArrayTypeU3D36_t3894236547)+ sizeof (Il2CppObject), sizeof(U24ArrayTypeU3D36_t3894236547 ), 0, 0 };
+extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1712 = { sizeof (U24ArrayTypeU3D48_t2375206766)+ sizeof (Il2CppObject), sizeof(U24ArrayTypeU3D48_t2375206766 ), 0, 0 };
+extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1713 = { sizeof (U24ArrayTypeU3D384_t3113433889)+ sizeof (Il2CppObject), sizeof(U24ArrayTypeU3D384_t3113433889 ), 0, 0 };
+extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1714 = { sizeof (U24ArrayTypeU3D256_t3066379751)+ sizeof (Il2CppObject), sizeof(U24ArrayTypeU3D256_t3066379751 ), 0, 0 };
+extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1715 = { sizeof (U24ArrayTypeU3D32_t1568637719)+ sizeof (Il2CppObject), sizeof(U24ArrayTypeU3D32_t1568637719 ), 0, 0 };
+extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1716 = { sizeof (U24ArrayTypeU3D328_t2306864831)+ sizeof (Il2CppObject), sizeof(U24ArrayTypeU3D328_t2306864831 ), 0, 0 };
+extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1717 = { sizeof (U24ArrayTypeU3D128_t2306864765)+ sizeof (Il2CppObject), sizeof(U24ArrayTypeU3D128_t2306864765 ), 0, 0 };
+extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1718 = { sizeof (U24ArrayTypeU3D1152_t2882533397)+ sizeof (Il2CppObject), sizeof(U24ArrayTypeU3D1152_t2882533397 ), 0, 0 };
+extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize1719 = { sizeof (U24ArrayTypeU3D36_t3894236547)+ sizeof (Il2CppObject), sizeof(U24ArrayTypeU3D36_t3894236547 ), 0, 0 };
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif

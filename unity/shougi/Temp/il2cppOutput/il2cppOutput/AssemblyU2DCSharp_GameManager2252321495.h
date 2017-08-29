@@ -18,16 +18,18 @@ struct GameObjectU5BU5D_t3057952154;
 struct SpriteU5BU5D_t3359083662;
 // UnityEngine.GameObject
 struct GameObject_t1756533147;
+// System.String
+struct String_t;
 // Kyokumenn
 struct Kyokumenn_t1278207725;
 // System.Collections.Generic.List`1<Te>
 struct List_1_t1656987495;
+// System.Collections.Generic.List`1<Kyokumenn>
+struct List_1_t647328857;
 // Te
 struct Te_t2287866363;
 // Sikou
 struct Sikou_t2110476577;
-// System.String
-struct String_t;
 
 
 
@@ -52,28 +54,38 @@ public:
 	GameObjectU5BU5D_t3057952154* ___motiGoma_5;
 	// UnityEngine.GameObject GameManager::popupCanvas
 	GameObject_t1756533147 * ___popupCanvas_6;
+	// UnityEngine.GameObject GameManager::resultCanvas
+	GameObject_t1756533147 * ___resultCanvas_7;
+	// UnityEngine.GameObject GameManager::winner
+	GameObject_t1756533147 * ___winner_8;
 	// UnityEngine.GameObject GameManager::sente
-	GameObject_t1756533147 * ___sente_7;
+	GameObject_t1756533147 * ___sente_9;
 	// UnityEngine.GameObject GameManager::gote
-	GameObject_t1756533147 * ___gote_8;
+	GameObject_t1756533147 * ___gote_10;
+	// UnityEngine.GameObject GameManager::turn
+	GameObject_t1756533147 * ___turn_11;
 	// Kyokumenn GameManager::kk
-	Kyokumenn_t1278207725 * ___kk_9;
+	Kyokumenn_t1278207725 * ___kk_13;
 	// System.Collections.Generic.List`1<Te> GameManager::kihu
-	List_1_t1656987495 * ___kihu_10;
+	List_1_t1656987495 * ___kihu_14;
+	// System.Collections.Generic.List`1<Kyokumenn> GameManager::historykyokumenn
+	List_1_t647328857 * ___historykyokumenn_15;
+	// Te GameManager::te
+	Te_t2287866363 * ___te_16;
 	// Sikou GameManager::sikou
-	Sikou_t2110476577 * ___sikou_12;
+	Sikou_t2110476577 * ___sikou_17;
 	// System.Int32 GameManager::isSelectKoma
-	int32_t ___isSelectKoma_13;
+	int32_t ___isSelectKoma_18;
 	// System.Int32 GameManager::isSelectMotigoma
-	int32_t ___isSelectMotigoma_14;
+	int32_t ___isSelectMotigoma_19;
 	// System.Boolean GameManager::promote
-	bool ___promote_15;
+	bool ___promote_20;
 	// System.Boolean GameManager::vsCom
-	bool ___vsCom_16;
+	bool ___vsCom_21;
 	// System.Boolean GameManager::vsComGote
-	bool ___vsComGote_17;
+	bool ___vsComGote_22;
 	// System.Boolean GameManager::pushButtonBool
-	bool ___pushButtonBool_18;
+	bool ___pushButtonBool_23;
 
 public:
 	inline static int32_t get_offset_of_Masu_2() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___Masu_2)); }
@@ -121,125 +133,159 @@ public:
 		Il2CppCodeGenWriteBarrier(&___popupCanvas_6, value);
 	}
 
-	inline static int32_t get_offset_of_sente_7() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___sente_7)); }
-	inline GameObject_t1756533147 * get_sente_7() const { return ___sente_7; }
-	inline GameObject_t1756533147 ** get_address_of_sente_7() { return &___sente_7; }
-	inline void set_sente_7(GameObject_t1756533147 * value)
+	inline static int32_t get_offset_of_resultCanvas_7() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___resultCanvas_7)); }
+	inline GameObject_t1756533147 * get_resultCanvas_7() const { return ___resultCanvas_7; }
+	inline GameObject_t1756533147 ** get_address_of_resultCanvas_7() { return &___resultCanvas_7; }
+	inline void set_resultCanvas_7(GameObject_t1756533147 * value)
 	{
-		___sente_7 = value;
-		Il2CppCodeGenWriteBarrier(&___sente_7, value);
+		___resultCanvas_7 = value;
+		Il2CppCodeGenWriteBarrier(&___resultCanvas_7, value);
 	}
 
-	inline static int32_t get_offset_of_gote_8() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___gote_8)); }
-	inline GameObject_t1756533147 * get_gote_8() const { return ___gote_8; }
-	inline GameObject_t1756533147 ** get_address_of_gote_8() { return &___gote_8; }
-	inline void set_gote_8(GameObject_t1756533147 * value)
+	inline static int32_t get_offset_of_winner_8() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___winner_8)); }
+	inline GameObject_t1756533147 * get_winner_8() const { return ___winner_8; }
+	inline GameObject_t1756533147 ** get_address_of_winner_8() { return &___winner_8; }
+	inline void set_winner_8(GameObject_t1756533147 * value)
 	{
-		___gote_8 = value;
-		Il2CppCodeGenWriteBarrier(&___gote_8, value);
+		___winner_8 = value;
+		Il2CppCodeGenWriteBarrier(&___winner_8, value);
 	}
 
-	inline static int32_t get_offset_of_kk_9() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___kk_9)); }
-	inline Kyokumenn_t1278207725 * get_kk_9() const { return ___kk_9; }
-	inline Kyokumenn_t1278207725 ** get_address_of_kk_9() { return &___kk_9; }
-	inline void set_kk_9(Kyokumenn_t1278207725 * value)
+	inline static int32_t get_offset_of_sente_9() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___sente_9)); }
+	inline GameObject_t1756533147 * get_sente_9() const { return ___sente_9; }
+	inline GameObject_t1756533147 ** get_address_of_sente_9() { return &___sente_9; }
+	inline void set_sente_9(GameObject_t1756533147 * value)
 	{
-		___kk_9 = value;
-		Il2CppCodeGenWriteBarrier(&___kk_9, value);
+		___sente_9 = value;
+		Il2CppCodeGenWriteBarrier(&___sente_9, value);
 	}
 
-	inline static int32_t get_offset_of_kihu_10() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___kihu_10)); }
-	inline List_1_t1656987495 * get_kihu_10() const { return ___kihu_10; }
-	inline List_1_t1656987495 ** get_address_of_kihu_10() { return &___kihu_10; }
-	inline void set_kihu_10(List_1_t1656987495 * value)
+	inline static int32_t get_offset_of_gote_10() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___gote_10)); }
+	inline GameObject_t1756533147 * get_gote_10() const { return ___gote_10; }
+	inline GameObject_t1756533147 ** get_address_of_gote_10() { return &___gote_10; }
+	inline void set_gote_10(GameObject_t1756533147 * value)
 	{
-		___kihu_10 = value;
-		Il2CppCodeGenWriteBarrier(&___kihu_10, value);
+		___gote_10 = value;
+		Il2CppCodeGenWriteBarrier(&___gote_10, value);
 	}
 
-	inline static int32_t get_offset_of_sikou_12() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___sikou_12)); }
-	inline Sikou_t2110476577 * get_sikou_12() const { return ___sikou_12; }
-	inline Sikou_t2110476577 ** get_address_of_sikou_12() { return &___sikou_12; }
-	inline void set_sikou_12(Sikou_t2110476577 * value)
+	inline static int32_t get_offset_of_turn_11() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___turn_11)); }
+	inline GameObject_t1756533147 * get_turn_11() const { return ___turn_11; }
+	inline GameObject_t1756533147 ** get_address_of_turn_11() { return &___turn_11; }
+	inline void set_turn_11(GameObject_t1756533147 * value)
 	{
-		___sikou_12 = value;
-		Il2CppCodeGenWriteBarrier(&___sikou_12, value);
+		___turn_11 = value;
+		Il2CppCodeGenWriteBarrier(&___turn_11, value);
 	}
 
-	inline static int32_t get_offset_of_isSelectKoma_13() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___isSelectKoma_13)); }
-	inline int32_t get_isSelectKoma_13() const { return ___isSelectKoma_13; }
-	inline int32_t* get_address_of_isSelectKoma_13() { return &___isSelectKoma_13; }
-	inline void set_isSelectKoma_13(int32_t value)
+	inline static int32_t get_offset_of_kk_13() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___kk_13)); }
+	inline Kyokumenn_t1278207725 * get_kk_13() const { return ___kk_13; }
+	inline Kyokumenn_t1278207725 ** get_address_of_kk_13() { return &___kk_13; }
+	inline void set_kk_13(Kyokumenn_t1278207725 * value)
 	{
-		___isSelectKoma_13 = value;
+		___kk_13 = value;
+		Il2CppCodeGenWriteBarrier(&___kk_13, value);
 	}
 
-	inline static int32_t get_offset_of_isSelectMotigoma_14() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___isSelectMotigoma_14)); }
-	inline int32_t get_isSelectMotigoma_14() const { return ___isSelectMotigoma_14; }
-	inline int32_t* get_address_of_isSelectMotigoma_14() { return &___isSelectMotigoma_14; }
-	inline void set_isSelectMotigoma_14(int32_t value)
+	inline static int32_t get_offset_of_kihu_14() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___kihu_14)); }
+	inline List_1_t1656987495 * get_kihu_14() const { return ___kihu_14; }
+	inline List_1_t1656987495 ** get_address_of_kihu_14() { return &___kihu_14; }
+	inline void set_kihu_14(List_1_t1656987495 * value)
 	{
-		___isSelectMotigoma_14 = value;
+		___kihu_14 = value;
+		Il2CppCodeGenWriteBarrier(&___kihu_14, value);
 	}
 
-	inline static int32_t get_offset_of_promote_15() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___promote_15)); }
-	inline bool get_promote_15() const { return ___promote_15; }
-	inline bool* get_address_of_promote_15() { return &___promote_15; }
-	inline void set_promote_15(bool value)
+	inline static int32_t get_offset_of_historykyokumenn_15() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___historykyokumenn_15)); }
+	inline List_1_t647328857 * get_historykyokumenn_15() const { return ___historykyokumenn_15; }
+	inline List_1_t647328857 ** get_address_of_historykyokumenn_15() { return &___historykyokumenn_15; }
+	inline void set_historykyokumenn_15(List_1_t647328857 * value)
 	{
-		___promote_15 = value;
+		___historykyokumenn_15 = value;
+		Il2CppCodeGenWriteBarrier(&___historykyokumenn_15, value);
 	}
 
-	inline static int32_t get_offset_of_vsCom_16() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___vsCom_16)); }
-	inline bool get_vsCom_16() const { return ___vsCom_16; }
-	inline bool* get_address_of_vsCom_16() { return &___vsCom_16; }
-	inline void set_vsCom_16(bool value)
+	inline static int32_t get_offset_of_te_16() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___te_16)); }
+	inline Te_t2287866363 * get_te_16() const { return ___te_16; }
+	inline Te_t2287866363 ** get_address_of_te_16() { return &___te_16; }
+	inline void set_te_16(Te_t2287866363 * value)
 	{
-		___vsCom_16 = value;
+		___te_16 = value;
+		Il2CppCodeGenWriteBarrier(&___te_16, value);
 	}
 
-	inline static int32_t get_offset_of_vsComGote_17() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___vsComGote_17)); }
-	inline bool get_vsComGote_17() const { return ___vsComGote_17; }
-	inline bool* get_address_of_vsComGote_17() { return &___vsComGote_17; }
-	inline void set_vsComGote_17(bool value)
+	inline static int32_t get_offset_of_sikou_17() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___sikou_17)); }
+	inline Sikou_t2110476577 * get_sikou_17() const { return ___sikou_17; }
+	inline Sikou_t2110476577 ** get_address_of_sikou_17() { return &___sikou_17; }
+	inline void set_sikou_17(Sikou_t2110476577 * value)
 	{
-		___vsComGote_17 = value;
+		___sikou_17 = value;
+		Il2CppCodeGenWriteBarrier(&___sikou_17, value);
 	}
 
-	inline static int32_t get_offset_of_pushButtonBool_18() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___pushButtonBool_18)); }
-	inline bool get_pushButtonBool_18() const { return ___pushButtonBool_18; }
-	inline bool* get_address_of_pushButtonBool_18() { return &___pushButtonBool_18; }
-	inline void set_pushButtonBool_18(bool value)
+	inline static int32_t get_offset_of_isSelectKoma_18() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___isSelectKoma_18)); }
+	inline int32_t get_isSelectKoma_18() const { return ___isSelectKoma_18; }
+	inline int32_t* get_address_of_isSelectKoma_18() { return &___isSelectKoma_18; }
+	inline void set_isSelectKoma_18(int32_t value)
 	{
-		___pushButtonBool_18 = value;
+		___isSelectKoma_18 = value;
+	}
+
+	inline static int32_t get_offset_of_isSelectMotigoma_19() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___isSelectMotigoma_19)); }
+	inline int32_t get_isSelectMotigoma_19() const { return ___isSelectMotigoma_19; }
+	inline int32_t* get_address_of_isSelectMotigoma_19() { return &___isSelectMotigoma_19; }
+	inline void set_isSelectMotigoma_19(int32_t value)
+	{
+		___isSelectMotigoma_19 = value;
+	}
+
+	inline static int32_t get_offset_of_promote_20() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___promote_20)); }
+	inline bool get_promote_20() const { return ___promote_20; }
+	inline bool* get_address_of_promote_20() { return &___promote_20; }
+	inline void set_promote_20(bool value)
+	{
+		___promote_20 = value;
+	}
+
+	inline static int32_t get_offset_of_vsCom_21() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___vsCom_21)); }
+	inline bool get_vsCom_21() const { return ___vsCom_21; }
+	inline bool* get_address_of_vsCom_21() { return &___vsCom_21; }
+	inline void set_vsCom_21(bool value)
+	{
+		___vsCom_21 = value;
+	}
+
+	inline static int32_t get_offset_of_vsComGote_22() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___vsComGote_22)); }
+	inline bool get_vsComGote_22() const { return ___vsComGote_22; }
+	inline bool* get_address_of_vsComGote_22() { return &___vsComGote_22; }
+	inline void set_vsComGote_22(bool value)
+	{
+		___vsComGote_22 = value;
+	}
+
+	inline static int32_t get_offset_of_pushButtonBool_23() { return static_cast<int32_t>(offsetof(GameManager_t2252321495, ___pushButtonBool_23)); }
+	inline bool get_pushButtonBool_23() const { return ___pushButtonBool_23; }
+	inline bool* get_address_of_pushButtonBool_23() { return &___pushButtonBool_23; }
+	inline void set_pushButtonBool_23(bool value)
+	{
+		___pushButtonBool_23 = value;
 	}
 };
 
 struct GameManager_t2252321495_StaticFields
 {
 public:
-	// Te GameManager::te
-	Te_t2287866363 * ___te_11;
 	// System.String GameManager::JOSEKIPATH
-	String_t* ___JOSEKIPATH_19;
+	String_t* ___JOSEKIPATH_12;
 
 public:
-	inline static int32_t get_offset_of_te_11() { return static_cast<int32_t>(offsetof(GameManager_t2252321495_StaticFields, ___te_11)); }
-	inline Te_t2287866363 * get_te_11() const { return ___te_11; }
-	inline Te_t2287866363 ** get_address_of_te_11() { return &___te_11; }
-	inline void set_te_11(Te_t2287866363 * value)
+	inline static int32_t get_offset_of_JOSEKIPATH_12() { return static_cast<int32_t>(offsetof(GameManager_t2252321495_StaticFields, ___JOSEKIPATH_12)); }
+	inline String_t* get_JOSEKIPATH_12() const { return ___JOSEKIPATH_12; }
+	inline String_t** get_address_of_JOSEKIPATH_12() { return &___JOSEKIPATH_12; }
+	inline void set_JOSEKIPATH_12(String_t* value)
 	{
-		___te_11 = value;
-		Il2CppCodeGenWriteBarrier(&___te_11, value);
-	}
-
-	inline static int32_t get_offset_of_JOSEKIPATH_19() { return static_cast<int32_t>(offsetof(GameManager_t2252321495_StaticFields, ___JOSEKIPATH_19)); }
-	inline String_t* get_JOSEKIPATH_19() const { return ___JOSEKIPATH_19; }
-	inline String_t** get_address_of_JOSEKIPATH_19() { return &___JOSEKIPATH_19; }
-	inline void set_JOSEKIPATH_19(String_t* value)
-	{
-		___JOSEKIPATH_19 = value;
-		Il2CppCodeGenWriteBarrier(&___JOSEKIPATH_19, value);
+		___JOSEKIPATH_12 = value;
+		Il2CppCodeGenWriteBarrier(&___JOSEKIPATH_12, value);
 	}
 };
 

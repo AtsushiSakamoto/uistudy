@@ -11,7 +11,7 @@ public class Joseki{
 	byte[][] josekiData;
 	int numJoseki;
 	Kyokumenn josekiKyokumenn;
-	public string path;
+	private string path;
 
 
 
@@ -48,7 +48,6 @@ public class Joseki{
 		}catch(Exception){
 
 			numJoseki = 0;
-			Debug.Log("定跡来てないよ〜(●・▽・●)");
 
 		}finally{
 
@@ -147,7 +146,6 @@ public class Joseki{
 			return null;
 		}else{
 			//候補手の中からランダム
-			Debug.Log("定石通り！(●・▽・●)");
 			//候補手がない場合
 			return teList[UnityEngine.Random.Range(0, teList.Count)];
 		}
@@ -156,9 +154,4 @@ public class Joseki{
 	}
 
 
-
-	// Update is called once per frame
-	void Update () {
-
-	}
 }

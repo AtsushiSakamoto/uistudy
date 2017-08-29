@@ -958,6 +958,9 @@ extern const Il2CppGenericInst GenInst_FieldWithTarget_t2256174789_0_0_0 = { 1, 
 extern const Il2CppType Te_t2287866363_0_0_0;
 static const Il2CppType* GenInst_Te_t2287866363_0_0_0_Types[] = { &Te_t2287866363_0_0_0 };
 extern const Il2CppGenericInst GenInst_Te_t2287866363_0_0_0 = { 1, GenInst_Te_t2287866363_0_0_0_Types };
+extern const Il2CppType Kyokumenn_t1278207725_0_0_0;
+static const Il2CppType* GenInst_Kyokumenn_t1278207725_0_0_0_Types[] = { &Kyokumenn_t1278207725_0_0_0 };
+extern const Il2CppGenericInst GenInst_Kyokumenn_t1278207725_0_0_0 = { 1, GenInst_Kyokumenn_t1278207725_0_0_0_Types };
 extern const Il2CppType Int32U5BU5D_t3030399641_0_0_0;
 static const Il2CppType* GenInst_Int32U5BU5D_t3030399641_0_0_0_Types[] = { &Int32U5BU5D_t3030399641_0_0_0 };
 extern const Il2CppGenericInst GenInst_Int32U5BU5D_t3030399641_0_0_0 = { 1, GenInst_Int32U5BU5D_t3030399641_0_0_0_Types };
@@ -1629,7 +1632,7 @@ static const Il2CppType* GenInst_KeyValuePair_2_t38854645_0_0_0_KeyValuePair_2_t
 extern const Il2CppGenericInst GenInst_KeyValuePair_2_t38854645_0_0_0_KeyValuePair_2_t38854645_0_0_0 = { 2, GenInst_KeyValuePair_2_t38854645_0_0_0_KeyValuePair_2_t38854645_0_0_0_Types };
 static const Il2CppType* GenInst_KeyValuePair_2_t38854645_0_0_0_Il2CppObject_0_0_0_Types[] = { &KeyValuePair_2_t38854645_0_0_0, &Il2CppObject_0_0_0 };
 extern const Il2CppGenericInst GenInst_KeyValuePair_2_t38854645_0_0_0_Il2CppObject_0_0_0 = { 2, GenInst_KeyValuePair_2_t38854645_0_0_0_Il2CppObject_0_0_0_Types };
-extern const Il2CppGenericInst* const g_Il2CppGenericInstTable[565] = 
+extern const Il2CppGenericInst* const g_Il2CppGenericInstTable[566] = 
 {
 	&GenInst_Il2CppObject_0_0_0,
 	&GenInst_Int32_t2071877448_0_0_0,
@@ -1964,6 +1967,7 @@ extern const Il2CppGenericInst* const g_Il2CppGenericInstTable[565] =
 	&GenInst_String_t_0_0_0_Il2CppObject_0_0_0_KeyValuePair_2_t2361573779_0_0_0,
 	&GenInst_FieldWithTarget_t2256174789_0_0_0,
 	&GenInst_Te_t2287866363_0_0_0,
+	&GenInst_Kyokumenn_t1278207725_0_0_0,
 	&GenInst_Int32U5BU5D_t3030399641_0_0_0,
 	&GenInst_IList_1_t2612818049_0_0_0,
 	&GenInst_ICollection_1_t3023952753_0_0_0,
